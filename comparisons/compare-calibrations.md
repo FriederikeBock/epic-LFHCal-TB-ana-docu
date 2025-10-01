@@ -5,12 +5,9 @@
 In order to compare the different results from the calibrations you an use the `Compare` program. In order to do so make sure you actually build the latest version and check out its most recent options
 
 ```bash
-# make Compare program
-make Compare
-
-/Compare -h
+CompareCalib -h
 Usage:
-./Compare [-option (arguments)]
+./CompareCalib [-option (arguments)]
 Options:
 -d [0-3] Debugging mode
 -e [0-1] extended plotting
@@ -28,12 +25,12 @@ Options:
 -h       this help
 
 Examples:
-./Compare (-f) -o TrendingOutput.root -i input_list.txt (-f to overwrite existing output)
-./Compare (-f) -o TrendingOutput.root InputName*.root InputName2.root (-f to overwrite existing output)
+./CompareCalib (-f) -o TrendingOutput.root -i input_list.txt (-f to overwrite existing output)
+./CompareCalib (-f) -o TrendingOutput.root InputName*.root InputName2.root (-f to overwrite existing output)
 
 ```
 
-This program can be run in multiple ways in terms of inputs&#x20;
+The `CompareCalib` program can be run in multiple ways in terms of inputs&#x20;
 
 1. with an auto-expanded list using `-i calibFiles*.root`&#x20;
 2. with a file list containing in each line the calibration files you want to use `-i calibFileList.txt` . This list has should end with `.txt` otherwise it might not be correctly detected
@@ -41,6 +38,11 @@ This program can be run in multiple ways in terms of inputs&#x20;
    1. Treatment of different histogram outputs is foreseen and can be steered with `-E [1-X]` currently implemented are:&#x20;
       1. `-E 1` (default if `-I` is called) format of [step 2](../calibration/mip-calibration.md#step-2) output
       2. `-E 2` format of [step 1](../calibration/mip-calibration.md#step-1) output
+
+Likewise the `CompareAna` program can be run interchangably with the following inputs&#x20;
+3. with a file list containing in each line a calibration file & the QA output.  It can be used with `-I anaFileList.txt` . This list has should end with `.txt` otherwise it might not be correctly detected.&#x20;
+   1. Treatment of different histogram outputs is foreseen and can be steered with `-E [1-X]` currently implemented are:&#x20;
+      1. `-E 4` creates the deltatime overlay. This is currently the only option in the `ComparAna` function. 
 
 Similar to the other programs the options `-d` & `-e` will enabled various debugging options and more plots.  In the current way two main ways of evaluating the data are implemented:
 
@@ -51,10 +53,10 @@ Each of them is  useful for different things. Below you find a few sample plots 
 
 ```bash
 # example for running Voltage dependence with extended output:
-./Compare -F png -e 1 -d 1 -f -V -i calibFileList.txt -o ../Trending/TrendingAllCalibs_Volt.root -O ../Trending/VoltDep -r -r ../configs/DataTakingDB_202409_CAEN.csv
+./CompareCalib -F png -e 1 -d 1 -f -V -i calibFileList.txt -o ../Trending/TrendingAllCalibs_Volt.root -O ../Trending/VoltDep -r -r ../configs/DataTakingDB_202409_CAEN.csv
 
 # example for running run dependence without extended output & a file including the hist output:
-./Compare -F png -d 0 -e 0 -f -R -I calibFileList_45V_expanded.txt -o ../Trending/TrendingAllCalibs_Runs45V.root -O ../Trending/RunDep_45V -r ../configs/DataTakingDB_202409_CAEN.csv
+./CompareCalib -F png -d 0 -e 0 -f -R -I calibFileList_45V_expanded.txt -o ../Trending/TrendingAllCalibs_Runs45V.root -O ../Trending/RunDep_45V -r ../configs/DataTakingDB_202409_CAEN.csv
 ```
 
 <div><figure><img src="../.gitbook/assets/HGPedSummary_RunOverlay (2).png" alt=""><figcaption><p>HG pedestal mean comparison at 45V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HGPedWidthSummary_RunOverlay (2).png" alt=""><figcaption><p>HG pedestal width comparison at 45V</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGPedSummary_RunOverlay (2).png" alt=""><figcaption><p>LG pedestal mean comparison at 45 V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGPedWidthSummary_RunOverlay (2).png" alt=""><figcaption><p>LG pedestal width comparison at 45 V.</p></figcaption></figure></div>
