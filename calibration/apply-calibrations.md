@@ -89,9 +89,9 @@ The detailed layer by layer plots will only be drawn if option `-e` is specified
 
 In the Etot vs NCells distribution the contamination to the electron beam can be clearly identified:
 
-* blob at Ncells = 400: electrons
+* blob at Etot = 400: electrons
 * lower blob and diagonal: muons
-* blob around Ncells = 700: mult part (i.e 2 electrons)
+* blob around Etot = 700: mult part (i.e 2 electrons)
 * diag to electron blob: hadrons
 
 This can be exploited later to do basic event selections, together with the more general distribution within the LFHCal module.&#x20;
