@@ -72,14 +72,19 @@ As for the `prepareAnalysisDirectory.sh`, please add your username and the path 
 
 ## HGCROC data conversion
 
-For the HGCROC data conversion also takes care of the event building and syncronization checks of the KCUs.&#x20;
+For the HGCROC data conversion also takes care of the event building and synchronization checks of the KCUs.&#x20;
+
+The HGCROC data in general is structured in a 10bit ADC, a 10 bit Time-of-Arrival (ToA) with 25 ps resolution and a 12 bit Time-over-Threshold (ToT) value with 50 ps resolution. The signals from ADC and ToT by default don't overlap (switchable range) and have different processing times, which have to be aligned during data taking. For every trigger we operate the HGCROC in a mode where it takes multiple samples (machine gun setting).  A detailed presentation on the data-format and the status of the DAQ-software during the 2024 test beam can be found[ here](https://indico.phy.ornl.gov/event/680/contributions/2673/attachments/2043/4563/protzman_HGCROC.pdf).
 
 ### Single file
 
 A single file can be converted as follows:&#x20;
 
 ```sh
+# as recorded
 ./Convert -d [0-5] -f -w -c $RAWDataFile.h2g -o $CONVERTEDFILE.root -m $MAPPINGFILE -r $RUNLISTFILE
+# with truncation of ADC to leading 8 bits
+./Convert -d [0-5] -t -f -w -c $RAWDataFile.h2g -o $CONVERTEDFILE.root -m $MAPPINGFILE -r $RUNLISTFILE
 ```
 
 The crucial option, which allows us to decode the HGCROC data is given by `"-w".` If this option is not provided the program will crash trying to read the hgcroc file-format. The option `-f`, enforces the overwriting of the output files in case they existed already. Option `-d 1` enables basic debugging output. This debug flag can be increased allowing you to see a bit better whats going on in case something goes wrong.
