@@ -1,0 +1,76 @@
+---
+description: This page describes the general setup need for the DAQ PC
+---
+
+# Setting up DAQ PC
+
+## Software installation
+
+You will need the following software installed
+
+* **root**, either install it [manually ](https://root.cern/install/)or with the corresponding package manager of your distribution if available. Keep in mind you might need the developer packages too.
+* **vivado**: fpga programming software [link](https://www.xilinx.com/support/download.html)
+* **python3**
+* **H2GDAQ:** Python based standalone DAQ software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/H2GDAQ)
+* **H2GConfig:** Python based standalone hgcroc configuration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/H2GConfig)
+* **H2GCalib**:  Python based standalone hgcroc calibration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/h2gcalib_3b)
+* **h2g\_online\_monitoring:** C++ based online monitoring software (which can be automatically started from H2GDAQ) courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_online_monitoring)
+* **h2g\_decode**: C++ based data stream decoder courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_decode/)
+
+Keep in mind some of these packages might need further dependencies and or compilation. Have a look at their respective installation instructions or README's.
+
+## Setup network
+
+The firmware of the KCU and thus HGCROC boards by default expects to be situated in the subnet 10.1.2.XXX, see below how to setip the corresponding subnet on the `enp1s0f0`as an example.&#x20;
+
+```bash
+# -> check which routes are set: (as super user)
+ip addr
+ip addr show
+ip route
+ip route show
+ip link
+
+# show device specifications (ORNL examples)
+ethtool enp1s0f1
+ethtool enp1s0f0
+ethtool enp3s0f1
+ethtool enp3s0f0
+
+# add new ip address for device:
+ip addr add 10.1.2.207/24 dev enp1s0f0
+# test if reachable:
+ping 10.1.2.207
+ping 8.8.8.8 # local host
+ping 10.1.2.208 -s 32 # needs KCU to be programmed to respond (expected address for KCU by default)
+
+## display the IPv4 network neighbour cache
+arp -a
+
+```
+
+## Setup python environment
+
+Often the latest linux distributions don't allow the system wide installation of different python versions or modules in order not to break any of the system installations. Hence a temporary python environment needs to be created, which can be pulled up with the necessary packages installed.&#x20;
+
+```bash
+# install venv
+sudo apt update
+sudo apt install python3-venv
+    
+# navigate to the project directory 
+cd /home/localadmin/Software/HGCROC/
+
+# create virtual environment 
+python3 -m venv hgcroc_env
+
+# activate correct HGCROC python environment
+source /home/localadmin/Software/HGCROC/hgcroc_env/bin/activate
+
+# install desired packages
+pip install package_name
+
+#exit python environment
+deactivate
+
+```

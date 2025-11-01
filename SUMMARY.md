@@ -24,3 +24,8 @@
 ## Older Software
 
 * [Initial software for 2023 analysis](older-software/initial-software-for-2023-analysis.md)
+
+## HGCROC setup - test beam
+
+* [Setting up the HGCROC board](hgcroc-setup-test-beam/setting-up-the-hgcroc-board.md)
+* [Setting up DAQ PC](hgcroc-setup-test-beam/setting-up-daq-pc.md)
