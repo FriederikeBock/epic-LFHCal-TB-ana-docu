@@ -8,7 +8,15 @@ description: >-
 
 <figure><img src="../.gitbook/assets/HGCROCSetup.png" alt=""><figcaption></figcaption></figure>
 
-Follow the instructions as indicated in the picture above and connect the respective cables for ethernet, power and HV for the individual HGCROCs. For using external triggers and synchronization connect corresponding SMA inputs, pay attenion to only have the signal be provided with 1.8V (step down from classical 5V NIM signal needed).
+The following cables need to be connected in order to setup the HGCROC for local testing:
+
+* ethernet (either 1GbE or 10GbE connections)&#x20;
+* Power
+* programming cable (micro USB) from DAQ computer
+* HV cables to HGCROC proto boards - individually for each HGCROC
+* SMA inputs for external triggering and syncronization. **ATTENTION:** these should only be provided with 1.8 V (step down from classical 5V NIM signal needed).
+
+Details on where each cable goes can be found in the picture above. Don't forget to also set the jumper ti provide only 1.2 V after boot (right side red box in picture).
 
 ### ORNL test stand setup
 

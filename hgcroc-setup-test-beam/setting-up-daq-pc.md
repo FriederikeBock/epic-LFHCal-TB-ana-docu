@@ -21,7 +21,7 @@ Keep in mind some of these packages might need further dependencies and or compi
 
 ## Setup network
 
-The firmware of the KCU and thus HGCROC boards by default expects to be situated in the subnet 10.1.2.XXX, see below how to setip the corresponding subnet on the `enp1s0f0`as an example.&#x20;
+The firmware of the KCU and thus HGCROC boards by default expects to be situated in the subnet 10.1.2.XXX, see below how to setup the corresponding subnet on the `enp1s0f0`as an example.&#x20;
 
 ```bash
 # -> check which routes are set: (as super user)
