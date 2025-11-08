@@ -107,7 +107,7 @@ For some of the data set again scripts have been prepared to run them in an orde
 
 ### September 2023 data
 
-A basic calibration script has been prepared. Similar to the [Converter-scripts](../converting-the-data.md#caen-data-conversion) please add your user name and respective data location respectively.
+A basic calibration script has been prepared. Similar to the [Converter-scripts](../tb-analysis/converting-the-data.md#caen-data-conversion) please add your user name and respective data location respectively.
 
 To extract a first pass of the pedestal run:
 

@@ -1,9 +1,11 @@
 # Table of contents
 
+## TB analysis
+
 * [Getting started](README.md)
-* [Getting the data](getting-the-data.md)
-* [Converting the data](converting-the-data.md)
-* [Creating a Mapping File](creating-a-mapping-file.md)
+* [Getting the data](tb-analysis/getting-the-data.md)
+* [Converting the data](tb-analysis/converting-the-data.md)
+* [Creating a Mapping File](tb-analysis/creating-a-mapping-file.md)
 
 ## Calibration
 

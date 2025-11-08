@@ -28,7 +28,7 @@ $MAPPINGFILE=../configs/mappingFile_202409_CAEN.txt
 $RUNLISTFILE=../configs/DataTakingDB_202409_CAEN.csv
 ```
 
-Located in the same git repository. How to create a different mapping file is explained [here](calibration/other-useful-function-during-calibration.md#creating-a-mapping-file). The option `-f`, enforces the overwriting of the output files in case they existed already. Option `-d 1` enables basic debugging output. This debug flag can be increased allowing you to see a bit better whats going on in case something goes wrong.
+Located in the same git repository. How to create a different mapping file is explained [here](../calibration/other-useful-function-during-calibration.md#creating-a-mapping-file). The option `-f`, enforces the overwriting of the output files in case they existed already. Option `-d 1` enables basic debugging output. This debug flag can be increased allowing you to see a bit better whats going on in case something goes wrong.
 
 Should the data format of the Janus software used for the data taking with the CAEN DT5202 have  changed  (currently implemented versions: 3.3 & 3.1) for the files you would like to convert, you will have  add the corresponding parser in `bool Analyses::ConvertASCII2Root(void)` of [Analysis.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Analyses.cc).
 
@@ -120,7 +120,7 @@ As for the `prepareAnalysisDirectory.sh`, please add your username and the path 
 
 Unfortunately the HGCROCs for the 2024 data taking campaign where slightly miscalibrated and consequently the 2 least significant bits of the ADC arrive at random time and thus are not usable and were masked as a result.&#x20;
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption><p>Current event reconstruction and alignment efficiency for 2024 August data set.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Current event reconstruction and alignment efficiency for 2024 August data set.</p></figcaption></figure>
 
 If you'd like to merge all muon runs or just the left and right side respectively, please run:
 

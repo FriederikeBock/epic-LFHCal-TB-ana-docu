@@ -121,7 +121,7 @@ You can find the results of the IO Delay Scan in the `./dump/102_IO_Delay_data_Y
 
 <figure><img src="../.gitbook/assets/Res_102.png" alt=""><figcaption></figcaption></figure>
 
-After the IO-delay scan finished one should check in `vivado` that the data lines in case of a valid data flag are set to `accccc` , while the trigger lines should be should show a different value.&#x20;
+After the IO-delay scan finished one should check in `vivado` that the data lines in case of a valid data flag are set to `acccccc` , while the trigger lines should be should show a different value.&#x20;
 
 ### Pedestal Calibration
 
@@ -191,3 +191,17 @@ The output files will be saved in the `./dump/106_Injection2V5_data_YYYYMMDD_HHM
 
 ### Loading Final calibration
 
+After running the calibrations for all KCU's (FPGA) and HGCROCs (asics) move the files to a common location and name the appropriately. In case you are using an older configuration (i.e. preprepared) make sure the UDP settings atop the json file are correct, adjust them if necessary.&#x20;
+
+```json
+    "UDP Settings": {
+        "IP Address": "10.1.2.208",
+        "Port": "11000"
+    },
+    "Target ASIC": {
+        "FPGA Address": 0,
+        "ASIC Address": 0
+    },
+```
+
+Afterwards, load these using the H2GConfig for the respective asics.&#x20;

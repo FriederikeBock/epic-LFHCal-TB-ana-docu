@@ -2,6 +2,8 @@
 description: >-
   This page explains how the HGCROC proto-board v2 should be connected with the
   KCU-105 and its additional inputs
+cover: ../.gitbook/assets/HGCROCSetup.jpg
+coverY: 0
 ---
 
 # Setting up the HGCROC board
