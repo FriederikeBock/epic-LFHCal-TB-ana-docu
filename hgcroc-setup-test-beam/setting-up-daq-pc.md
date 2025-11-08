@@ -13,7 +13,7 @@ You will need the following software installed
 * **python3**
 * **H2GDAQ:** Python based standalone DAQ software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/H2GDAQ)
 * **H2GConfig:** Python based standalone hgcroc configuration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/H2GConfig)
-* **H2GCalib**:  Python based standalone hgcroc calibration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/h2gcalib_3b)
+* **H2GCalib\_3b**:  Python based standalone hgcroc calibration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/h2gcalib_3b)
 * **h2g\_online\_monitoring:** C++ based online monitoring software (which can be automatically started from H2GDAQ) courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_online_monitoring)
 * **h2g\_decode**: C++ based data stream decoder courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_decode/)
 

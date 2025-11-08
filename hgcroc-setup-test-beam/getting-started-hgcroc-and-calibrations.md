@@ -59,6 +59,8 @@ For a brand new start of the setup please load the configurations&#x20;
 
 You can either do this by pressing `Send Current ASIC Config`  for a single asic or by `Send All Config` for all asics. After reconfiguring the asic using the configuration tool it should be checked that the the data lines and trigger lines have reasonable values using `vivado` for every asic (press `play` and check the values).
 
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-07 19-24-01.png" alt=""><figcaption></figcaption></figure>
+
 ### Manual modifications of Configuration values <a href="#user-content-license" id="user-content-license"></a>
 
 The HGCROC has a very large number of configuration parameters and consequently registers which can and/or have to be set. A detailed description of those to the best current knowledge can be found in:
@@ -84,21 +86,58 @@ For the HGCROC there are 4 main calibration steps:
 3. **ToA Calibration:** Determines at which threshold value equivalent the _Time of Arrival (ToA)_ is fired (rising edge). ATTENTION: The value we are setting here is given as `injection DAC` (Digital-to-Analog-Converter) which is not equivalent to the `ADC` value referred to during the pedestal calibration. The actual conversion factor between those depends on the SiPM type.&#x20;
 4. **ToT Calibration:** Determines at which threshold value equivalent the _Time over Threshold (ToT)_ is fired (falling edge). Once more the settable value is  the `injection DAC` value no the `ADC` value.&#x20;
 
+<div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-34-11.png" alt="" width="266"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-35-17.png" alt="" width="375"><figcaption></figcaption></figure></div>
+
 After these calibrations have been run the **2.5V Internal Injection** test should be run ideally for all channels to validate the thresholds also in `ADC` equivalent. These test however take very long (\~8min/4 channels) and it might not be advisable to run during a test beam setting.
 
-<div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-34-11.png" alt="" width="266"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-35-17.png" alt="" width="375"><figcaption></figcaption></figure></div>
+The calibration is handled and steered using `H2GCalib_3B`  package ([link](setting-up-daq-pc.md#software-installation)). Its workflow is as follows.&#x20;
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-48-32 (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Calibration Gui
 
-It is highly recommended to run the `100_UI.py` script first. This script provides a user interface for selecting the calibration files and setting various parameters for the calibration process.
+It is highly recommended to run the `100_UI.py` script first. This script provides a user interface for selecting the calibration files and setting various parameters for the calibration process. Once more it will ask in the beginning to select how many KCU's and ASICs per KCU are connected.
 
-**Always start 101\_SocketPool before running any other script.** This script will forward the UDP packets from the H2GCROC3B to the calibration scripts. It is essential for the calibration process to function correctly.
+<div><figure><img src="../.gitbook/assets/UI_Start_2 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/UI_FPGA_2.png" alt=""><figcaption></figcaption></figure></div>
+
+**Always start 101\_SocketPool before running any other script.** This script will forward the UDP packets from the H2GCROC-3B to the calibration scripts. It is essential for the calibration process to function correctly. Don't forget to terminate the socket before starting any other data taking process.
 
 In the FPGA tab, you can do the IODelay setting, pedestal calibration, ToA calibration, and ToT calibration.
 
 * Config Folder: This is the json file that specifies the UDP address and port of the KCU system.
+* The current default configuration: `config/h2gcroc_1v4_r1.json`
 
-### Calibration Scripts Overview <a href="#user-content-calibration-scripts-overview" id="user-content-calibration-scripts-overview"></a>
+### IO-delay scan <a href="#user-content-calibration-scripts-overview" id="user-content-calibration-scripts-overview"></a>
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-48-32 (1).png" alt=""><figcaption></figcaption></figure>
+(Estimated running time: < 1 minute)
 
+The IO Delay Scan is used to adjust the timing of the signals received by the FPGA. This is crucial for ensuring that the signals are correctly aligned and processed. **Run this every time you do a power cycle / reprogram the FPGA.**
+
+* -r Reset: If checked, the H2GCROC3B will be hard-reset before starting the scan.
+* -t Trigger: If checked, the trigger lines (T0, T1, T2, T3) will also be aligned.
+* -p Phase: This is the clock phase setting for the ASICs, make sure it **matches the -i I2C JSON files in the following calibration steps**.
+
+You can find the results of the IO Delay Scan in the `./dump/102_IO_Delay_data_YYYYMMDD_HHMMSS` folder. There will be pdf files for how the IO Delay values are set. The dashed red line indicates the optimal IO Delay value, which should be in the middle of the widest locked region.
+
+<figure><img src="../.gitbook/assets/Res_102.png" alt=""><figcaption></figcaption></figure>
+
+After the IO-delay scan finished one should check in `vivado` that the data lines in case of a valid data flag are set to `accccc` , while the trigger lines should be should show a different value.&#x20;
+
+#### Pedestal Calibration
+
+(Estimated running time: \~ 3 minutes)
+
+* -t Pedestal Target \[ADC]: This is the target pedestal value for all the channels. The script will adjust the pedestal values to achieve this target. **Recommended value range: 50-150 ADC.**
+* -i I2C JSON: This is the base I2C register configuration file for the H2GCROC-3B. The output register configuration will be based on this file.&#x20;
+
+The output of the pedestal calibration will be new I2C JSON files. And the file paths will be automatically updated into the -i field in the ToA calibration section. The output files will be saved in the `./dump/103_PedestalCalib_data_YYYYMMDD_HHMMSS` folder. The result pdf file will show how the pedestal values are set. A good calibration should have the final pedestal values nicely aligned around the target value, with a small spread across all channels.
+
+As current default configuration `config/default_2024Aug_config.json`  should be used.
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-27-36.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-28-36.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-30-54.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-29-55.png" alt=""><figcaption></figcaption></figure>
