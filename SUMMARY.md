@@ -30,3 +30,4 @@
 * [Setting up the HGCROC board](hgcroc-setup-test-beam/setting-up-the-hgcroc-board.md)
 * [Setting up DAQ PC](hgcroc-setup-test-beam/setting-up-daq-pc.md)
 * [Getting Started HGCROC & Calibrations](hgcroc-setup-test-beam/getting-started-hgcroc-and-calibrations.md)
+* [Data Taking HGCROC](hgcroc-setup-test-beam/data-taking-hgcroc.md)

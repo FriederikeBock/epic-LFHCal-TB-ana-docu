@@ -123,7 +123,7 @@ You can find the results of the IO Delay Scan in the `./dump/102_IO_Delay_data_Y
 
 After the IO-delay scan finished one should check in `vivado` that the data lines in case of a valid data flag are set to `accccc` , while the trigger lines should be should show a different value.&#x20;
 
-#### Pedestal Calibration
+### Pedestal Calibration
 
 (Estimated running time: \~ 3 minutes)
 
@@ -140,7 +140,7 @@ A good calibration should have the final pedestal values nicely aligned around t
 
 <div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-30-54.png" alt="" width="375"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-29-55.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
-#### Time-of-Arrivel(ToA) Calibration
+### Time-of-Arrivel(ToA) Calibration
 
 (Estimated running time: \~ 45 minutes)
 
@@ -151,28 +151,28 @@ The output files will be updated in the -i field in the ToT calibration section.
 
 The ToA-calibration is currently being executed in 5 steps, starting with a very coarse scanning window to estimate the first `ToA_vRef` values for the different half chips and then decreasing the stepping size an window size successively.  The red line indicated in each vertical column indicated the edge at which the ToA starts firing. These need to be adjusted such that they correspond to the same value (or similar) value for all channels.
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-15.png" alt=""><figcaption><p>Typical initial ToA calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToA-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure>
+<div align="center"><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-15.png" alt="" width="375"><figcaption><p>Typical initial ToA calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToA-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure></div>
 
 A good calibration should have the final ToA values like, however the timing alignment of the different halfs (color scale) is currently not performed.&#x20;
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-41.png" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value. </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-41.png" alt="" width="375"><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value. </p></figcaption></figure>
 
-#### Time-over-Threshold(ToT) Calibration
+### Time-over-Threshold(ToT) Calibration
 
-(Estimated running time: \~ 30 minutes)
+(Estimated running time: \~ 60 minutes)
 
 * -t ToT Target \[DAC]: **(NOTE: it is by the unit of injection DAC, not ADC!)** This is the target ToT value for all the channels. The script will adjust the ToT values to achieve this target. **Recommended value range: 200-700 DAC.**
 * -i I2C JSON: This is the base I2C register configuration file for the H2GCROC3B. The output register configuration will be based on this file.
 
 The output folder is `./dump/105_ToTCalib_data_YYYYMMDD_HHMMSS`. The result pdf file is in the same format as the ToA calibration. Similarly as for the ToA calibration the calibration is run in 5 steps.&#x20;
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-47-31 (1).png" alt=""><figcaption><p>Typical initial ToT calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-47-31 (1).png" alt="" width="375"><figcaption><p>Typical initial ToT calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure>
 
 &#x20;An example of a good ToT calibration result is shown below:
 
-<figure><img src="../.gitbook/assets/Res_105.png" alt=""><figcaption><p>Result of a good ToT calibration with a target value of 300 DAC as turn on value. </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Res_105.png" alt="" width="375"><figcaption><p>Result of a good ToT calibration with a target value of 300 DAC as turn on value. </p></figcaption></figure>
 
-#### 2.5V DAC Internal Injection
+### 2.5V DAC Internal Injection
 
 (Estimated running time: \~ 50 minutes for all channels and all phases)
 
@@ -185,7 +185,9 @@ This script is used to inject a 2.5V DAC signal into the H2GCROC3B channels for 
 
 The output files will be saved in the `./dump/106_Injection2V5_data_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal and the response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3B.
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 21-09-29.png" alt=""><figcaption><p>Phase scan for 300 internal injection DAC. Out of the 8 channels channel 28 doesn't have a SiPM connected, while all others do. </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 21-09-29.png" alt="" width="375"><figcaption><p>Phase scan for 300 internal injection DAC. Out of the 8 channels channel 28 doesn't have a SiPM connected, while all others do. </p></figcaption></figure>
 
 <div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 21-10-23.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 21-09-54.png" alt=""><figcaption></figcaption></figure></div>
+
+### Loading Final calibration
 
