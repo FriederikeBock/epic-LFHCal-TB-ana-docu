@@ -130,14 +130,29 @@ After the IO-delay scan finished one should check in `vivado` that the data line
 * -t Pedestal Target \[ADC]: This is the target pedestal value for all the channels. The script will adjust the pedestal values to achieve this target. **Recommended value range: 50-150 ADC.**
 * -i I2C JSON: This is the base I2C register configuration file for the H2GCROC-3B. The output register configuration will be based on this file.&#x20;
 
-The output of the pedestal calibration will be new I2C JSON files. And the file paths will be automatically updated into the -i field in the ToA calibration section. The output files will be saved in the `./dump/103_PedestalCalib_data_YYYYMMDD_HHMMSS` folder. The result pdf file will show how the pedestal values are set. A good calibration should have the final pedestal values nicely aligned around the target value, with a small spread across all channels.
+The output of the pedestal calibration will be new I2C JSON files. And the file paths will be automatically updated into the -i field in the ToA calibration section. The output files will be saved in the `./dump/103_PedestalCalib_data_YYYYMMDD_HHMMSS` folder. The result pdf file will show how the pedestal values are set.&#x20;
 
-As current default configuration `config/default_2024Aug_config.json`  should be used.
+As current default configuration `config/default_2024Aug_config.json`  should be used. Make sure the fine channel calibration looks reasonable and no large outliers can be found. If the results aren't satisfactory reset the IO-delays and retry. If after a second attempt the calibration still hasn't succeeded. It could be tried to load a valid calibration from a different proto-board, primarily the `Noinv_vref` and `Inv_vref` bits in the Reference Voltage Register should be adjusted in that case.&#x20;
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-27-36.png" alt=""><figcaption></figcaption></figure>
+<div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-27-36.png" alt="" width="375"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-28-36.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-28-36.png" alt=""><figcaption></figcaption></figure>
+A good calibration should have the final pedestal values nicely aligned around the target value, with a small spread across all channels.
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-30-54.png" alt=""><figcaption></figcaption></figure>
+<div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-30-54.png" alt="" width="375"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-29-55.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 19-29-55.png" alt=""><figcaption></figcaption></figure>
+#### Time-of-Arrivel(ToA) Calibration
+
+(Estimated running time: \~ 45 minutes)
+
+* -t ToA Target \[DAC]: **(NOTE: it is by the unit of injection DAC, not ADC!)** This is the target ToA value for all the channels. The script will adjust the ToA values to achieve this target. **Recommended value range: 20-140 DAC.**
+* -i I2C JSON: This is the base I2C register configuration file for the H2GCROC-3B. The output register configuration will be based on this file.
+
+The output files will be updated in the -i field in the ToT calibration section. The output files will be saved in the `./dump/104_ToACalib_data_YYYYMMDD_HHMMSS` folder.&#x20;
+
+The ToA-calibration is currently being executed in 5 steps, starting with a very coarse scanning window to estimate the first `ToA_vRef` values for the different half chips and then decreasing the stepping size an window size successively.  The red line indicated in each vertical column indicated the edge at which the ToA starts firing. These need to be adjusted such that they correspond to the same value (or similar) value for all channels.
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-15.png" alt=""><figcaption><p>Typical initial ToA calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToA-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure>
+
+A good calibration should have the final ToA values like, however the timing alignment of the different halfs (color scale) is currently not performed.&#x20;
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-41.png" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value. </p></figcaption></figure>
