@@ -185,5 +185,7 @@ This script is used to inject a 2.5V DAC signal into the H2GCROC3B channels for 
 
 The output files will be saved in the `./dump/106_Injection2V5_data_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal and the response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3B.
 
-<figure><img src="../.gitbook/assets/Res_106.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 21-09-29.png" alt=""><figcaption><p>Phase scan for 300 internal injection DAC. Out of the 8 channels channel 28 doesn't have a SiPM connected, while all others do. </p></figcaption></figure>
+
+<div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 21-10-23.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 21-09-54.png" alt=""><figcaption></figcaption></figure></div>
 
