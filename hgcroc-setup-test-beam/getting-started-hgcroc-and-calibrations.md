@@ -184,3 +184,6 @@ This script is used to inject a 2.5V DAC signal into the H2GCROC3B channels for 
 * -i I2C JSON: This is the base I2C register configuration file for the H2GCROC3B. The output register configuration will be based on this file.
 
 The output files will be saved in the `./dump/106_Injection2V5_data_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal and the response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3B.
+
+<figure><img src="../.gitbook/assets/Res_106.png" alt=""><figcaption></figcaption></figure>
+
