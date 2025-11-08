@@ -156,3 +156,31 @@ The ToA-calibration is currently being executed in 5 steps, starting with a very
 A good calibration should have the final ToA values like, however the timing alignment of the different halfs (color scale) is currently not performed.&#x20;
 
 <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-41.png" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value. </p></figcaption></figure>
+
+#### Time-over-Threshold(ToT) Calibration
+
+(Estimated running time: \~ 30 minutes)
+
+* -t ToT Target \[DAC]: **(NOTE: it is by the unit of injection DAC, not ADC!)** This is the target ToT value for all the channels. The script will adjust the ToT values to achieve this target. **Recommended value range: 200-700 DAC.**
+* -i I2C JSON: This is the base I2C register configuration file for the H2GCROC3B. The output register configuration will be based on this file.
+
+The output folder is `./dump/105_ToTCalib_data_YYYYMMDD_HHMMSS`. The result pdf file is in the same format as the ToA calibration. Similarly as for the ToA calibration the calibration is run in 5 steps.&#x20;
+
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-47-31 (1).png" alt=""><figcaption><p>Typical initial ToT calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure>
+
+&#x20;An example of a good ToT calibration result is shown below:
+
+<figure><img src="../.gitbook/assets/Res_105.png" alt=""><figcaption><p>Result of a good ToT calibration with a target value of 300 DAC as turn on value. </p></figcaption></figure>
+
+#### 2.5V DAC Internal Injection
+
+(Estimated running time: \~ 50 minutes for all channels and all phases)
+
+This script is used to inject a 2.5V DAC signal into the H2GCROC3B channels for calibration purposes. It is not part of the main calibration flow but can be used for additional testing and verification.
+
+* DAC Value: This is the 12-bit DAC value to be injected into the channels.
+* Channel Start: the starting channel number for the injection.
+* Channel Count: the number of channels to be injected for each ASIC.
+* -i I2C JSON: This is the base I2C register configuration file for the H2GCROC3B. The output register configuration will be based on this file.
+
+The output files will be saved in the `./dump/106_Injection2V5_data_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal and the response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3B.
