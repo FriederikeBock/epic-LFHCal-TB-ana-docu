@@ -10,9 +10,9 @@ description: >-
 
 First of all you need to open source the environment for `vivado` and open it (see commands on ORNL-DAQ computer below).&#x20;
 
-```
+```shellscript
 // sourcing vivado environment
-source Xiling/2025.1/Vivado_Lab/setting64.sh
+source Xilinx/2025.1/Vivado_Lab/settings64.sh
 // open vivado lab
 vivado_lab
 ```
@@ -22,8 +22,13 @@ This should bring you to the home screen of vivado. There you should follow the 
 * Open the hardware manager
 * Switch on KCU (if not yet done)
 * Open target -> auto connect
-* program xckcu - firmware version for 1G & 1 HGCROC proto board (v2)
-* press play to check setup for each ASIC
+* program xckcu - firmware version for&#x20;
+  * 1GB & 1 HGCROC proto board (v2)
+    * TB-DAQ PC location: `~/Software/HGCROC/fw/frame_protoboard_v2/frame_protoboard_v2.bit`
+  * 10GB & 2 HGCROC proto boards (v5.069)
+    * &#x20;TB-DAQ PC location:  `~/Software/HGCROC/fw/5.069/kcu105_teng_hpc_lpc_5.069.bit`
+  * press play to check setup for each ASIC
+* 2 KCU's can't be simultaneously programmed with this version of vivado,  so the programming and checking step have to be repeated for the other KCU
 
 ## Configuring the HGCROC
 

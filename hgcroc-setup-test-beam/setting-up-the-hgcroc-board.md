@@ -8,7 +8,7 @@ coverY: 0
 
 # Setting up the HGCROC board
 
-<figure><img src="../.gitbook/assets/HGCROCSetup.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-17 15-29-43.png" alt=""><figcaption></figcaption></figure>
 
 The following cables need to be connected in order to setup the HGCROC for local testing:
 

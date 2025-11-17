@@ -23,7 +23,7 @@ Keep in mind some of these packages might need further dependencies and or compi
 
 The firmware of the KCU and thus HGCROC boards by default expects to be situated in the subnet 10.1.2.XXX, see below how to setup the corresponding subnet on the `enp1s0f0`as an example.&#x20;
 
-```bash
+```shellscript
 # -> check which routes are set: (as super user)
 ip addr
 ip addr show
@@ -46,6 +46,36 @@ ping 10.1.2.208 -s 32 # needs KCU to be programmed to respond (expected address 
 
 ## display the IPv4 network neighbour cache
 arp -a
+
+
+```
+
+For the CERN 2025 PS TB please set up the network as follows should we need a restart of the DAQ computer. Two blue (CAT7 ethernet) cables should be conencted to the 2 KCUs and the two port 10GB ethernet card in the DAQ computer.
+
+```shellscript
+# connect only FPGA1 - UCR01 & UCR02
+sudo ip addr add 10.1.2.207/32 dev enp8s0f0
+sudo ip route add 10.1.2.208 via 10.1.2.207 dev enp8s0f0
+# programm FPGA1 in vivado
+# check you can ping 10.1.2.208
+ping 10.1.2.208 -s 32
+
+# connect FPGA3 - GSU01 & ANL01
+sudo ip addr add 10.1.2.206/32 dev enp8s0f1
+sudo ip route add 10.1.2.209 via 10.1.2.206 dev enp8s0f1
+# programm FPGA3 in vivado
+# check you can ping 10.1.2.209
+ping 10.1.2.209 -s 32
+
+ip route show
+## output should look like:
+ default via 128.141.219.1 dev eno1 proto dhcp src 128.141.219.87 metric 100
+ 10.1.2.0/24 dev enp8s0f0 proto kernel scope link src 10.1.2.207
+ 10.1.2.0/24 dev enp8s0f1 proto kernel scope link src 10.1.2.206
+ 10.1.2.208 via 10.1.2.207 dev enp8s0f0
+ 10.1.2.209 via 10.1.2.206 dev enp8s0f1
+ 128.141.219.0/24 dev eno1 proto kernel scope link src 128.141.219.87 metric 100
+ 192.168.0.0/24 dev eno1 proto kernel scope link src 192.168.0.100 metric 100
 
 ```
 
