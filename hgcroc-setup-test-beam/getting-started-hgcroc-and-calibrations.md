@@ -30,6 +30,55 @@ This should bring you to the home screen of vivado. There you should follow the 
   * press play to check setup for each ASIC
 * 2 KCU's can't be simultaneously programmed with this version of vivado,  so the programming and checking step have to be repeated for the other KCU
 
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 17-08-56 (1).png" alt=""><figcaption></figcaption></figure>
+
+## Setting IO-delay
+
+The IO Delay Scan is used to adjust the timing of the signals received by the FPGA. This is crucial for ensuring that the signals are correctly aligned and processed. **Run this every time you do a power cycle / reprogram the FPGA.**
+
+**This can either be done using the H2GCalib or with manual-python scripts. At this stage we suggest to run the manual python scripts.**
+
+```shellscript
+# For the 2025 LFHCal TB - go to:
+cd /home/localadmin/Software/HGCROC/fw/5.069/Python/
+# execute:
+python3 003_10G_Test_Align.py      ##(for FPGA_0 10.1.2.208)
+python3 003_10G_Test_Align_209.py  ##(for FPGA_1 10.1.2.209)
+```
+
+At the end of the shell output the following lines hould be displayed for each ASIC, if they are looking as shown below, everything is fine.&#x20;
+
+```shellscript
+// Some code
+Test ASIC 0...
+Delay: 30
+                 ASIC CMD  DLY10 AR   Data1    Data0    Trig3    Trig2    Trig1    Trig0
+Iteration #000:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #001:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #002:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #003:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #004:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #005:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #006:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #007:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #008:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #009:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #010:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #011:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #012:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #013:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #014:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #015:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #016:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #017:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #018:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+Iteration #019:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccccc accccccc 
+```
+
+Should this not be the case, please replace the different IO-delays at the top of each script with either the proposed values (see full output of the script), or the a value in the middle of the first long block. To confirm you can check in vivado, by clicking run again. In case everything is fine it should look as below, with all the valid signals aligned (light green boxes). The first 4 doule-lines correspond to the trigger signals and are followed by the 2 data lines and their respective valids.
+
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 17-14-37.png" alt=""><figcaption></figcaption></figure>
+
 ## Configuring the HGCROC
 
 The software to configure the HGCROC is called `H2GConfig` (see [link](setting-up-daq-pc.md#software-installation) for details where to find it).  This can be started as follows:
@@ -39,7 +88,7 @@ The software to configure the HGCROC is called `H2GConfig` (see [link](setting-u
 python3 H2GConfig.py
 ```
 
-<figure><img src="../.gitbook/assets/starting_window_mac.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-17 16-29-34.png" alt=""><figcaption></figcaption></figure>
 
 This brings up the initial start window make sure you choose the appropriate number of KCU's and Asics (HGCROCs) per KCU. Which should bring you to the main window.&#x20;
 
@@ -61,10 +110,25 @@ For a brand new start of the setup please load the configurations&#x20;
 
 * `config_a0.json` for `asic 0`
 * `config_a1.json` for `asic 1`&#x20;
+* ...
 
 You can either do this by pressing `Send Current ASIC Config`  for a single asic or by `Send All Config` for all asics. After reconfiguring the asic using the configuration tool it should be checked that the the data lines and trigger lines have reasonable values using `vivado` for every asic (press `play` and check the values).
 
-<figure><img src="../.gitbook/assets/Screenshot from 2025-11-07 19-24-01.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 17-19-41.png" alt=""><figcaption></figcaption></figure>
+
+For the LFHCal 2025 TB base configurations can be found in:
+
+```shellscript
+H2GConfig/config/fpga*_a*_config.json
+```
+
+A pre-beam configuration with ped=80, toa=30 and tot=300 (w/o SiPMs attached) can be found in&#x20;
+
+```shellscript
+H2GConfig/config/ConfigsPrep/StartingConfig_ped80_toa30_tot300/
+```
+
+The naming scheme follows a similar pattern, the latter can be used for UCR-02 (Asic 0, Asic 1 - FPGA-0), UCR-01 (Asic 2, Asic 3- FPGA-0), GSU-01  (Asic 0, Asic 1 - FPGA-1), ANL-01 (Asic 2, Asic 3- FPGA-1).
 
 ### Manual modifications of Configuration values <a href="#user-content-license" id="user-content-license"></a>
 
@@ -127,6 +191,8 @@ You can find the results of the IO Delay Scan in the `./dump/102_IO_Delay_data_Y
 <figure><img src="../.gitbook/assets/Res_102.png" alt=""><figcaption></figcaption></figure>
 
 After the IO-delay scan finished one should check in `vivado` that the data lines in case of a valid data flag are set to `acccccc` , while the trigger lines should be should show a different value.&#x20;
+
+<mark style="color:red;background-color:red;">**Please don't run this for now, but rather use the "manual" script mentioned above for the IO-delay - this should only be done after before reconfiguring the asic!**</mark>
 
 ### Pedestal Calibration
 
@@ -210,3 +276,11 @@ After running the calibrations for all KCU's (FPGA) and HGCROCs (asics) move the
 ```
 
 Afterwards, load these using the H2GConfig for the respective asics.&#x20;
+
+As mentioned above, a pre-beam configuration with ped=80, toa=30 and tot=300 (w/o SiPMs attached) can be found in&#x20;
+
+```shellscript
+H2GConfig/config/ConfigsPrep/StartingConfig_ped80_toa30_tot300/
+```
+
+The naming scheme follows a similar pattern, the latter can be used for UCR-02 (Asic 0, Asic 1 - FPGA-0), UCR-01 (Asic 2, Asic 3- FPGA-0), GSU-01  (Asic 0, Asic 1 - FPGA-1), ANL-01 (Asic 2, Asic 3- FPGA-1).
