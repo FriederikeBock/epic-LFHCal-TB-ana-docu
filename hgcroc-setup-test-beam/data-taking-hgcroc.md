@@ -14,11 +14,11 @@ python3 H2GDAQ.py
 
 Followed by the configurable selection of the respective values
 
-<figure><img src="../.gitbook/assets/init_window_pic.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 18-36-40 (1).png" alt=""><figcaption></figcaption></figure>
 
 That is followed by the main window of the DAQ data taking.&#x20;
 
-<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 18-08-41.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 18-39-07 (1).png" alt=""><figcaption></figcaption></figure>
 
 The top right corner `Working Folder`  shows you where the data will be written to, you can change that using the `"Select Folder"` button and even print the full directory location to the terminal from which you executed the script, using the `"Print to Terminal"` button.&#x20;
 
@@ -30,7 +30,7 @@ The next section describes various DAQ settings to choose when a run should end:
 * after a fixed time
 * manually
 
-Its followed by the section to `Stop` and `Start` the DAQ and a `"Lock"`  should you desire to operate it with the RCDAQ system and would like to prevent accidental operations. Please don't use the `Set IODELAY`  button from here.&#x20;
+Its followed by the section to `Stop` and `Start` the DAQ and a `"Lock"`  should you desire to operate it with the RCDAQ system and would like to prevent accidental operations.
 
 In the middle column the generator as well as eternal trigger settings are defined please make sure the values for the Data Collection, Generator and Fast Commands & Machine gun are shown as above:
 
@@ -61,4 +61,38 @@ Machine gun          10  ## defines how many sample/ trigger we take
 
 The start and stop generator sections allows to enable injected signals to the ASIC to for instance run pedestal runs  (switch off external trigger in that case). It can also be used to trigger single events to test the trigger is being received in the software.
 
-In the HV tab you can switch the respective HV on for each ASIC and entire FPGA's by ticking or unticking the boxes and clicking the `"Send HV Setting"` button&#x20;
+In the HV tab you can switch the respective HV on for each ASIC and entire FPGA's by ticking or unticking the boxes and clicking the `"Send HV Setting"` button.
+
+## Procedure after Reboot of KCU
+
+1. Reprogram KCU
+2. Ping IP
+3. Run IO-delay script (directly in python)&#x20;
+4. Check in vivado that its aligned
+5. Configure with H2GConfig using appropriate config files for all asics
+6. Take pedestal and check in online monitoring (if not correct restart at set 3.)
+7. Start running&#x20;
+
+Don't forget to make sure the run-numbers increased in particular if the program terminated unexpectedly.
+
+## Procedure after Recalibration
+
+1. Ping IP
+2. Run IO-delay script (directly in python)&#x20;
+3. Check in vivado that its aligned
+4. Configure with H2GConfig using appropriate config files for all asics
+5. Take pedestal and check in online monitoring (if not correct restart at set 2.)
+6. Start running&#x20;
+
+Don't forget to make sure the run-numbers increased in particular if the program terminated unexpectedly.
+
+## Online monitoring
+
+The online monitor is a root application which can be started from a shell for reanalyzing an output file of the `H2GDAQ` or is run directly by the `H2GDAQ` application. The source code can be found [here](https://github.com/tlprotzman/h2g_online_monitoring). This application needs to be compiled so first order of business go into the checked out repository and compile it using `make` . Make sure you installed and loaded the `root` libraries for that.
+
+```shellscript
+// compile
+cd h2g_online_monitoring
+make
+```
+
