@@ -121,11 +121,11 @@ Similarly the same connector board with the HGCROC board version 1. Follows the 
 The default mapping for the 2025 test beam is shown below. Note: there is one KCU per FPGA (e.g., KCU 1 corresponds to FPGA 1).
 
 
-<figure><img src="../.gitbook/assets/singleModuleMapping_HGCROC_default2025tb.pdf" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the 8 layer connector boards from the TB in 2025.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/singleUnitMapping_HGCROC_default2025tb.pdf" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the 8 layer connector boards from the TB in 2025.</p></figcaption></figure>
 
 The corresponding single unit file can be found in: `configs/mappingSingleHGCROCAsic_2025tb.txt` . The HGCROC channels and assembly channels (blue and black text in the above figure, respectively) are the same for each assembly unit, but note that these are not identical to the channel numbers from 2024.
 
-The modules in the default 2025 TB configuration are shown below with all layers and assemblies labelled, as well as the KCU (FPGA) and ASIC pair for each 8-layer unit. This setup used Module 2 on the bottom and Module 3 on top; in the mapping file these are referred to as Module 0 (bottom) and Module 1 (top), respectively. The corresponding layers mapping file can be found in: `configs/layersHGCROC_default_2025tb.txt` .
+The modules in the default 2025 TB configuration are shown below with all layers and assemblies labelled, as well as the KCU (FPGA) and ASIC pair for each 8-layer unit. This setup used Module 2 on the bottom and Module 3 on top; in the mapping file these are referred to as Module 0 (bottom) and Module 1 (top), respectively. The corresponding layers mapping file can be found in: `configs/layersHGCROC_default_2025tb.txt` . The value in the "HGCROC board" column of this file comes from multiplying the KCU number by 4 and adding the ASIC number (e.g., the unit with KCU 1, ASIC 2 gets the HGCROC board value $1\times4 + 2$). 
 
 <figure><img src="../.gitbook/assets/labeledModuleSetup_default_2025tb.pdf" alt=""><figcaption><p>Default 2025 TB setup with all units, layers, and assemblies labeled. Beam is coming from the right as indicated by the arrow.</p></figcaption></figure>
 
