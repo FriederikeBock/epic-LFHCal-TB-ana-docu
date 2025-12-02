@@ -11,9 +11,16 @@ You will need the following software installed
 * **root**, either install it [manually ](https://root.cern/install/)or with the corresponding package manager of your distribution if available. Keep in mind you might need the developer packages too.
 * **vivado**: fpga programming software [link](https://www.xilinx.com/support/download.html)
 * **python3**
-* **H2GDAQ:** Python based standalone DAQ software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/H2GDAQ)
-* **H2GConfig:** Python based standalone hgcroc configuration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/H2GConfig)
-* **H2GCalib\_3b**:  Python based standalone hgcroc calibration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/h2gcalib_3b)
+* **H2GConfig:** Python based standalone hgcroc configuration software courtesy of Shihai Jia
+  * 1G Software [link](https://gitlab.cern.ch/sjia/H2GConfig)&#x20;
+  * 10G Software [link](https://gitlab.cern.ch/fbock/H2GConfig/-/tree/10GBNorbertdevel?ref_type=heads) check out branch `10GNorbertdevel`
+* **H2GCalib\_3b**:  Python based standalone hgcroc calibration software courtesy of Shihai Jia [l](https://gitlab.cern.ch/sjia/h2gcalib_3b)
+  * 1G Software [link](https://gitlab.cern.ch/sjia/h2gcalib_3b)
+  * Old 1G Software adapted to 10G [link](https://gitlab.cern.ch/fbock/h2gcalib_3b/-/tree/10GNorbertDevel?ref_type=heads) checkout branch `10GNorbertdevel`
+  * New 10G Software [link](https://gitlab.cern.ch/sjia/h2gcalibx)
+* **H2GDAQ:** Python based standalone DAQ software courtesy of Shihai Jia
+  * 1G Software [link](https://gitlab.cern.ch/sjia/H2GDAQ/-/tree/dev-0v12?ref_type=heads) check out branch `dev-012`
+  * 10G Software [link](https://gitlab.cern.ch/fbock/H2GDAQ) check out branch `main`&#x20;
 * **h2g\_online\_monitoring:** C++ based online monitoring software (which can be automatically started from H2GDAQ) courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_online_monitoring)
 * **h2g\_decode**: C++ based data stream decoder courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_decode/)
 
@@ -50,7 +57,7 @@ arp -a
 
 ```
 
-For the CERN 2025 PS TB please set up the network as follows should we need a restart of the DAQ computer. Two blue (CAT7 ethernet) cables should be conencted to the 2 KCUs and the two port 10GB ethernet card in the DAQ computer.
+For the CERN 2025 PS TB please set up the network as follows should we need a restart of the DAQ computer. Two blue (CAT7 ethernet) cables should be connected to the 2 KCUs and the two port 10GB ethernet card in the DAQ computer.
 
 ```shellscript
 # connect only FPGA1 - UCR01 & UCR02
@@ -76,7 +83,41 @@ ip route show
  10.1.2.209 via 10.1.2.206 dev enp8s0f1
  128.141.219.0/24 dev eno1 proto kernel scope link src 128.141.219.87 metric 100
  192.168.0.0/24 dev eno1 proto kernel scope link src 192.168.0.100 metric 100
+```
 
+Moreover it is necessary to at least make the following temporary network changes to your linux system.
+
+```bash
+#temporary network changes:
+sudo sysctl -w net.core.rmem_max=8388608
+sudo sysctl -w net.core.wmem_max=8388608
+sudo sysctl -w net.core.rmem_default=8388608
+sudo sysctl -w net.core.wmem_default=8388608
+
+sudo sysctl -w net.core.netdev_max_backlog=250000
+sudo sysctl -w net.ipv4.udp_mem='8388608 8388608 8388608'
+sudo sysctl -w net.ipv4.udp_rmem_min=16384
+sudo sysctl -w net.ipv4.udp_wmem_min=16384
+```
+
+They can also be made permanent by editing `/etc/sysctl.conf` and adding the following lines:
+
+```bash
+net.core.rmem_max=8388608
+net.core.wmem_max=8388608
+net.core.rmem_default=8388608
+net.core.wmem_default=8388608
+
+net.core.netdev_max_backlog=250000
+net.ipv4.udp_mem=8388608 8388608 8388608
+net.ipv4.udp_rmem_min=16384
+net.ipv4.udp_wmem_min=16384
+```
+
+Then run the following command to apply the changes:
+
+```bash
+sudo sysctl -p
 ```
 
 ## Setup python environment
