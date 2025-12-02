@@ -18,11 +18,11 @@ It currently produces the following plots and can distinguish 3 different trigge
 
 <div><figure><img src="../.gitbook/assets/EnergyTot.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyTotSplit.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCells.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCellsSplit.png" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/EnergyVsLayer (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyVsLayer_MuonTrigg (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyVsLayer_WOMuonTrigg (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="/broken/files/EKsBbs7UEUgxZ7nIQJzd" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/YYPT5okXGguInaivR7vk" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/01Ltyhb8EeV50usMqAOT" alt=""><figcaption></figcaption></figure></div>
 
 <div><figure><img src="../.gitbook/assets/ELayerOverlay_AllTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ELayerOverlay_MuonTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ELayerOverlay_NonMuonTrigg.png" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/NcellsLayerVsLayer (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NcellsLayerVsLayer_MuonTrigg (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NcellsLayerVsLayer_WOMuonTrigg (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="/broken/files/D74E3DRFZHwo8gNdv8AM" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/obk6sYTd3LpR7HrJt8eC" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/XT1V1N4jaXAhAWOclwXJ" alt=""><figcaption></figcaption></figure></div>
 
 <div><figure><img src="../.gitbook/assets/NCellsLayerOverlay_AllTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCellsLayerOverlay_MuonTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCellsLayerOverlay_NonMuonTrigg.png" alt=""><figcaption></figcaption></figure></div>
 

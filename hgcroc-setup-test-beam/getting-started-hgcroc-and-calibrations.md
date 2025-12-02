@@ -30,7 +30,7 @@ This should bring you to the home screen of vivado. There you should follow the 
   * press play to check setup for each ASIC
 * 2 KCU's can't be simultaneously programmed with this version of vivado,  so the programming and checking step have to be repeated for the other KCU
 
-<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 17-08-56 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 17-08-56.png" alt=""><figcaption></figcaption></figure>
 
 ## Setting IO-delay
 
@@ -161,13 +161,13 @@ After these calibrations have been run the **2.5V Internal Injection** test shou
 
 The calibration is handled and steered using `H2GCalib_3B`  package ([link](setting-up-daq-pc.md#software-installation)). Its workflow is as follows.&#x20;
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-48-32 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/broken/files/N5V6q0sYuDv98DIe9gpN" alt=""><figcaption></figcaption></figure>
 
 ### Calibration Gui
 
 It is highly recommended to run the `100_UI.py` script first. This script provides a user interface for selecting the calibration files and setting various parameters for the calibration process. Once more it will ask in the beginning to select how many KCU's and ASICs per KCU are connected.
 
-<div><figure><img src="../.gitbook/assets/UI_Start_2 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/UI_FPGA_2.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="/broken/files/Nw7R3zmxG0krFVYAsRoy" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/UI_FPGA_2.png" alt=""><figcaption></figcaption></figure></div>
 
 **Always start 101\_SocketPool before running any other script.** This script will forward the UDP packets from the H2GCROC-3B to the calibration scripts. It is essential for the calibration process to function correctly. Don't forget to terminate the socket before starting any other data taking process.
 
@@ -222,7 +222,7 @@ The output files will be updated in the -i field in the ToT calibration section.
 
 The ToA-calibration is currently being executed in 5 steps, starting with a very coarse scanning window to estimate the first `ToA_vRef` values for the different half chips and then decreasing the stepping size an window size successively.  The red line indicated in each vertical column indicated the edge at which the ToA starts firing. These need to be adjusted such that they correspond to the same value (or similar) value for all channels.
 
-<div align="center"><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-15.png" alt="" width="375"><figcaption><p>Typical initial ToA calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToA-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-07-15.png" alt="" width="375"><figcaption><p>Typical initial ToA calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToA-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure></div>
 
 A good calibration should have the final ToA values like, however the timing alignment of the different halfs (color scale) is currently not performed.&#x20;
 
@@ -237,7 +237,7 @@ A good calibration should have the final ToA values like, however the timing ali
 
 The output folder is `./dump/105_ToTCalib_data_YYYYMMDD_HHMMSS`. The result pdf file is in the same format as the ToA calibration. Similarly as for the ToA calibration the calibration is run in 5 steps.&#x20;
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-47-31 (1).png" alt="" width="375"><figcaption><p>Typical initial ToT calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure>
+<div align="center"><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 20-47-31.png" alt="" width="375"><figcaption><p>Typical initial ToT calibration plot. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips. </p></figcaption></figure></div>
 
 &#x20;An example of a good ToT calibration result is shown below:
 

@@ -32,15 +32,15 @@ Example of how to run it:
 
 The primary script implemented for the event display is `runEventDisplay_2024.sh`:
 
-<figure><img src="../.gitbook/assets/Electrons_EventDisplay_evt28 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/broken/files/wjerIFNp1sFEGptb9wrN" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/ElectronsMuonTrig_EventDisplay_evt55 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/broken/files/aI13wj2e1l1n4Zlm5NTS" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/Hadrons_EventDisplay_evt7 (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/broken/files/6RTs5NXdchXLTPVLrWsy" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/HadronsMuonTrig_EventDisplay_evt90 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/broken/files/H5CR46lXAJLNBO4wqSfX" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/Muons_EventDisplay_evt46 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/broken/files/Eyqhr5NUFBpyCtcPeNhN" alt=""><figcaption></figcaption></figure>
 
 ```
 bash runEventDisplay_2024.sh $USERNAME $BEAM_TYPE $EVENT_NUMBER $HOW_MANY_EVENTS [muonTrig]

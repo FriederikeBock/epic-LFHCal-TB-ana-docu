@@ -30,26 +30,26 @@ Examples:
 
 ```
 
-The `CompareCalib` program can be run in multiple ways in terms of inputs&#x20;
+The `CompareCalib` program can be run in multiple ways in terms of inputs
 
-1. with an auto-expanded list using `-i calibFiles*.root`&#x20;
+1. with an auto-expanded list using `-i calibFiles*.root`
 2. with a file list containing in each line the calibration files you want to use `-i calibFileList.txt` . This list has should end with `.txt` otherwise it might not be correctly detected
-3. with a file list containing in each line a calibration file & the histo-output of the a specific calibration step.  It can be used with `-I calibFileListExtended.txt` . This list has should end with `.txt` otherwise it might not be correctly detected.&#x20;
-   1. Treatment of different histogram outputs is foreseen and can be steered with `-E [1-X]` currently implemented are:&#x20;
+3. with a file list containing in each line a calibration file & the histo-output of the a specific calibration step. It can be used with `-I calibFileListExtended.txt` . This list has should end with `.txt` otherwise it might not be correctly detected.
+   1. Treatment of different histogram outputs is foreseen and can be steered with `-E [1-X]` currently implemented are:
       1. `-E 1` (default if `-I` is called) format of [step 2](../calibration/mip-calibration.md#step-2) output
       2. `-E 2` format of [step 1](../calibration/mip-calibration.md#step-1) output
 
-Likewise the `CompareAna` program can be run interchangably with the following inputs&#x20;
-3. with a file list containing in each line a calibration file & the QA output.  It can be used with `-I anaFileList.txt` . This list has should end with `.txt` otherwise it might not be correctly detected.&#x20;
-   1. Treatment of different histogram outputs is foreseen and can be steered with `-E [1-X]` currently implemented are:&#x20;
-      1. `-E 4` creates the deltatime overlay. This is currently the only option in the `ComparAna` function. 
+Likewise the `CompareAna` program can be run interchangably with the following inputs 3. with a file list containing in each line a calibration file & the QA output. It can be used with `-I anaFileList.txt` . This list has should end with `.txt` otherwise it might not be correctly detected.
 
-Similar to the other programs the options `-d` & `-e` will enabled various debugging options and more plots.  In the current way two main ways of evaluating the data are implemented:
+1. Treatment of different histogram outputs is foreseen and can be steered with `-E [1-X]` currently implemented are:
+   1. `-E 4` creates the deltatime overlay. This is currently the only option in the `ComparAna` function.
+
+Similar to the other programs the options `-d` & `-e` will enabled various debugging options and more plots. In the current way two main ways of evaluating the data are implemented:
 
 1. As a function of run number using the `-R` option
 2. As a function of operational voltage using the `-V` option
 
-Each of them is  useful for different things. Below you find a few sample plots which are being created by the code.  The output root file and plotsFolder have to be given after `-o` and `-O`  respectively, without them the program will crash
+Each of them is useful for different things. Below you find a few sample plots which are being created by the code. The output root file and plotsFolder have to be given after `-o` and `-O` respectively, without them the program will crash
 
 ```bash
 # example for running Voltage dependence with extended output:
@@ -59,15 +59,15 @@ Each of them is  useful for different things. Below you find a few sample plots 
 ./CompareCalib -F png -d 0 -e 0 -f -R -I calibFileList_45V_expanded.txt -o ../Trending/TrendingAllCalibs_Runs45V.root -O ../Trending/RunDep_45V -r ../configs/DataTakingDB_202409_CAEN.csv
 ```
 
-<div><figure><img src="../.gitbook/assets/HGPedSummary_RunOverlay (2).png" alt=""><figcaption><p>HG pedestal mean comparison at 45V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HGPedWidthSummary_RunOverlay (2).png" alt=""><figcaption><p>HG pedestal width comparison at 45V</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGPedSummary_RunOverlay (2).png" alt=""><figcaption><p>LG pedestal mean comparison at 45 V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGPedWidthSummary_RunOverlay (2).png" alt=""><figcaption><p>LG pedestal width comparison at 45 V.</p></figcaption></figure></div>
+<div><figure><img src="/broken/files/Bp6zLXdKN41xcCeFaQ1f" alt=""><figcaption><p>HG pedestal mean comparison at 45V.</p></figcaption></figure> <figure><img src="/broken/files/H2ltzABdZw7MBEibQx9H" alt=""><figcaption><p>HG pedestal width comparison at 45V</p></figcaption></figure> <figure><img src="/broken/files/l7B01kOhNhguCK9IH75K" alt=""><figcaption><p>LG pedestal mean comparison at 45 V.</p></figcaption></figure> <figure><img src="/broken/files/mnjVauyehA3lYB5Bqlw8" alt=""><figcaption><p>LG pedestal width comparison at 45 V.</p></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/HGLGCorr_RunOverlay (1).png" alt="" width="375"><figcaption><p>HG-LG slope compared for all runs at 45V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGHGCorr_RunOverlay.png" alt="" width="375"><figcaption><p>LG-HG slope compared for all runs at 45V.</p></figcaption></figure></div>
+<div><figure><img src="/broken/files/Dl97f3q9RhfKoBbRfC9r" alt="" width="375"><figcaption><p>HG-LG slope compared for all runs at 45V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGHGCorr_RunOverlay.png" alt="" width="375"><figcaption><p>LG-HG slope compared for all runs at 45V.</p></figcaption></figure></div>
 
 <div><figure><img src="../.gitbook/assets/HGScaleSummary_RunOverlay.png" alt=""><figcaption><p>HG mip equivalent values for all runs at 45V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HGScaleWidthSummary_RunOverlay.png" alt=""><figcaption><p>HG mip width values for all runs at 45V.</p></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/LGScaleCalcSummary_RunOverlay (1).png" alt=""><figcaption><p>LG mip equivalent values, calculated based on the  HG/LG-HG corr values, for all runs at 45V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGScaleSummary_RunOverlay (1).png" alt=""><figcaption><p>LG mip equivalent values, as determined by the fit of the LG histos, for all runs at 45V.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LGScaleWidthSummary_RunOverlay (1).png" alt=""><figcaption><p>LG mip width values for all runs at 45V.</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/LGScaleCalcSummary_RunOverlay (1).png" alt=""><figcaption><p>LG mip equivalent values, calculated based on the HG/LG-HG corr values, for all runs at 45V.</p></figcaption></figure> <figure><img src="/broken/files/Z0EQzgSdhPRJtMpQ4sYZ" alt=""><figcaption><p>LG mip equivalent values, as determined by the fit of the LG histos, for all runs at 45V.</p></figcaption></figure> <figure><img src="/broken/files/hhVEL2FCO5HVaQxTS4CW" alt=""><figcaption><p>LG mip width values for all runs at 45V.</p></figcaption></figure></div>
 
-If the extended plotting is enabled also the following individual layer plots will be produced.&#x20;
+If the extended plotting is enabled also the following individual layer plots will be produced.
 
 <div><figure><img src="../.gitbook/assets/HGLGCorr_Layer00.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/HGped_Layer00.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/HGScale_Layer00.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/LGHGCorr_Layer00.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/LGped_Layer00.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/LGScale_Layer00.png" alt=""><figcaption></figcaption></figure></div>
 
@@ -94,14 +94,14 @@ Run Nr.: 552	 total entries: 512
 ***********************************************************************************************************************
 ```
 
-Where each of the lines represent the mean and RMS  of the above shown individual run histos for the calibration values (i.e., the HG pedestal). The integer before the "out of bounds" indicates how many cells of the total entries (512 in this case) were contained in the over or under-flow bin of the respective histograms. These values for sure otherwise would have been nonsense, however, even within the histogram range some of the parameters might have reached their bounding conditions and the fits my have failed, just not in a manner which would have triggered the respective exclusion conditions defined by the various calibration routines.&#x20;
+Where each of the lines represent the mean and RMS of the above shown individual run histos for the calibration values (i.e., the HG pedestal). The integer before the "out of bounds" indicates how many cells of the total entries (512 in this case) were contained in the over or under-flow bin of the respective histograms. These values for sure otherwise would have been nonsense, however, even within the histogram range some of the parameters might have reached their bounding conditions and the fits my have failed, just not in a manner which would have triggered the respective exclusion conditions defined by the various calibration routines.
 
-Running with expanded output will produce the following plots in addition.&#x20;
+Running with expanded output will produce the following plots in addition.
 
-<div><figure><img src="../.gitbook/assets/HG_GaussSigma_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandMPV_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandSigma_Layer00 (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="/broken/files/WcYCXAx3JOz3Ik4BDs38" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/1lrI3Im3AC8KcW7J3CaY" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/qJQNCvmm5d1qSWTh1ul6" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/LG_GaussSigma_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/LG_LandMPV_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/LG_LandSigma_Layer00 (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="/broken/files/jfsFFYlarr1lYXaBcXIk" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/Hox0sjOjADeGKM9iLxya" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/YhTzKGX8Q2TUTG1RwCDg" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/MuonTriggers_HGDist_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/MuonTriggers_LGDist_Layer00 (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="/broken/files/4Ox4eClXg3mhtW2fsC1g" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/lQsZ8c6gGKs1lvijThd7" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/SBNoise_MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/SBSignal_MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="/broken/files/E1NwH6hhkMSoSiGjKRC9" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/71AbzgFBO3o62yqznYeb" alt=""><figcaption></figcaption></figure> <figure><img src="/broken/files/ZH1TXoO18ZxUCze5oD1H" alt=""><figcaption></figcaption></figure></div>
