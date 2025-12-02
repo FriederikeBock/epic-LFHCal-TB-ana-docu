@@ -23,12 +23,13 @@ You will need the following software installed
   * 10G Software [link](https://gitlab.cern.ch/fbock/H2GDAQ) check out branch `main`&#x20;
 * **h2g\_online\_monitoring:** C++ based online monitoring software (which can be automatically started from H2GDAQ) courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_online_monitoring)
 * **h2g\_decode**: C++ based data stream decoder courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_decode/)
+* **h2g\_validator**: Python based data integrity validation programm courtesy of Oskar Hartbrich l[ink](https://github.com/ohartbri/h2g_validator)
 
 Keep in mind some of these packages might need further dependencies and or compilation. Have a look at their respective installation instructions or README's.
 
 ## Setup network
 
-The firmware of the KCU and thus HGCROC boards by default expects to be situated in the subnet 10.1.2.XXX, see below how to setup the corresponding subnet on the `enp1s0f0`as an example.&#x20;
+The firmware of the KCU and thus HGCROC boards by default expects to be situated in the subnet 10.1.2.XXX, see below how to setup the corresponding subnet on the `enp1s0f0` as an example.&#x20;
 
 ```shellscript
 # -> check which routes are set: (as super user)
