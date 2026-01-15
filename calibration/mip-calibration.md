@@ -4,7 +4,7 @@ In order to have a first calibration of each cell/tile within the calorimeter to
 
 When we are taking taking data we are reading out every channel for every event, regardless whether the channel was hit by a particle or not (meaning w/o zero or pedestal suppression). This can introduc some difficulties for the our fitting algorithms, as the pedestal peak could be larger in amplitude than the actual signal distribution one is after. In order to still allow automized fitting to some degree for the MIP calibration at different Vop, we devised a local muon trigger strategy. For this we are using the fact that a muon on average will always leave approximately the same signal in every tile (a minimum ionizing signal), hence we can use adjacent tiles to trigger on the average mip response in for instance the 2 tiles before and the two tiles after the tile one is currently investigating.
 
-<figure><img src="/broken/files/2Stq9NmKa4BLKuhKEKvS" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/LocalTriggerIllustration (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -93,9 +93,9 @@ This function processes the full event tree twice and tries to fit the MIP peak 
 
 Afterwards a Landau-Gauss-function is fit to every HG-spectrum and if the fit succeeds a first value for the maximum of the Landau-Gauss as well as its width is stored in the calibration object which is read from the input file. Should the fit fail for instance because the pedestal (noise) peak is too large or too close, no values are stored in the calib-objects. Overview plots showing the respective values during the first iteration are also generated
 
-<div><figure><img src="/broken/files/wlPKMtxCokvTjXKeCn7x" alt=""><figcaption><p>FWHM of the fits of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_GaussSigMip_1st.png" alt=""><figcaption><p>Gaussian sigma of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandMPVMip_1st.png" alt=""><figcaption><p>Most probable value of the Landau distribution after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandSigMip_1st.png" alt=""><figcaption><p>Width of the Landau distribution, after the first iteration.</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/HG_FWHMMip_1st (1).png" alt=""><figcaption><p>FWHM of the fits of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_GaussSigMip_1st.png" alt=""><figcaption><p>Gaussian sigma of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandMPVMip_1st.png" alt=""><figcaption><p>Most probable value of the Landau distribution after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandSigMip_1st.png" alt=""><figcaption><p>Width of the Landau distribution, after the first iteration.</p></figcaption></figure></div>
 
-<figure><img src="/broken/files/GiIMJFrB4IigDMCCzHUj" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution after the first iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (&#x3C;MaxHG> = 214).</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/HG_MaxMip_1st (1).png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution after the first iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (&#x3C;MaxHG> = 214).</p></figcaption></figure>
 
 In addition the linear relation between the LG & HG is evaluated and its slope stored in the calibration objects.&#x20;
 
@@ -132,7 +132,7 @@ The corresponding HG and LG spectra for the locally muon triggered events are th
 
 As the selection of the triggers is rather course still the fits might still not perfectly describe the mip-signal region. This particularly applies for tiles which the beam wasn't directly pointing at (edges). The same monitoring plots for the fit parameters are created in the 2nd iteration as well and the equivalent LG plots as well.
 
-<div><figure><img src="/broken/files/FyPwyl1jUcXRivAUKv6u" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the HG signal after the first iteration. White "bins" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (222.4)</p></figcaption></figure> <figure><img src="/broken/files/xR8AmI0s1T5nmUbJxlE7" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the LG signal after the second iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (16.6)</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/HG_MaxMip_2nd (1).png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the HG signal after the first iteration. White "bins" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (222.4)</p></figcaption></figure> <figure><img src="../.gitbook/assets/LG_MaxMip_2nd (1).png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the LG signal after the second iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (16.6)</p></figcaption></figure></div>
 
 The respective fitting routines for the Landau-Gauss functions can be found in
 
@@ -224,4 +224,41 @@ bash runCalibration_2024.sh $USERNAME muoncalibA1 improvedWBC5th
 ```
 
 Please have a look which options for the 2nd argument are available to select different data sets.
+
+## HGCROC Data
+
+### November 2025
+
+```bash
+# merge the muon files correctly (comment out which set you need)
+bash convertDataHGCROC_2025.sh $USERNAME MergeMuons
+
+# transfering the pedestal calibration to the merged muon file of interest with external bad channel map applied
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib BC
+
+# MIP extraction: STEP 1
+# run first step of mip extraction with external bad channel map applied
+# THIS WILL TAKE A WHILE (~4h for 200K events)
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib default
+# to decrease the amount of time running over the files we should skim the muons events
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib saveNewMuon
+
+# MIP extraction: STEP 2 - with full files:
+# run 1st iteration of 2nd step
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp
+# run 2nd iteration of 2nd step
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp2nd
+# run 3rd iteration of 2nd step
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp3rd
+
+# MIP extraction: STEP 2 - with skimmed files
+# run 1st iteration of 2nd step 
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp_red
+# run 2nd iteration of 2nd step
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp2nd_red
+# run 3rd iteration of 2nd step
+bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp3rd_red
+
+# so far no further iteration were needed
+```
 
