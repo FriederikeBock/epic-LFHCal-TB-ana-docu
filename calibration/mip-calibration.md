@@ -234,30 +234,30 @@ Please have a look which options for the 2nd argument are available to select di
 bash convertDataHGCROC_2025.sh $USERNAME MergeMuons
 
 # transfering the pedestal calibration to the merged muon file of interest with external bad channel map applied
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib BC
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon BC
 
 # MIP extraction: STEP 1
 # run first step of mip extraction with external bad channel map applied
 # THIS WILL TAKE A WHILE (~4h for 200K events)
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib default
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon default
 # to decrease the amount of time running over the files we should skim the muons events
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib saveNewMuon
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon saveNewMuon
 
 # MIP extraction: STEP 2 - with full files:
 # run 1st iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp
 # run 2nd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp2nd
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd
 # run 3rd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp3rd
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd
 
 # MIP extraction: STEP 2 - with skimmed files
 # run 1st iteration of 2nd step 
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp_red
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp_red
 # run 2nd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp2nd_red
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd_red
 # run 3rd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME muoncalib imp3rd_red
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd_red
 
 # so far no further iteration were needed
 ```
