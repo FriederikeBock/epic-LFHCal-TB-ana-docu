@@ -19,6 +19,18 @@ git clone git@github.com:eic/epic-lfhcal-tbana.git $WHATEVERYOURDIRNAMESHOULDBE
 # enter corresponding directory
 cd $WHATEVERYOURDIRENAMESHOULDBE
 git submodule update --init --recursive
+# please check enter the NewStructure/h2g_decode which version of the code is check out
+git status
+## Out put should be: 
+On branch v0.13
+Your branch is up to date with 'origin/v0.13'.
+# check in addition which was the last commit
+git log
+# output should be at the top:
+commit 20bc388794e0157c6efb66fe93745627ad90d546 
+# If this isn't the case please do the following:
+git checkout v0.13
+git pull --rebase
 ```
 
 have a working developer version of root and can actually compile the software. The repository contains 2 major version of the analysis code:
