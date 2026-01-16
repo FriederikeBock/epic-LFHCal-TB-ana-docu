@@ -168,10 +168,9 @@ The detailed implementation can be found in:
 
 The step 2 can be repeated as often as necessary on the output created in the previous iteration of step 2, until the fitting converges for a maximum of cells. To ease this judgement the following lines can be found in the shell output:
 
-```sh
-average input HG mip: 375.625 LG mip: 33.0965 act. ch: 505
-average updated HG mip: 375.797 LG mip: 33.0965 act. ch: 505
-```
+<pre class="language-sh"><code class="lang-sh"><strong>average input HG mip: 375.625 LG mip: 33.0965 act. ch: 505
+</strong>average updated HG mip: 375.797 LG mip: 33.0965 act. ch: 505
+</code></pre>
 
 Indicating the average mip values for HG and LG before and after the current iteration as well as the calibratable channels. If the before and after are close enough it can be assumed that the fitting cannot be improved without manual intervention.&#x20;
 
@@ -258,7 +257,11 @@ bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp_red
 bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd_red
 # run 3rd iteration of 2nd step
 bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd_red
-
-# so far no further iteration were needed
 ```
 
+After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.&#x20;
+
+```bash
+# extract from last iteration just the calib objects into a separate file
+bash stripCalib_2025.sh $USERNAME BaseCalibs
+```
