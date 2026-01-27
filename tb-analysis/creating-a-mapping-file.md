@@ -10,27 +10,27 @@ coverY: 0
 
 # Creating a Mapping File
 
-## From read-out level to proper geometry- TB 2024-CAEN example&#x20;
+## From read-out level to proper geometry- TB 2024-CAEN example
 
-In order to translate the different channels in one (or multiple) CAEN readout unit(s) into physical space i.e. layer, column, row and module within our detector, we need to define a mapping file. For the 2024 TB each assembly was connected to an 8 layer connector board, which was then connected to either a CAEN DT5202 or one HGCROC on the KCU.&#x20;
+In order to translate the different channels in one (or multiple) CAEN readout unit(s) into physical space i.e. layer, column, row and module within our detector, we need to define a mapping file. For the 2024 TB each assembly was connected to an 8 layer connector board, which was then connected to either a CAEN DT5202 or one HGCROC on the KCU.
 
 <div><figure><img src="../.gitbook/assets/IMG-20240828-WA0000.jpg" alt="" width="375"><figcaption><p>Connector board for 2024 test beam campaign to connect 8 assembles to one readout unit</p></figcaption></figure> <figure><img src="../.gitbook/assets/IMG-20240828-WA0002.jpg" alt="" width="375"><figcaption><p>Ribbon cables to connect connector board (for 8 assemblies) and 1 readout unit (i.e. CAEN DT5202).</p></figcaption></figure></div>
 
-A picture of the mapping of one CAEN unit to 8 physical layers can be seen below and the full picture of the mapping for the TB is displayed below as well.&#x20;
+A picture of the mapping of one CAEN unit to 8 physical layers can be seen below and the full picture of the mapping for the TB is displayed below as well.
 
-<figure><img src="../.gitbook/assets/mapping_CAEN_Asic0 .png" alt=""><figcaption><p>Mapping of individual channels within the assemblies (black text) to the corresponding channels within one CAEN DT5202 readout unit (blue text) using the ribbon cables and 8 layer connector boards. </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/mapping_CAEN_Asic0 .png" alt=""><figcaption><p>Mapping of individual channels within the assemblies (black text) to the corresponding channels within one CAEN DT5202 readout unit (blue text) using the ribbon cables and 8 layer connector boards.</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/mappingFullModule_CAEN.png" alt=""><figcaption><p>Mapping of all layers and channels to the 8 CAEN DT5202 readout unit used in the August 2024 PS TB.</p></figcaption></figure>
 
 To ease the generation of the necessary mapping text file (i.e [2024TB-file](https://github.com/eic/epic-lfhcal-tbana/blob/main/configs/mappingFile_202409_CAEN.txt)) you can use the [CreateMapping.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/CreateMapping.C) macro, as follows:
 
 ```
-root -b -x -q -l 'CreateMapping.C+("../configs/mappingSingleCAENUnit.txt","../configs/layersCAEN_PSTB_2024.txt","../configs/modulePositions_2024.txt","Mapping.txt",0,0)'
+root -b -x -q -l 'CreateMapping.C+("../configs/mappingSingleCAENUnit.txt","../configs/TB2024/layersCAEN_PSTB_2024.txt","../configs/TB2024/modulePositions_2024.txt","Mapping.txt",0,0)'
 ```
 
 The options in order are explained in the following, with parts of the examples from the 2024 CAEN TB.
 
-* Definition of mapping within a single readout unit: `../configs/mappingSingleCAENUnit.txt`&#x20;
+* Definition of mapping within a single readout unit: `../configs/mappingSingleCAENUnit.txt`
 
 ```csv
 #CAEN board channel #layer in 8-stack #board channel  #row  #column
@@ -41,7 +41,7 @@ The options in order are explained in the following, with parts of the examples 
 ...
 ```
 
-* Definition of  assignment of individual layers to different readout modules:  `../configs/layersCAEN_PSTB_2024.txt`
+* Definition of assignment of individual layers to different readout modules: `../configs/TB2024/layersCAEN_PSTB_2024.txt`
 
 ```csv
 #layer  #assembly #CAEN board   #layer in CAEN unit # Module Number
@@ -59,14 +59,14 @@ The options in order are explained in the following, with parts of the examples 
 ...
 ```
 
-* Definition of module positions, given as modules number and their centers in x and y: `../configs/modulePositions_2024.txt`
+* Definition of module positions, given as modules number and their centers in x and y: `../configs/TB2024/modulePositions_2024.txt`
 
 ```csv
 #ModuleNr #ModuleX #ModuleY
 0   0   0
 ```
 
-* Output file to be generated with the final mapping file:  `Mapping.txt`
+* Output file to be generated with the final mapping file: `Mapping.txt`
 
 ```csv
 #CAEN board	CAEN Ch	layer	assembly	board channel	row	column modNr modX modY
@@ -83,54 +83,49 @@ The options in order are explained in the following, with parts of the examples 
 ```
 
 * Option to switch between labels for CAEN :`0` and HGCROC: `1` labeling
-* Debug level to get more print outs for debugging: `0`-nothing, `1`-minimal, `2`-full     &#x20;
+* Debug level to get more print outs for debugging: `0`-nothing, `1`-minimal, `2`-full
 
+## From read-out level to proper geometry- TB 2024-HGCROC example
 
-
-## From read-out level to proper geometry- TB 2024-HGCROC example&#x20;
-
-This works following exactly the same example but of course the corresponding layer association files and single readout unit files have to be replaced with the HGCROC versions and correspondingly the previous to last argument has to be set to `1`  for the appropriate HGCROC labeling:
+This works following exactly the same example but of course the corresponding layer association files and single readout unit files have to be replaced with the HGCROC versions and correspondingly the previous to last argument has to be set to `1` for the appropriate HGCROC labeling:
 
 ```bash
-$SINGLEUNITFILE="../configs/mappingSingleHGCROCAsic_alternate.txt"
-$LAYERSFILE1="../configs/layersHGCROC_PSTB2024_Run5-67.txt"    # Runs 5-67
-$LAYERSFILE2="../configs/layersHGCROC_PSTB2024_Run68-117.txt"   # Runs 68-117
-$LAYERSFILE3="../configs/layersHGCROC_PSTB2024_Run118-337.txt" # Runs 118-337
+$SINGLEUNITFILE="../configs/TB2024/mappingSingleHGCROCAsic_alternate.txt"
+$LAYERSFILE1="../configs/TB2024/layersHGCROC_PSTB2024_Run5-67.txt"    # Runs 5-67
+$LAYERSFILE2="../configs/TB2024/layersHGCROC_PSTB2024_Run68-117.txt"   # Runs 68-117
+$LAYERSFILE3="../configs/TB2024/layersHGCROC_PSTB2024_Run118-337.txt" # Runs 118-337
 ```
 
 ```
-root -b -x -q -l 'CreateMapping.C("../configs/mappingSingleHGCROCAsic_alternate.txt","../configs/layersHGCROC_PSTB2024_Run5-67.txt","../configs/modulePositions_2024.txt","../configs/mapping_HGCROC_PSTB2024_Run5-67_alternate.txt",1,0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2024/mappingSingleHGCROCAsic_alternate.txt","../configs/TB2024/layersHGCROC_PSTB2024_Run5-67.txt","../configs/TB2024/modulePositions_2024.txt","../configs/TB2024/mapping_HGCROC_PSTB2024_Run5-67_alternate.txt",1,0)'
 ```
 
 ## Predefined mappings with their physical connector boards and readout hardware
 
-In order to analyse any data you need to know which channel in the respective read out unit belongs to which specific channel in the physical space. As an example below the association of a single CAEN unit with the ribbon cable and the full TB using the CAEN units.&#x20;
-
-
+In order to analyse any data you need to know which channel in the respective read out unit belongs to which specific channel in the physical space. As an example below the association of a single CAEN unit with the ribbon cable and the full TB using the CAEN units.
 
 <figure><img src="../.gitbook/assets/mapping_CAEN_Asic0_withConnectorboard (1).png" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one CAEN DT5202 (blue text) unit using the ribbon cables and the 8 layer connector boards from the TB in 2024.</p></figcaption></figure>
 
 The corresponding single unit file can be found in: `configs/mappingSingleCAENUnit.txt` .
 
-Similarly the same connector board with the HGCROC board version 1. Follows the following mapping for a single ASIC: `configs/mappingSingleHGCROCAsic_alternate.txt`&#x20;
+Similarly the same connector board with the HGCROC board version 1. Follows the following mapping for a single ASIC: `configs/TB2024/mappingSingleHGCROCAsic_alternate.txt`
 
 <figure><img src="../.gitbook/assets/mapping_KCU2_Asic1_Starting0109_noon_fixed_withBoards.png" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board version 1 (blue text) unit using the ribbon cables and the 8 layer connector boards from the TB in 2024.</p></figcaption></figure>
 
-
 ## 2025 Test beam mapping
+
 The default mapping for the 2025 test beam is shown below. Note: there is one KCU per FPGA (e.g., KCU 1 corresponds to FPGA 1).
 
+<figure><img src="../.gitbook/assets/singleUnit_mapping_TB2025_Corrected.png" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the 8 layer connector boards from the TB in 2025.</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/singleUnitMapping_HGCROC_default2025tb.pdf" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the 8 layer connector boards from the TB in 2025.</p></figcaption></figure>
+The corresponding single unit file can be found in: `configs/TB2025/mappingSingleHGCROCAsic_2025tb.txt` . The HGCROC channels and assembly channels (blue and black text in the above figure, respectively) are the same for each assembly unit, but note that these are not identical to the channel numbers from 2024.
 
-The corresponding single unit file can be found in: `configs/mappingSingleHGCROCAsic_2025tb.txt` . The HGCROC channels and assembly channels (blue and black text in the above figure, respectively) are the same for each assembly unit, but note that these are not identical to the channel numbers from 2024.
+The modules in the default 2025 TB configuration are shown below with all layers and assemblies labelled, as well as the KCU (FPGA) and ASIC pair for each 8-layer unit. This setup used Module 2 on the bottom and Module 3 on top; in the mapping file these are referred to as Module 0 (bottom) and Module 1 (top), respectively. The corresponding layers mapping file can be found in: `configs/TB2025/layersHGCROC_default_2025tb.txt` . The value in the "HGCROC board" column of this file comes from multiplying the KCU number by 4 and adding the ASIC number (e.g., the unit with KCU 1, ASIC 2 gets the HGCROC board value 1 x 4 + 2).
 
-The modules in the default 2025 TB configuration are shown below with all layers and assemblies labelled, as well as the KCU (FPGA) and ASIC pair for each 8-layer unit. This setup used Module 2 on the bottom and Module 3 on top; in the mapping file these are referred to as Module 0 (bottom) and Module 1 (top), respectively. The corresponding layers mapping file can be found in: `configs/layersHGCROC_default_2025tb.txt` . The value in the "HGCROC board" column of this file comes from multiplying the KCU number by 4 and adding the ASIC number (e.g., the unit with KCU 1, ASIC 2 gets the HGCROC board value $1\times4 + 2$). 
-
-<figure><img src="../.gitbook/assets/labeledModuleSetup_default_2025tb.pdf" alt=""><figcaption><p>Default 2025 TB setup with all units, layers, and assemblies labeled. Beam is coming from the right as indicated by the arrow.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tilesetup_labels-0_2.png" alt=""><figcaption><p>Default 2025 TB setup with all units, layers, and assemblies labeled. Beam is coming from the right as indicated by the arrow.</p></figcaption></figure>
 
 To generate the necessary mapping text file ([2025TB-file](https://github.com/eic/epic-lfhcal-tbana/blob/184016dffc2e06f6315d2dde4281c495cda979ab/configs/mappingTree_default2025tb_HGCROC.txt#L4) you can use the `NewStructure/CreateMapping.C` macro:
 
 ```
-root -b -x -q -l 'CreateMapping.C("../configs/mappingSingleHGCROCAsic_2025tb.txt", "../configs/layersHGCROC_default_2025tb.txt", "../configs/modulePositions_2025.txt", "../configs/mappingTree_default2025tb_HGCROC.txt", 1, 0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2025/mappingSingleHGCROCAsic_2025tb.txt", "../configs/TB2025/layersHGCROC_default_2025tb.txt", "../configs/TB2025/modulePositions_2025.txt", "../configs/TB2025/mappingFile_default2025tb_HGCROC.txt", 1, 0)'
 ```

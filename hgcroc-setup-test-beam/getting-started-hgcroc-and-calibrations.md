@@ -161,13 +161,13 @@ After these calibrations have been run the **2.5V Internal Injection** test shou
 
 The calibration is handled and steered using `H2GCalib_3B`  package ([link](setting-up-daq-pc.md#software-installation)). Its workflow is as follows.&#x20;
 
-<figure><img src="/broken/files/N5V6q0sYuDv98DIe9gpN" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-48-32 (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Calibration Gui
 
 It is highly recommended to run the `100_UI.py` script first. This script provides a user interface for selecting the calibration files and setting various parameters for the calibration process. Once more it will ask in the beginning to select how many KCU's and ASICs per KCU are connected.
 
-<div><figure><img src="/broken/files/Nw7R3zmxG0krFVYAsRoy" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/UI_FPGA_2.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/UI_Start_2 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/UI_FPGA_2.png" alt=""><figcaption></figcaption></figure></div>
 
 **Always start 101\_SocketPool before running any other script.** This script will forward the UDP packets from the H2GCROC-3B to the calibration scripts. It is essential for the calibration process to function correctly. Don't forget to terminate the socket before starting any other data taking process.
 
