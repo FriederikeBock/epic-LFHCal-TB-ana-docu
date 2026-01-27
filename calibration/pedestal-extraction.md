@@ -45,9 +45,7 @@ TileCalib{
 
 The executable will produce a variety of control plots for each cell and overview plots for the full ensemble of cells in order to monitor the correct execution of the program. Make sure you actually check those! A few example plots are given below.
 
-<figure><img src="../.gitbook/assets/HG_Noise (1).png" alt="" width="375"><figcaption><p>Raw HG  ADCs for each cell. </p></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/LG_Noise.png" alt="" width="375"><figcaption><p>Raw LG ADCs for each cell.</p></figcaption></figure>
+<div><figure><img src="../.gitbook/assets/HG_Noise (1).png" alt="" width="375"><figcaption><p>Raw HG  ADCs for each cell. </p></figcaption></figure> <figure><img src="../.gitbook/assets/LG_Noise.png" alt="" width="375"><figcaption><p>Raw LG ADCs for each cell.</p></figcaption></figure></div>
 
 Above you find the HG or LG ADCs for each tile/cell as function of the cell ID. They are displayed in the region where the pedestal would be expected (0 < ADC < 300). For this particular run a full 8M LFHCal module with 64 layers was read out by 8 CAEN units. In principle the pedestal offset for all of these had been set to ADC = 50. However, it can be seen that for some of the read-out units a significantly different offset seems to have been applied. The individual spectra for each cell are plotted in overview plots per layer together with the corresponding Gaussian fits to assess the pedestal mean and  width.&#x20;
 
@@ -59,13 +57,9 @@ Above you find the HG or LG ADCs for each tile/cell as function of the cell ID. 
 
 Overview plots displaying the fitted values in a 2 dimensional version as function of the layer and the respective channel within the layer are also produced.&#x20;
 
-<figure><img src="../.gitbook/assets/HG_NoiseMean (2).png" alt="" width="375"><figcaption><p>HG pedestal mean for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure>
+<div><figure><img src="../.gitbook/assets/HG_NoiseMean (2).png" alt="" width="375"><figcaption><p>HG pedestal mean for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_NoiseSigma (2).png" alt="" width="375"><figcaption><p>HG pedestal width for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/HG_NoiseSigma (2).png" alt="" width="375"><figcaption><p>HG pedestal width for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/LG_NoiseMean (2).png" alt="" width="375"><figcaption><p>LG pedestal mean for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/LG_NoiseSigma (2).png" alt="" width="375"><figcaption><p>LG pedestal width for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure>
+<div><figure><img src="../.gitbook/assets/LG_NoiseMean (2).png" alt="" width="375"><figcaption><p>LG pedestal mean for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LG_NoiseSigma (2).png" alt="" width="375"><figcaption><p>LG pedestal width for each layer and channel on the board. The brd channels 0-3 reflect the lower row of the assembly, while 4-7 reflect the upper row of each assembly.</p></figcaption></figure></div>
 
 By default all plots will be generated as pdf files, allowing you to merge pdfs into one single pdf by running:
 
