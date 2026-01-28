@@ -8,7 +8,7 @@ When we are taking taking data we are reading out every channel for every event,
 
 ***
 
-## CAEN data
+## General MIP-Calibration steps
 
 ### Transferring the pedestal calibrations to a different run
 
@@ -26,7 +26,7 @@ It is also possible to overwrite the calibration which is being loaded from `Ped
 
 During the transfer of the pedestal calibrations it is also possible to either evaluate the bad channels or apply an external bad channel map.
 
-```
+```bash
 #calculate bad channel (not fully developed yet)
 ./DataPrep -b -d 1 -e -f -P PedestalCalib_$RUNNR1.root -i raw_$RUNNR2.root -o rawPed_$RUNNR2.root -O $PLOTSDIR -r $RUNLIST 
 #read an external bad channel from $BADCHANNELMAP
@@ -59,11 +59,11 @@ All channels not listed in the BC map will be assumed to be good and the calib-o
 
 The option `-e` allows you to force the executable to draw more plots for your information, like the individual spectra of each channel per layer.&#x20;
 
-<div><figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer11.png" alt=""><figcaption><p>HG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer17.png" alt=""><figcaption><p>HG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse). </p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer11.png" alt=""><figcaption><p>LG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer17.png" alt=""><figcaption><p>LG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse). </p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer11.png" alt=""><figcaption><p>CAEN HG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer17.png" alt=""><figcaption><p>CAEN HG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse). </p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer11.png" alt=""><figcaption><p>CAEN LG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer17.png" alt=""><figcaption><p>CAEN LG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse). </p></figcaption></figure></div>
 
 The original data per tile & event will not be modified in this process, it is a true copy process. The corresponding routine being executed can be found here:
 
-`bool Analyses::CorrectPedestal(void)` in [Analyses.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Analyses.cc).
+`bool Analyses::TransferCalib(void)` in [Analyses.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Analyses.cc).
 
 If your muon runs were for instance done with multiple positions of the beam and you plan to apply the same pedestals to them you can simply `hadd` the raw files and afterwards run the calibration transfer, i.e.:
 
@@ -71,7 +71,33 @@ If your muon runs were for instance done with multiple positions of the beam and
 hadd -f raw_muonScanA1_45V.root raw_244.root raw_250.root
 ```
 
+**For the HGCROC-data the calibration transfer is handled a little bit differently as the raw waveforms are being reevaluated in this step.**&#x20;
 
+During this transfer process the pedestal values of the waveforms are reset with the following priority:
+
+```cpp
+// get pedestal values from calib object
+double ped = calib.GetPedestalMeanL(cellID); // ped based on waveform fit
+if (ped == -1000){
+  ped = calib.GetPedestalMeanH(cellID);      // ped based on first sample fit
+  if (ped == -1000){
+    ped = aTile->GetPedestal();              // event-by-event first sample
+  }
+}
+// reevaluate waveform
+waveform_builder->set_waveform(aTile->GetADCWaveform());
+waveform_builder->fit_with_average_ped(ped);
+aTile->SetIntegratedADC(waveform_builder->get_E());
+aTile->SetPedestal(waveform_builder->get_pedestal());
+```
+
+Afterwards the IntegratedADC value is also reevaluted. In the current version no true waveform fit is being performed but rather the maximum ADC out of all samples is taken as ADC value from here-on out.&#x20;
+
+Additional QA plots are also produced to ascertain the correct application of the pedestal values and visualize the ADC-waveforms as function of number of samples. Such plots are produced for two cases a) without any selections or b) if the ToA of the corresponding channel was larger than `0` . The ToA for the 2025 data taking campaign was configured such that it should have fired slightly below the average mip signal. Either of these plots are however only produced if any of the extended plotting options is enabled.&#x20;
+
+<figure><img src="../.gitbook/assets/Waveform_Layer01 (1).png" alt=""><figcaption><p>Waveform representation as obtained from the TransferCalib running. No event or signal selection criteria are applied. </p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/WaveformSignal_Layer1.png" alt=""><figcaption><p>Waveform representation as obtained from the TransferCalib running for waveforms which have a non-zero ToA.</p></figcaption></figure>
 
 ***
 
@@ -89,15 +115,15 @@ This should ideally be done on using a `$rawPedWBC_$RUNNR.root` file which alrea
 
 `bool Analyses::GetScaling(void)` in [Analyses.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Analyses.cc).
 
-This function processes the full event tree twice and tries to fit the MIP peak in two different versions. In the first iteration over the data for each cell a histogram is filled for both HG and LG without any kind of trigger selection correcting the ADC values for their respective pedestal values.&#x20;
+This function processes the full event tree twice and tries to fit the MIP peak in two different versions. In the first iteration over the data for each cell a histogram is filled for both HG and LG without any kind of trigger selection correcting the ADC values for their respective pedestal values. When running over HGCROC data currently only one of the two is filled, the HG-ADC, which is equivalent to the lower energy range of the HGCROC readout. The higher energy equivalent of the HGCROC data cannot calibrated using mips.&#x20;
 
-Afterwards a Landau-Gauss-function is fit to every HG-spectrum and if the fit succeeds a first value for the maximum of the Landau-Gauss as well as its width is stored in the calibration object which is read from the input file. Should the fit fail for instance because the pedestal (noise) peak is too large or too close, no values are stored in the calib-objects. Overview plots showing the respective values during the first iteration are also generated
+Afterwards a Landau-Gauss-function is fit to every HG-spectrum (CAEN) & ADC-spectrum (HGCROC data) and if the fit succeeds a first value for the maximum of the Landau-Gauss as well as its width is stored in the calibration object which is read from the input file. Should the fit fail for instance because the pedestal (noise) peak is too large or too close, no values are stored in the calib-objects. Overview plots showing the respective values during the first iteration are also generated
 
 <div><figure><img src="../.gitbook/assets/HG_FWHMMip_1st (1).png" alt=""><figcaption><p>FWHM of the fits of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_GaussSigMip_1st.png" alt=""><figcaption><p>Gaussian sigma of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandMPVMip_1st.png" alt=""><figcaption><p>Most probable value of the Landau distribution after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandSigMip_1st.png" alt=""><figcaption><p>Width of the Landau distribution, after the first iteration.</p></figcaption></figure></div>
 
 <figure><img src="../.gitbook/assets/HG_MaxMip_1st (1).png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution after the first iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (&#x3C;MaxHG> = 214).</p></figcaption></figure>
 
-In addition the linear relation between the LG & HG is evaluated and its slope stored in the calibration objects.&#x20;
+In addition the linear relation between the LG & HG is evaluated and its slope stored in the calibration objects for the CAEN processing case.&#x20;
 
 <figure><img src="../.gitbook/assets/LGHG_Corr_Layer00.png" alt=""><figcaption><p>LG-HG correlation for each cell in layer 0 for cross-calibration of the two read-out scales.</p></figcaption></figure>
 
@@ -109,7 +135,7 @@ Using this information local trigger primitives are being calculated. Taking int
 
 `double CalculateLocalMuonTrigg(Calib, TRandom3*, int, int, double)` in [Event.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Event.cc)
 
-It combines the information based on the ADC value in the HG (low energy) and LG (high energy) and forming a combined average signal of `n*2` tiles in a row. The tile under investigation is then flagged as local muon triggered tile if  `facMin*avMIP < ADC HG < facMax*avMIP`.  A rather loose selection is done in this step as potentially the `avMIP` is still biased, if not all channels could be fit reliably in the first iteration. For the 2024 data the respective factors are:
+It combines the information based on the ADC value in the HG (low energy) and LG (high energy) and forming a combined average signal of `n*2` tiles in a row. The tile under investigation is then flagged as local muon triggered tile if  `facMin*avMIP < ADC HG < facMax*avMIP`.  A rather loose selection is done in this step as potentially the `avMIP` is still biased, if not all channels could be fit reliably in the first iteration. For the 2024 CAEN data the respective factors are:
 
 ```cpp
 double factorMinTrigg   = 0.5;
@@ -124,7 +150,7 @@ This suppresses the pedestal peak by a rather large amount and allows for a more
 
 <figure><img src="../.gitbook/assets/TriggPrimitive_Layer09.png" alt=""><figcaption><p>Trigger primitive distribution for the cells in layer 9, shaded area indicates muon triggered events. </p></figcaption></figure>
 
-The evaluated trigger primitives are stored in the new output for event and tile, allowing to reevalulate the trigger in subsequent iterations with stricter seletion criteria.
+The evaluated trigger primitives are stored in the new output for event and tile, allowing to reevalulate the trigger in subsequent iterations with stricter selection criteria.
 
 The corresponding HG and LG spectra for the locally muon triggered events are then fitted again with a Landau-Gauss function and if successful the corresponding calibration values are updated.&#x20;
 
@@ -142,6 +168,13 @@ bool TilesSpecta::FitMipLG(double*, double*, int, int, bool, double )
 ```
 
 in [TileSpecta.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/TileSpectra.cc).&#x20;
+
+The same evalulation steps are performed in case of the HGCROC data processing, however only the low energy equivalent is being fitted (ADC). Hence no cross-correlations are being evaluated between ADC and TOT. The relevant calibration parameter stored for the MIP scale is the `ScaleH`  and its width `ScaleWidthH` .
+
+```cpp
+double ScaleH         = -1000.;     // Max Mip in HG ADC (CAEN) or ADC (HGCROC) 
+double ScaleWidthH    = -1000.;     // FWHM of Mip in HG ADC (CAEN) or ADC (HGCROC) 
+```
 
 #### Step 2
 
@@ -166,19 +199,23 @@ The detailed implementation can be found in:
 
 `bool Analyses::GetImprovedScaling(void)` in [Analyses.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Analyses.cc).
 
-The step 2 can be repeated as often as necessary on the output created in the previous iteration of step 2, until the fitting converges for a maximum of cells. To ease this judgement the following lines can be found in the shell output:
+The step 2 can be repeated as often as necessary on the output created in the previous iteration of step 2, until the fitting converges for a maximum of cells.&#x20;
+
+_As the data of the HGCROC max ADC values fluctates on a bin-by-bin basis more than it physically should a constant 10% systematic uncertainty is added to each bin in order to allow the Landau-Gauss fits to converge. The reason for the unphysical fluctuations is still under investigation._
+
+To ease this judgement the following lines can be found in the shell output:
 
 <pre class="language-sh"><code class="lang-sh"><strong>average input HG mip: 375.625 LG mip: 33.0965 act. ch: 505
 </strong>average updated HG mip: 375.797 LG mip: 33.0965 act. ch: 505
 </code></pre>
 
-Indicating the average mip values for HG and LG before and after the current iteration as well as the calibratable channels. If the before and after are close enough it can be assumed that the fitting cannot be improved without manual intervention.&#x20;
+Indicating the average mip values for HG and LG before and after the current iteration as well as the calibratable channels. If the before and after are close enough it can be assumed that the fitting cannot be improved without manual intervention. In case of HGCROC data processing no LG mip range is available hence that value will be `0` or `nan` and does not need to be taking into account.
 
 Otherwise a very similar set of plots is produced as for the second part of Step 1, which should be looked at in detail to ensure good quality of fits.
 
 ***
 
-
+## CAEN data
 
 ### September 2023 data
 
@@ -224,9 +261,45 @@ bash runCalibration_2024.sh $USERNAME muoncalibA1 improvedWBC5th
 
 Please have a look which options for the 2nd argument are available to select different data sets.
 
+***
+
 ## HGCROC Data
 
+### August 2024
+
+A starting point for the calibration of the 2024 HGCROC data has been assembled in the follwing scripts, however running it needs to be taken with care as there were significant difficulties during the data taking and hence the data interpretation is not as straightforward.
+
+```bash
+# merge the muon files correctly (comment out which set you need)
+bash convertDataHGCROC_2024.sh $USERNAME MergeMuons
+
+# transfering the pedestal calibration to the merged muon file of interest with external bad channel map applied
+bash runHGCROCCalibration_2024.sh $USERNAME [calibMuon|calibMuonT] BC
+
+# MIP extraction: STEP 1
+# run first step of mip extraction with external bad channel map applied
+# THIS WILL TAKE A WHILE (~4h for 200K events)
+bash runHGCROCCalibration_2024.sh $USERNAME [calibMuon|calibMuonT] default
+# to decrease the amount of time running over the files we should skim the muons events
+bash runHGCROCCalibration_2024.sh $USERNAME calibMuon saveNewMuon
+
+# MIP extraction: STEP 2 - with full files:
+# run 1st iteration of 2nd step
+bash runHGCROCCalibration_2024.sh $USERNAME [calibMuon|calibMuonT] improved
+
+# MIP extraction: STEP 2 - with skimmed files
+# run 1st iteration of 2nd step 
+bash runHGCROCCalibration_2024.sh $USERNAME [calibMuon|calibMuonT] improvedMinimal
+# run 2nd iteration of 2nd step
+bash runHGCROCCalibration_2024.sh $USERNAME [calibMuon|calibMuonT] improvedMinimal2nd
+# run 3rd iteration of 2nd step
+bash runHGCROCCalibration_2024.sh $USERNAME [calibMuon|calibMuonT] improvedMinimal3rd
+
+```
+
 ### November 2025
+
+A comprehensive calibration script for the 2025 has been prepared and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze.
 
 ```bash
 # merge the muon files correctly (comment out which set you need)
