@@ -297,6 +297,8 @@ bash runHGCROCCalibration_2024.sh $USERNAME [calibMuon|calibMuonT] improvedMinim
 
 ```
 
+Either option `calibMuon` or `calibMuonT` (truncated) shoud be used.
+
 ### November 2025
 
 A comprehensive calibration script for the 2025 has been prepared and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze.
