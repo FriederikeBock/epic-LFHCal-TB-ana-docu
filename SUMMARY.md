@@ -10,6 +10,7 @@
 ## Calibration
 
 * [Pedestal extraction](calibration/pedestal-extraction.md)
+* [ToA Phase extraction](calibration/toa-phase-extraction.md)
 * [MIP calibration](calibration/mip-calibration.md)
 * [Apply Calibrations](calibration/apply-calibrations.md)
 * [Other useful function during calibration](calibration/other-useful-function-during-calibration.md)
