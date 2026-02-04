@@ -71,7 +71,14 @@ If your muon runs were for instance done with multiple positions of the beam and
 hadd -f raw_muonScanA1_45V.root raw_244.root raw_250.root
 ```
 
+#### **HGCROC specific handling**
+
 **For the HGCROC-data the calibration transfer is handled a little bit differently as the raw waveforms are being reevaluated in this step.**&#x20;
+
+```bash
+#read an external bad channel from $BADCHANNELMAP
+./DataPrep -d 1 -e -f -P PedestalCalib_$RUNNR1.root -i raw_$RUNNR2.root -o rawPed_$RUNNR2.root -B $BADCHANNELMAP -G $TOAOFFSETFILE -O $PLOTSDIR -r $RUNLIST 
+```
 
 During this transfer process the pedestal values of the waveforms are reset with the following priority:
 
@@ -98,6 +105,20 @@ Additional QA plots are also produced to ascertain the correct application of th
 <figure><img src="../.gitbook/assets/Waveform_Layer01 (1).png" alt=""><figcaption><p>Waveform representation as obtained from the TransferCalib running. No event or signal selection criteria are applied. </p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/WaveformSignal_Layer1.png" alt=""><figcaption><p>Waveform representation as obtained from the TransferCalib running for waveforms which have a non-zero ToA.</p></figcaption></figure>
+
+Moreover, the correction for the `TOA` offset is performed if the option `-G $TOAOFFSETFILE` is used. With the `$TOAOFFSETFILE=../configs/TB2025/ToAOffsets_TB2025_HadRun.csv` for instance. How to generate that offset file is described in the [TOA phase extraction section](toa-phase-extraction.md). In order to check that this correction has been applied additional plots vs `TOA` as well as waveforms per asic half are generated.&#x20;
+
+<div><figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_1.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_1_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_3_Half_0.png" alt=""><figcaption></figcaption></figure></div>
+
+<div><figure><img src="../.gitbook/assets/Waveform_Asic_0_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_0_Half_1.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_1_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_3_Half_0.png" alt=""><figcaption></figcaption></figure></div>
+
+<div><figure><img src="../.gitbook/assets/NSampleToA.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/SampleTOAvsCellID.png" alt=""><figcaption></figcaption></figure></div>
+
+These plots show the corrected distributions of what has been previous shown in [TOA phase extraction section](toa-phase-extraction.md). Clearly highlighting the improved understanding of the data. Moreover, the linearized `TOA` distribution before and after correction is shown expressed in _ns._ In order to do so an average time resolution of `25./1024` ns is assumed.
+
+<div><figure><img src="../.gitbook/assets/TOANsvsCellID.png" alt=""><figcaption><p>Uncorrected linearized TOA in ns.</p></figcaption></figure> <figure><img src="../.gitbook/assets/TOACorrNsvsCellID.png" alt=""><figcaption><p>Corrected linearized TOA in ns.</p></figcaption></figure></div>
+
+This `TOA` correction is necessary should we ever want to perform a more sophisticated waveform fit or correction, besides the maximum ADC evaluation.
 
 ***
 

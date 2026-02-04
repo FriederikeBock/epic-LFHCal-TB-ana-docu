@@ -2,7 +2,7 @@
 description: >-
   This step is only necessary for the HGCROC data, for CAEN data processing
   please continue to the next section.
-cover: ../.gitbook/assets/ToaVsNSample_Asic_0_Half_0.png
+cover: ../.gitbook/assets/ToaVsNSample_Asic_0_Half_0 (1).png
 coverY: -128.89438202247192
 layout:
   width: default
@@ -47,9 +47,9 @@ For now we don't plan to implement this calibration as we aren't planning to use
 
 A TOA value should be written to the next sample after the threshold had been surpassed. However, it is sampled of a 160MHz clock, which is derived from our 40 MHz clock. This clocks might not be fully aligned and could have 4 different phases, which can vary for each half of the HGCROC chip. Below you find examples of the `TOA` vs the sample nr it was recorded in as well as the waveforms shifted by the linearized `TOA`.
 
-<div><figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_0 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_1.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_1_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_3_Half_0.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_0 (1) (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_1 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_1_Half_0 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_3_Half_0 (1).png" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/Waveform_Asic_0_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_0_Half_1 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_1_Half_0 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_3_Half_0 (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/Waveform_Asic_0_Half_0 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_0_Half_1 (1) (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_1_Half_0 (1) (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Asic_3_Half_0 (1) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 The linearized `TOA` calculation can be found in [HGCROC.cc](https://hgcroc.cc):
 
