@@ -167,7 +167,7 @@ If you don't know where raw files for the data are contact Friederike Bock (fboc
 
 As you might be analyzing quite a lot of runs and doing things in parallel for instance on the same data set but with different settings it might be worth separating the directory in which you have the checked out version of the software and where you are compiling/running & storing things.&#x20;
 
-To do so we prepared a small script which can create soft-links to your original software directory (allowing you to have the same software version w/o multiple copies). This script is called `$prepareAnalysisDirectory.sh` and can be executed as follows on any unix system:
+To do so we prepared a small script which can create soft-links to your original software directory (allowing you to have the same software version w/o multiple copies). This script is called `prepareAnalysisDirectory.sh` and can be executed as follows on any unix system:
 
 ```sh
 bash $PATHTOSCRIPT/prepareAnalysisDirectory.sh $USERNAME [new/old]
