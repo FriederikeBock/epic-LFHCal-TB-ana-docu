@@ -284,3 +284,57 @@ H2GConfig/config/ConfigsPrep/StartingConfig_ped80_toa30_tot300/
 ```
 
 The naming scheme follows a similar pattern, the latter can be used for UCR-02 (Asic 0, Asic 1 - FPGA-0), UCR-01 (Asic 2, Asic 3- FPGA-0), GSU-01  (Asic 0, Asic 1 - FPGA-1), ANL-01 (Asic 2, Asic 3- FPGA-1).
+
+### What to do if Calib crashed and socket reconnection failed?
+
+If the calib crashed in an unforseen way, the socket sometimes doesn't get closed, this is a bit of a problem, as there can be only one socket on the same port. Thus you need to find the process which still has the socket open.&#x20;
+
+```bash
+// show open ports/sockets
+sudo ss -tulpn
+// example output
+Netid	State	 Recv-Q	Send-Q	Local Address:Port  	Peer Address:Port   Process	 
+udp	UNCONN	0	960	0.0.0.0:43050	 	0.0.0.0:*	    users:(("cs_server",pid=2308457,fd=5))	 
+udp	UNCONN	0	0	0.0.0.0:60611	 	0.0.0.0:*	    users:(("avahi-daemon",pid=1399,fd=14))	
+udp	UNCONN	0	0	127.0.0.54:53	 	0.0.0.0:*	    users:(("systemd-resolve",pid=1322,fd=16))	
+udp	UNCONN	0	0	127.0.0.53%lo:53	0.0.0.0:*	    users:(("systemd-resolve",pid=1322,fd=14))	
+udp	UNCONN	0	0	0.0.0.0:1534		0.0.0.0:*	    users:(("vivado_lab",pid=2307920,fd=302))	 
+udp	UNCONN	0	0	0.0.0.0:4000		0.0.0.0:*	    users:(("nxd",pid=2319,fd=13))	
+udp	UNCONN	0	0	0.0.0.0:54216	 	0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=5))	 
+udp	UNCONN	8640	0	10.7.140.15:5353	0.0.0.0:*	    users:(("nxserver.bin",pid=2225,fd=60))	
+udp	UNCONN	8640	0	10.1.2.207:5353		0.0.0.0:*	    users:(("nxserver.bin",pid=2225,fd=58))	
+udp	UNCONN	0	0	0.0.0.0:5353		0.0.0.0:*	    users:(("nxserver.bin",pid=2225,fd=59))	
+udp	UNCONN	0	0	0.0.0.0:5353		0.0.0.0:*	    users:(("avahi-daemon",pid=1399,fd=12))	
+udp	UNCONN	0	0	[::]:4000		[::]:*	    	    users:(("nxd",pid=2319,fd=14))	
+udp	UNCONN	0	0	[::]:54173	 	[::]:*	            users:(("avahi-daemon",pid=1399,fd=15))	
+udp	UNCONN	0	0	[::]:5353		[::]:*	            users:(("avahi-daemon",pid=1399,fd=13))	
+tcp	LISTEN	3	128	127.0.0.1:6002		0.0.0.0:*	    users:(("python3",pid=3837331,fd=4))	 
+tcp	LISTEN	7	128	127.0.0.1:6001		0.0.0.0:*	    users:(("python3",pid=3837331,fd=5))	 
+tcp	LISTEN	0	128	127.0.0.1:7001		0.0.0.0:*	    users:(("nxnode.bin",pid=4144,fd=27))	
+tcp	LISTEN	0	100	127.0.0.1:22574	 	0.0.0.0:*	    users:(("nxserver.bin",pid=2225,fd=26))	
+tcp	LISTEN	0	4096	127.0.0.1:631		0.0.0.0:*	    users:(("cupsd",pid=3610485,fd=7))	
+tcp	LISTEN	0	16	127.0.0.1:3121		0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=4))	 
+tcp	LISTEN	0	4096	127.0.0.54:53	 	0.0.0.0:*	    users:(("systemd-resolve",pid=1322,fd=17))	
+tcp	LISTEN	0	100	0.0.0.0:4000		0.0.0.0:*	    users:(("nxd",pid=2319,fd=7))	
+tcp	LISTEN	0	5	127.0.0.1:42619	 	0.0.0.0:*	    users:(("cs_server",pid=2308457,fd=6))	 
+tcp	LISTEN	0	64	127.0.0.1:25321	 	0.0.0.0:*	    users:(("nxserver.bin",pid=2225,fd=34))	
+tcp	LISTEN	0	4	0.0.0.0:3000		0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=7))	 
+tcp	LISTEN	0	4	0.0.0.0:3001		0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=8))	 
+tcp	LISTEN	0	4	0.0.0.0:3002		0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=10))	
+tcp	LISTEN	0	4	0.0.0.0:3003		0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=12))	
+tcp	LISTEN	0	4	0.0.0.0:3004		0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=14))	
+tcp	LISTEN	0	4	0.0.0.0:3005		0.0.0.0:*	    users:(("hw_server",pid=2308349,fd=16))	
+tcp	LISTEN	0	100	127.0.0.1:25001	 	0.0.0.0:*	    users:(("nxrunner.bin",pid=4167,fd=14))	
+tcp	LISTEN	0	100	127.0.0.1:12001	 	0.0.0.0:*	    users:(("nxnode.bin",pid=4144,fd=20))	
+tcp	LISTEN	0	4096	127.0.0.53%lo:53	0.0.0.0:*	    users:(("systemd-resolve",pid=1322,fd=15))	
+tcp	LISTEN	0	4096	0.0.0.0:22	 	0.0.0.0:*	    users:(("systemd",pid=1,fd=92))	 
+tcp	LISTEN	0	4096	[::1]:631	 	[::]:*	            users:(("cupsd",pid=3610485,fd=6))	
+tcp	LISTEN	0	100	[::]:4000		[::]:*	            users:(("nxd",pid=2319,fd=8))	
+tcp	LISTEN	0	128	[::1]:7001		[::]:*	            users:(("nxnode.bin",pid=4144,fd=25))	
+tcp	LISTEN	0	4096	[::]:22			[::]:*	            users:(("systemd",pid=1,fd=93))   
+// search for process bound to 127.0.0.1 port 6002/6001 this should be a python process
+127.0.0.1:6002    users:(("python3",pid=3837331,fd=4))      
+127.0.0.1:6001    users:(("python3",pid=3837331,fd=5))                                 
+// kill the respective process in the backend
+kill -9 3837331
+```
