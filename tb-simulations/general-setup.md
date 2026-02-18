@@ -15,9 +15,9 @@ Our current plan for the simulations of the various test beams is to first imple
 
 Our current test beam geometry isn't yet included in the main branch of the epic-dd4hep repository, as it isn't fully functional yet. However, a good starting point has been provided in a [draft PR](https://github.com/eic/epic/tree/pr/lfhcal_8m_module_only). This however means we can't just blindly run the central compiled epic software but need to compile our own repository.&#x20;
 
-```
-// clone epic-dd4-hep directory 
-// -> recommendation: don't put it into the same folder as the eic shell lives
+```bash
+## clone epic-dd4-hep directory 
+## -> recommendation: don't put it into the same folder as the eic shell lives
 git clone git@github.com:eic/epic.git epic-dd4hep
 cd epic-dd4hep
 git fetch origin
@@ -26,20 +26,20 @@ git switch pr/lfhcal_8m_module_only
 
 Basic steps after you installed eic-shell:
 
-```
-// go to your directory with the epic-singularity installations
-// make sure your eic-shell is up to date, this might take a minute if you haven't updated recently
+```bash
+## go to your directory with the epic-singularity installations
+## make sure your eic-shell is up to date, this might take a minute if you haven't updated recently
 ./eic-shell --upgrade
-// enter EIC shell
+## enter EIC shell
 ./eic-shell
-// this set the environment variables correctly for all packages
+## this set the environment variables correctly for all packages
 source /opt/detector/epic-main/bin/thisepic.sh
-// now we need to go to our freshly checked out repo
+## now we need to go to our freshly checked out repo
 cd $WHERE_EVER_YOUR_EPIC_DIR_IS/epic-dd4hep
-// build commands
+## build commands
 cmake -B build -S . -DCMAKE_INSTALL_PREFIX=install
 cmake --build build -- install -j8
-// reset environment variables to pick up this version of the epic
+## reset environment variables to pick up this version of the epic
 source install/bin/thisepic.sh
 ```
 
