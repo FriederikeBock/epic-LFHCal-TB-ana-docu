@@ -4,23 +4,6 @@ description: >-
   please continue to the next section.
 cover: ../.gitbook/assets/ToaVsNSample_Asic_0_Half_0 (1).png
 coverY: -128.89438202247192
-layout:
-  width: default
-  cover:
-    visible: true
-    size: full
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
-  metadata:
-    visible: true
 ---
 
 # ToA Phase extraction
