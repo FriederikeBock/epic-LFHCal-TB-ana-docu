@@ -56,6 +56,8 @@ Optional input:
 * `OutputPlots` - plotting directory, providing the directory enables plotting
 * `OutputPath` - setting the directory and name of the output `.root` file, otherwise the file will be save in the same place as `.csv` file with the same name as `.csv` file
 
+<figure><img src="../.gitbook/assets/Waveform_Mod00_Layer04.png" alt=""><figcaption></figcaption></figure>
+
 ### Compare ADC and TOT vs DAC based on Injection Scan
 
 Takes the `.root` output of the previous macro for various DAC values. It is advised to run the previous macro with the run list file in which injection is treated as a run number.
@@ -71,3 +73,6 @@ Required input:
 * `InputFileList` - txt file with the list of `.root` files to compare
 * `PlottingDirectory` - plotting directory
 
+
+
+<figure><img src="../.gitbook/assets/TOT_ADCvsInjVal_Cell64.png" alt="" width="375"><figcaption></figcaption></figure>
