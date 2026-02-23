@@ -24,6 +24,7 @@
 * [MIP calibration](calibration/mip-calibration.md)
 * [Apply Calibrations](calibration/apply-calibrations.md)
 * [Other useful functions during calibration](calibration/other-useful-function-during-calibration.md)
+* [Reading HGCROC online calibrations](calibration/reading-hgcroc-online-calibrations.md)
 
 ## Data analysis
 
