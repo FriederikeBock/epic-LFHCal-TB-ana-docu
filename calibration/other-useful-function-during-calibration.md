@@ -12,6 +12,17 @@
 ./DataPrep -f -d 1 -N -i rawPedAndMuonNoise_$RUNNR.root -o raw_pedonly_$RUNNR.root 
 ```
 
+## Overwriting an existing setup tree
+
+<mark style="background-color:red;">**This operation should only be done if a never version of the setup object needs to be written which contains the same information!**</mark> <mark style="background-color:red;"></mark><mark style="background-color:red;">This is an</mark> <mark style="background-color:red;"></mark><mark style="background-color:red;">**EXPERT OPERATION**</mark><mark style="background-color:red;">, please check with Friederike or Oskar whether this is the appropriate use case for your particular application.</mark>&#x20;
+
+The following command would copy the calib & data tree and replace the setup tree according to the newly provided mapping file
+
+```bash
+// Example for rewriting raw file with new setup tree for 2025 TB 
+./DataPrep -R ../configs/TB2025/mapping_HGCROC_PSTB2025_default_wSegments.txt -i 202511_PST09/HGCROCData/rawHGCROC_207.root -o 202511_PST09/HGCROCData/rawHGCROC_207_setupReplaced.root
+```
+
 ## Restricting the number of events to be analyzed
 
 For some functions of `./DataPrep` an option to limit the running only over a fraction of the events is implemented use `-L $NEVTSANA` if need be.
