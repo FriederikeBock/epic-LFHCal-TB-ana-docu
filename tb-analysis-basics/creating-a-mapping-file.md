@@ -25,7 +25,7 @@ A picture of the mapping of one CAEN unit to 8 physical layers can be seen below
 To ease the generation of the necessary mapping text file (i.e [2024TB-file](https://github.com/eic/epic-lfhcal-tbana/blob/main/configs/mappingFile_202409_CAEN.txt)) you can use the [CreateMapping.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/CreateMapping.C) macro, as follows:
 
 ```
-root -b -x -q -l 'CreateMapping.C+("../configs/mappingSingleCAENUnit.txt","../configs/TB2024/layersCAEN_PSTB_2024.txt","../configs/TB2024/modulePositions_2024.txt","Mapping.txt",0,0)'
+root -b -x -q -l 'CreateMapping.C+("../configs/mappingSingleCAENUnit.txt","../configs/TB2024/layersCAEN_PSTB_2024.txt","../configs/TB2024/modulePositions_2024.txt","Mapping.txt",0,0,0)'
 ```
 
 The options in order are explained in the following, with parts of the examples from the 2024 CAEN TB.
@@ -83,6 +83,7 @@ The options in order are explained in the following, with parts of the examples 
 ```
 
 * Option to switch between labels for CAEN :`0` and HGCROC: `1` labeling
+* Option to switch between different summing options: `0` (no summing), `1` (5-5-10-10-10-10-5-5), `2` (5-5-5-5-10-10-10-10)
 * Debug level to get more print outs for debugging: `0`-nothing, `1`-minimal, `2`-full
 
 ## From read-out level to proper geometry- TB 2024-HGCROC example
@@ -97,7 +98,7 @@ $LAYERSFILE3="../configs/TB2024/layersHGCROC_PSTB2024_Run118-337.txt" # Runs 118
 ```
 
 ```
-root -b -x -q -l 'CreateMapping.C("../configs/TB2024/mappingSingleHGCROCAsic_alternate.txt","../configs/TB2024/layersHGCROC_PSTB2024_Run5-67.txt","../configs/TB2024/modulePositions_2024.txt","../configs/TB2024/mapping_HGCROC_PSTB2024_Run5-67_alternate.txt",1,0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2024/mappingSingleHGCROCAsic_alternate.txt","../configs/TB2024/layersHGCROC_PSTB2024_Run5-67.txt","../configs/TB2024/modulePositions_2024.txt","../configs/TB2024/mapping_HGCROC_PSTB2024_Run5-67_alternate.txt",1,0,0)'
 ```
 
 ## Predefined mappings with their physical connector boards and readout hardware
@@ -127,5 +128,26 @@ The modules in the default 2025 TB configuration are shown below with all layers
 To generate the necessary mapping text file ([2025TB-file](https://github.com/eic/epic-lfhcal-tbana/blob/184016dffc2e06f6315d2dde4281c495cda979ab/configs/mappingTree_default2025tb_HGCROC.txt#L4) you can use the `NewStructure/CreateMapping.C` macro:
 
 ```
-root -b -x -q -l 'CreateMapping.C("../configs/TB2025/mappingSingleHGCROCAsic_2025tb.txt", "../configs/TB2025/layersHGCROC_default_2025tb.txt", "../configs/TB2025/modulePositions_2025.txt", "../configs/TB2025/mappingFile_default2025tb_HGCROC.txt", 1, 0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2025/mappingSingleHGCROCAsic_2025tb.txt", "../configs/TB2025/layersHGCROC_default_2025tb.txt", "../configs/TB2025/modulePositions_2025.txt", "../configs/TB2025/mapping_HGCROC_PSTB2025_default_wSegments.txt", 1, 0, 0)'
 ```
+
+## 2026 Test beam mapping
+
+For the 2026 TB we will be using summing boards (depicted below). This means 1 asic will be reading out an entire 8M module. There are two version of the summing board available, they are conveniently color-coded and shouldn't be mixed:
+
+* green - v1: Uses the following summing scheme: 5 -5 -10 -10 -10 -10 -5 -5.
+* red - v2: Uses the following summing scheme: 5 -5 -5 -5 -10 -10 -10 -10.
+
+This means for both versions we are respectively summing for each channel within one layer either 5 or 10 layer in depth depending on the summing scheme and "layer" or rather segment number.&#x20;
+
+<div><figure><img src="../.gitbook/assets/summingBoard.jpg" alt="" width="375"><figcaption><p>Summing boards for 2026 test beam setup: 2 versions are available green: 5-5-10-10-10-10-5-5, red: 5-5-5-5-10-10-10-10.</p></figcaption></figure> <figure><img src="../.gitbook/assets/singleLayer_withLabels.png" alt=""><figcaption></figcaption></figure></div>
+
+The correspoding single mapping file can be found here : `configs/TB2026/mappingSingleASICSummingBoard.csv`  the usage of the CreateMapping remaings the same except that in addition the summing option (previous to last integer) needs to be adjusted to either option 1 or 2 of the summing board.
+
+Below an example of a test run at ORNL:
+
+```bash
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard.csv", "../configs/LocalTesting/layersHGCROC_summingTest_2026_1.csv", "../configs/TB2024/modulePositions_2024.txt", "../configs/LocalTesting/mapping_HGCROC_ORNL_SummingTest_2026_1.txt", 1, 1, 0)'
+```
+
+As we are now reading also the numer of layers per segment, it might become necessary to overwrite the setup trees in existing processed files. This should only be done if absolutely necessary and with special care. The corresponding instructions can be found [here](../calibration/other-useful-function-during-calibration.md).
