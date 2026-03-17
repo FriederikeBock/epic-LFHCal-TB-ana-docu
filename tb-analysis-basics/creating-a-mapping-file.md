@@ -151,3 +151,8 @@ root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoa
 ```
 
 As we are now reading also the numer of layers per segment, it might become necessary to overwrite the setup trees in existing processed files. This should only be done if absolutely necessary and with special care. The corresponding instructions can be found [here](../calibration/other-useful-function-during-calibration.md).
+
+<figure><img src="../.gitbook/assets/singleUnitMapping2026_8M_green.png" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the v1 summing board (green) from the TB in 2026.</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/singleUnitMapping2026_8M_red.png" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the v2 summing board (red) from the TB in 2026.</p></figcaption></figure>
+
