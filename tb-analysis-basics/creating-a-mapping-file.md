@@ -142,12 +142,15 @@ This means for both versions we are respectively summing for each channel within
 
 <div><figure><img src="../.gitbook/assets/summingBoard.jpg" alt="" width="375"><figcaption><p>Summing boards for 2026 test beam setup: 2 versions are available green: 5-5-10-10-10-10-5-5, red: 5-5-5-5-10-10-10-10.</p></figcaption></figure> <figure><img src="../.gitbook/assets/singleLayer_withLabels.png" alt=""><figcaption></figcaption></figure></div>
 
-The correspoding single mapping file can be found here : `configs/TB2026/mappingSingleASICSummingBoard.csv`  the usage of the CreateMapping remaings the same except that in addition the summing option (previous to last integer) needs to be adjusted to either option 1 or 2 of the summing board.
+The corresponding single mapping file can be found here : `configs/TB2026/mappingSingleASICSummingBoard_v1.csv` & `configs/TB2026/mappingSingleASICSummingBoard_v2.csv` the usage of the CreateMapping remains the same except that in addition the summing option (previous to last integer) needs to be adjusted to either option 1 or 2 of the summing board.
 
 Below an example of a test run at ORNL:
 
 ```bash
-root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard.csv", "../configs/LocalTesting/layersHGCROC_summingTest_2026_1.csv", "../configs/TB2024/modulePositions_2024.txt", "../configs/LocalTesting/mapping_HGCROC_ORNL_SummingTest_2026_1.txt", 1, 1, 0)'
+#v1 version (green board)
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v1.csv", "../configs/LocalTesting/layersHGCROC_summingTest_2026_2.csv", "../configs/TB2024/modulePositions_2024.txt", "../configs/LocalTesting/mapping_HGCROC_ORNL_SummingTest_2026_v1.txt", 1, 1, 0)'
+#v2 version (red board)
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/LocalTesting/layersHGCROC_summingTest_2026_2.csv", "../configs/TB2024/modulePositions_2024.txt", "../configs/LocalTesting/mapping_HGCROC_ORNL_SummingTest_2026_v2.txt", 1, 2, 0)'
 ```
 
 As we are now reading also the numer of layers per segment, it might become necessary to overwrite the setup trees in existing processed files. This should only be done if absolutely necessary and with special care. The corresponding instructions can be found [here](../calibration/other-useful-function-during-calibration.md).

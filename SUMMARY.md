@@ -39,6 +39,10 @@
 
 * [General Setup](tb-simulations/general-setup.md)
 
+## Other Useful Things
+
+* [Git basics & common solutions](other-useful-things/git-basics-and-common-solutions.md)
+
 ## Older Software
 
 * [Initial software for 2023 analysis](older-software/initial-software-for-2023-analysis.md)
