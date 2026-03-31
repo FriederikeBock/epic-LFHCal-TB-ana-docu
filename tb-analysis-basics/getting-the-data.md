@@ -13,7 +13,7 @@ In order to obtain the basic full eic-software stack please follow the instructi
 
 ## Step 2: Get the data
 
-```
+```bash
 // enter eic-shell
 ./eic-shell
 
@@ -21,25 +21,29 @@ In order to obtain the basic full eic-software stack please follow the instructi
 xrdfs root://dtn-eic.jlab.org
 
 // see all files
-ls /volatile/eic/EPIC/MC_input/LFHCal_BT/
-
+ls /volatile/eic/EPIC/TestBeam/LFHCal/
+2023_SPSH4/    2023_PST09/     2024_PST09/      2025_PST09/
 ```
 
-For instance the converted root trees for the CAEN data from 2024 can be found here:&#x20;
+For instance the raw data files can be found&#x20;
 
-```
-ls /volatile/eic/EPIC/MC_input/LFHCal_BT/converted/CAEN_Sept24_TB_PS/
-```
+```bash
+# 2023 raw data
+ls /volatile/eic/EPIC/TestBeam/LFHCal/2023_SPSH4/rawCAEN
+ls /volatile/eic/EPIC/TestBeam/LFHCal/2023_PST09/rawCAEN
 
-Please remember the converted data always corresponds a specific version of the software. If you are changing the basic data structure, you will have to reconvert the data yourself. The rae data can be found here:&#x20;
+# 2024 raw data
+ls /volatile/eic/EPIC/TestBeam/LFHCal/2024_PST09/rawCAEN
+ls /volatile/eic/EPIC/TestBeam/LFHCal/2024_PST09/rawHGCROC
 
-```
-ls /volatile/eic/EPIC/MC_input/LFHCal_BT/raw/CAEN_Sept24_TB_PS/
+# 2025 raw data
+ls /volatile/eic/EPIC/TestBeam/LFHCal/2025_PST09/raw 
 ```
 
 You can download specific files using outside of xrootd:
 
-```
-xrdcp root://dtn-eic.jlab.org/volatile/eic/EPIC/MC_input/LFHCal_BT/raw/CAEN_Sept24_TB_PS/Run5_list.txt Run5_list.txt
+```bash
+xrdcp root://dtn-eic.jlab.org/volatile/eic/EPIC/TestBeam/LFHCal/2025_PST09/raw/Run181.h2g
+ Run181.h2g
 ```
 
