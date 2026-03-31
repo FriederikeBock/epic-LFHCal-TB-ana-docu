@@ -102,7 +102,7 @@ As described above please choose the sample Nr. with highest statistics and extr
 Similar to the pedestal running a scripted version with the expected filename structure has been created it can be run as follows
 
 ```bash
-bash runHGCROCCalibration_2025.sh fbockTB toaPhase [Hadron|Muon]
+bash runHGCROCCalibration_2025.sh $USERNAME toaPhase [Hadron|Muon]
 ```
 
-Currently two options for the run selection are prepared `Hadron` and `Muon`, however the `Hadron` gives the more reliable results. Feel free to add your desired run-numbers to the script as necessary.
+Currently two options for the run selection are prepared `Hadron` and `Muon`, however the `Hadron` gives the more reliable results. Feel free to add your desired run-numbers to the script as necessary. Please note that the `Muon` option is set up to use the pedestal extracted for the given run number(s) instead of a dedicated pedestal run. To use a separate pedestal run, you will need to slightly modify the line in `runHGCROCCalibration_2025.sh` for the Muon toaPhase option that begins with `./DataPrep` so that the final argument (the file name after option -g) points to the pedestal file.
