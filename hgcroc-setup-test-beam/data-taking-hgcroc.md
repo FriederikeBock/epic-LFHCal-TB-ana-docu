@@ -18,7 +18,7 @@ Followed by the configurable selection of the respective values
 
 That is followed by the main window of the DAQ data taking.&#x20;
 
-<figure><img src="../.gitbook/assets/Screenshot from 2025-11-18 18-39-07 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot from 2026-03-31 16-37-42.png" alt=""><figcaption></figcaption></figure>
 
 The top right corner `Working Folder`  shows you where the data will be written to, you can change that using the `"Select Folder"` button and even print the full directory location to the terminal from which you executed the script, using the `"Print to Terminal"` button.&#x20;
 
