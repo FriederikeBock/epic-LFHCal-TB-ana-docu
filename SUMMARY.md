@@ -38,6 +38,7 @@
 ## TB Simulations
 
 * [General Setup](tb-simulations/general-setup.md)
+* [LFHCal geometry in the epic-dd4hep](tb-simulations/lfhcal-geometry-in-the-epic-dd4hep.md)
 
 ## Other Useful Things
 
@@ -46,3 +47,4 @@
 ## Older Software
 
 * [Initial software for 2023 analysis](older-software/initial-software-for-2023-analysis.md)
+* [TB 2025: Getting Started HGCROC & Calibrations](older-software/getting-started-hgcroc-and-calibrations.md)

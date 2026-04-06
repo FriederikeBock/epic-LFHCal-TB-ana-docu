@@ -22,7 +22,7 @@ xrdfs root://dtn-eic.jlab.org
 
 // see all files
 ls /volatile/eic/EPIC/TestBeam/LFHCal/
-2023_SPSH4/    2023_PST09/     2024_PST09/      2025_PST09/
+2023_SPSH4/    2023_PST09/     2024_PST09/      2025_PST09/    2026_PST10/    2026_SPSH2/
 ```
 
 For instance the raw data files can be found&#x20;
@@ -38,6 +38,10 @@ ls /volatile/eic/EPIC/TestBeam/LFHCal/2024_PST09/rawHGCROC
 
 # 2025 raw data
 ls /volatile/eic/EPIC/TestBeam/LFHCal/2025_PST09/raw 
+
+# 2026 raw data
+ls /volatile/eic/EPIC/TestBeam/LFHCal/2026_PST10/raw 
+ls /volatile/eic/EPIC/TestBeam/LFHCal/2026_SPSH2/raw 
 ```
 
 You can download specific files using outside of xrootd:

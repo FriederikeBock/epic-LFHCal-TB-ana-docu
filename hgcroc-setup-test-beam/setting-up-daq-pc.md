@@ -11,13 +11,7 @@ You will need the following software installed
 * **root**, either install it [manually ](https://root.cern/install/)or with the corresponding package manager of your distribution if available. Keep in mind you might need the developer packages too.
 * **vivado**: fpga programming software [link](https://www.xilinx.com/support/download.html)
 * **python3**
-* **H2GConfig:** Python based standalone hgcroc configuration software courtesy of Shihai Jia
-  * 1G Software [link](https://gitlab.cern.ch/sjia/H2GConfig)&#x20;
-  * 10G Software [link](https://gitlab.cern.ch/fbock/H2GConfig/-/tree/10GBNorbertdevel?ref_type=heads) check out branch `10GNorbertdevel`
-* **H2GCalib\_3b**:  Python based standalone hgcroc calibration software courtesy of Shihai Jia [l](https://gitlab.cern.ch/sjia/h2gcalib_3b)
-  * 1G Software [link](https://gitlab.cern.ch/sjia/h2gcalib_3b)
-  * Old 1G Software adapted to 10G [link](https://gitlab.cern.ch/fbock/h2gcalib_3b/-/tree/10GNorbertDevel?ref_type=heads) checkout branch `10GNorbertdevel`
-  * New 10G Software [link](https://gitlab.cern.ch/sjia/h2gcalibx)
+* **H2GCalibX:** Python based standalone configuration and calibration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/h2gcalibx)
 * **H2GDAQ:** Python based standalone DAQ software courtesy of Shihai Jia
   * 1G Software [link](https://gitlab.cern.ch/sjia/H2GDAQ/-/tree/dev-0v12?ref_type=heads) check out branch `dev-012`
   * 10G Software [link](https://gitlab.cern.ch/fbock/H2GDAQ) check out branch `main`&#x20;
@@ -26,6 +20,16 @@ You will need the following software installed
 * **h2g\_validator**: Python based data integrity validation programm courtesy of Oskar Hartbrich l[ink](https://github.com/ohartbri/h2g_validator)
 
 Keep in mind some of these packages might need further dependencies and or compilation. Have a look at their respective installation instructions or README's.
+
+### Older Calib & Config versions
+
+The following pieces of the software chain were used for the 2025 TB and are superseeded by **H2GCalibX**
+
+* **H2GConfig:** Python based standalone hgcroc configuration software courtesy of Shihai Jia
+  * 1G Software [link](https://gitlab.cern.ch/sjia/H2GConfig)&#x20;
+  * 10G Software [link](https://gitlab.cern.ch/fbock/H2GConfig/-/tree/10GBNorbertdevel?ref_type=heads) check out branch `10GNorbertdevel`
+* **H2GCalib\_3b**:  Python based standalone hgcroc calibration software courtesy of Shihai Jia [l](https://gitlab.cern.ch/sjia/h2gcalib_3b)
+  * 1G Software [link](https://gitlab.cern.ch/sjia/h2gcalib_3b)
 
 ## Setup network
 
