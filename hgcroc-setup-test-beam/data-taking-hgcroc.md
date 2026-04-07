@@ -37,7 +37,7 @@ In the middle column the generator as well as eternal trigger settings are defin
 ```shellscript
 ## options with suggested paramters
 //--- Data Collection -----
-Data Coll En[7:0]    15
+Data Coll En[7:0]    15                   ##needs to be adjusted for different number of asics
 Trig Coll En[7:0]    0
 Jumbo Enable    (unticked)
 //--- Generator settings -----
@@ -60,6 +60,8 @@ Machine gun          10  ## defines how many sample/ trigger we take
 ```
 
 The start and stop generator sections allows to enable injected signals to the ASIC to for instance run pedestal runs  (switch off external trigger in that case). It can also be used to trigger single events to test the trigger is being received in the software.
+
+Keep in mind you need to adjust the  running with `Data Coll En`  according to the number of asics enabled, otherwise the output will not be correct and it might cause decoding problems. The setting should be:  `15` = 4 asics, `7` = 3 asics, `3` = 2 asics, `1` = 1 asic.
 
 In the HV tab you can switch the respective HV on for each ASIC and entire FPGA's by ticking or unticking the boxes and clicking the `"Send HV Setting"` button.
 
