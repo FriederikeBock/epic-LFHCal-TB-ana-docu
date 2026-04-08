@@ -144,18 +144,37 @@ This means for both versions we are respectively summing for each channel within
 
 The corresponding single mapping file can be found here : `configs/TB2026/mappingSingleASICSummingBoard_v1.csv` & `configs/TB2026/mappingSingleASICSummingBoard_v2.csv` the usage of the CreateMapping remains the same except that in addition the summing option (previous to last integer) needs to be adjusted to either option 1 or 2 of the summing board.
 
-Below an example of a test run at ORNL:
+Below an example of a TB setup for both summing boards:
 
 ```bash
 #v1 version (green board)
-root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v1.csv", "../configs/LocalTesting/layersHGCROC_summingTest_2026_2.csv", "../configs/TB2024/modulePositions_2024.txt", "../configs/LocalTesting/mapping_HGCROC_ORNL_SummingTest_2026_v1.txt", 1, 1, 0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v1.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV1_default.csv", 1, 1, 0)'
 #v2 version (red board)
-root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/LocalTesting/layersHGCROC_summingTest_2026_2.csv", "../configs/TB2024/modulePositions_2024.txt", "../configs/LocalTesting/mapping_HGCROC_ORNL_SummingTest_2026_v2.txt", 1, 2, 0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV2_default.csv", 1, 2, 0)'
 ```
 
-As we are now reading also the numer of layers per segment, it might become necessary to overwrite the setup trees in existing processed files. This should only be done if absolutely necessary and with special care. The corresponding instructions can be found [here](../calibration/other-useful-function-during-calibration.md).
+As we are now reading also the number of layers per segment, it might become necessary to overwrite the setup trees in existing processed files. This should only be done if absolutely necessary and with special care. The corresponding instructions can be found [here](../calibration/other-useful-function-during-calibration.md).
 
 <figure><img src="../.gitbook/assets/singleUnitMapping2026_8M_green.png" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the v1 summing board (green) from the TB in 2026.</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/singleUnitMapping2026_8M_red.png" alt=""><figcaption><p>Mapping of the individual channels within one assembly (black text) to one HGCROC board (blue text) unit using the blue ribbon cables and the v2 summing board (red) from the TB in 2026.</p></figcaption></figure>
 
+The default prepared mapping files can be found here:
+
+{% code overflow="wrap" %}
+```bash
+##module locations
+ModuleFile='../configs/TB2026/modulePositions_PST10_2026.txt'
+
+## with V2 Summing board (red)
+LayerV2='../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default.csv'
+LayerV2Detail='../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default_detailed.csv'
+mappingV2='../configs/TB2026/mapping_HGCROC_PST10TB_sumV1_default.csv'
+
+## with V1 Summing board (green)
+LayerV1='../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default.csv'
+LayerV1Detail='../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default_detailed.csv'
+mappingV1='../configs/TB2026/mapping_HGCROC_PST10TB_sumV2_default.csv'
+
+```
+{% endcode %}

@@ -340,7 +340,7 @@ bash runHGCROCCalibration_2025.sh $USERNAME calibMuon saveNewMuon
 
 # MIP extraction: STEP 2 - with full files:
 # run 1st iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp1st
 # run 2nd iteration of 2nd step
 bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd
 # run 3rd iteration of 2nd step
@@ -348,7 +348,7 @@ bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd
 
 # MIP extraction: STEP 2 - with skimmed files
 # run 1st iteration of 2nd step 
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp_red
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp1st_red
 # run 2nd iteration of 2nd step
 bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd_red
 # run 3rd iteration of 2nd step
@@ -360,4 +360,41 @@ After successfully calibrating the data using the scripts above and following th
 ```bash
 # extract from last iteration just the calib objects into a separate file
 bash stripCalib_2025.sh $USERNAME BaseCalibs
+```
+
+### April 2026
+
+<mark style="background-color:$danger;">UNDER CONSTRUCTION!!!! You need to add new runs!</mark>
+
+A comprehensive calibration script for the 2026 is currently under construction and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze.
+
+```bash
+# merge the muon files correctly (comment out which set you need)
+bash convertDataHGCROC_TBPST10_2026.sh $USERNAME MergeMuons
+
+# transfering the pedestal calibration to the merged muon file of interest with external bad channel map applied
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon BC
+
+# MIP extraction: STEP 1
+# run first step of mip extraction with external bad channel map applied
+# THIS WILL TAKE A WHILE (~30h for 200K events)
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon default
+# to decrease the amount of time running over the files we should skim the muons events
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon saveNewMuon
+
+# MIP extraction: STEP 2 - with full files:
+# run 1st iteration of 2nd step
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp1st
+# run 2nd iteration of 2nd step
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp2nd
+# run 3rd iteration of 2nd step
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp3rd
+
+# MIP extraction: STEP 2 - with skimmed files
+# run 1st iteration of 2nd step 
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp1st_red
+# run 2nd iteration of 2nd step
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp2nd_red
+# run 3rd iteration of 2nd step
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp3rd_red
 ```

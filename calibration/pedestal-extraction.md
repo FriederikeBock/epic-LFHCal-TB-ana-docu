@@ -219,3 +219,15 @@ bash runHGCROCCalibration_2025.sh $USERNAME pedestal [Ref|Muon|Electron|Test]
 ```
 
 Currently four alternative options are prepared for running the pedestals over true pedestal runs (`Ref`), muon runs (`Muon`), electron runs (`Electron`), or test runs (`Test`). Please make sure to comment in only the runs you would like to process in the respective options. The full list of runs can be found in out [tabulated logbook](https://docs.google.com/spreadsheets/d/1XaiSmG4jBaBOyjbjdiNuSeehjeZC03_2A7Ccoq0nIbI/edit?usp=sharing) and a summary of the various sub-campaigns/set can be found on our dedicated [wiki](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2025_Test_Beam).
+
+### April 2026 data
+
+<mark style="background-color:$danger;">UNDER CONSTRUCTION!!!! You need to add new runs!</mark>
+
+The script for the calibration of the 2026 data taking campaign is currently under construction and can be used in a similar manner as the corresponding converter script. Please remember to add your username and the paths to the data on your respective device.&#x20;
+
+```sh
+bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME pedestal [Ref|Muon|Electron|Test]
+```
+
+Currently four alternative options are prepared for running the pedestals over true pedestal runs (`Ref`), muon runs (`Muon`), electron runs (`Electron`), or test runs (`Test`). Please make sure to comment in only the runs you would like to process in the respective options. The full list of runs can be found in out [tabulated logbook](https://docs.google.com/spreadsheets/d/1329ze8jV5zhjJB1bgE1k_apoWSrbqoO32WS-uWdnI-4/edit?gid=0#gid=0) and a summary of the various sub-campaigns/set can be found on our dedicated [wiki](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2026_Test_Beam).
