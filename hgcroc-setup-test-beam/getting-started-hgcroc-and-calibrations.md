@@ -55,7 +55,7 @@ The IO Delay Scan is used to adjust the timing of the signals received by the FP
 
 ```shellscript
 # For the 2026 LFHCal TB - go to:
-cd /home/localadmin/Software/HGCROC/fw/5.071/Python/
+cd ~/Software/HGCROC/fw/5.071/Python/
 # execute:
 # for FPGA_0 10.1.2.208 connected to ORNL-02 & ORNL-03 HGCROC boards)
 python3 003_10G_Test_Align_208_ORNL02-03.py     
