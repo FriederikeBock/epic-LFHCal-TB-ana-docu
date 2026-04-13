@@ -14,7 +14,7 @@ You will need the following software installed
 * **H2GCalibX:** Python based standalone configuration and calibration software courtesy of Shihai Jia [link](https://gitlab.cern.ch/sjia/h2gcalibx)
 * **H2GDAQ:** Python based standalone DAQ software courtesy of Shihai Jia
   * 1G Software [link](https://gitlab.cern.ch/sjia/H2GDAQ/-/tree/dev-0v12?ref_type=heads) check out branch `dev-012`
-  * 10G Software [link](https://gitlab.cern.ch/fbock/H2GDAQ) check out branch `main`&#x20;
+  * 10G Software [link](https://gitlab.cern.ch/sjia/H2GDAQ) check out branch `main`&#x20;
 * **h2g\_online\_monitoring:** C++ based online monitoring software (which can be automatically started from H2GDAQ) courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_online_monitoring)
 * **h2g\_decode**: C++ based data stream decoder courtesy of Tristan Protzman [link](https://github.com/tlprotzman/h2g_decode/)
 * **h2g\_validator**: Python based data integrity validation programm courtesy of Oskar Hartbrich l[ink](https://github.com/ohartbri/h2g_validator)

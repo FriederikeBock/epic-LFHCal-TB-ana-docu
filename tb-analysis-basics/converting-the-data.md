@@ -176,15 +176,24 @@ The data taken in April 2026 at the PS-T09 beam line is the first data available
 A script for the data conversion can be found and run as follows:
 
 ```bash
-bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION
+bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION convert
 ```
 
-As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version.&#x20;
+As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version. Implemented options right now are:&#x20;
 
-Similar as for the previous scripts also a muon merge option is implemented to all for calibration of the muon runs afterwards in one go, however the converter has to have been run appriori for this to work.&#x20;
+* `HVScan1` - all runs belonging to the first full HV scan
+* `FirstPosScanMuons`  - all runs belonging to the first muon position scan&#x20;
+* `SetA-PosScanMuons` - all runs belonging to the position scan at the beginning of Set A
+* `FullSetA` - all runs belonging to the set taken at 43V, with the original pream setting
+* `FullSetB` - all runs belonging to the set taken at 42.5V, with the original pream setting
+* `FullSetC` - all runs belonging to the set taken at 44V, with the original pream setting
+* `FullSetD` - all runs belonging to the set taken at 44V, with the optimized pream setting
+* `FullSetE` - all runs belonging to the set taken at 43V, with the optimized pream setting
+
+Similar as for the previous scripts also a merge option has been implemented. This will merge all necessary runs of a set, i.e all muon runs into one file. However, the converter has to have been run appriori for this to work.&#x20;
 
 ```bash
-bash convertDataHGCROC_TBPST10_2026.sh $USERNAME MergeMuons
+bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION merge
 ```
 
 In its current state the data conversion (also called decoding) takes care to only take events with full waveforms in each ASIC and fully synced events among the different KCU's (FPGAs). The synchronization for the 2026 data takes as primary variable the event counters. Should those fail it can calculate an offset once based off the time difference, between two fully reconstructed KCU events.&#x20;
