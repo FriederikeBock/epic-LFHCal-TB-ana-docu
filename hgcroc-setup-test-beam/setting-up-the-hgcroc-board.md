@@ -18,7 +18,9 @@ The following cables need to be connected in order to setup the HGCROC for local
 * HV cables to HGCROC proto boards - individually for each HGCROC ([connectors](https://www.digikey.com/en/products/detail/phoenix-contact/1803594/260531))
 * SMA inputs for external triggering and syncronization. **ATTENTION:** these should only be provided with 1.8 V (step down from classical 5V NIM signal needed).
 
-Details on where each cable goes can be found in the picture above. Don't forget to also set the jumper ti provide only 1.2 V after boot (right side red box in picture).
+Details on where each cable goes can be found in the picture above. Don't forget to also set the jumper to provide only 1.2 V after boot (right side red box in picture).
+
+* Important the `DataPort` needs to be set to <mark style="background-color:$danger;">ON</mark> hence port 11001 !!
 
 ### ORNL test stand setup
 

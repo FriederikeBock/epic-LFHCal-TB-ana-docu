@@ -12,7 +12,7 @@ First of all you need to open source the environment for `vivado` and open it (s
 
 ```shellscript
 // sourcing vivado environment
-source Xilinx/2025.1/Vivado_Lab/settings64.sh
+source vivado/2025.2/Vivado_Lab/settings64.sh
 // open vivado lab
 vivado_lab
 ```
