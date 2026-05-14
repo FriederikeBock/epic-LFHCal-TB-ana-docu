@@ -147,10 +147,15 @@ The corresponding single mapping file can be found here : `configs/TB2026/mappin
 Below an example of a TB setup for both summing boards:
 
 ```bash
+# PS TB April
 #v1 version (green board)
 root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v1.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV1_default.csv", 1, 1, 0)'
 #v2 version (red board)
 root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV2_default.csv", 1, 2, 0)'
+
+# SPS TB May
+#v2 version (red board)
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/TB2026/layersHGCROC_TBSPSH2_Sumv2_default.csv", "../configs/TB2026/modulePositions_SPSH2_2026.txt", "../configs/TB2026/mapping_HGCROC_SPSH2TB_sumV2_default.csv", 1, 2, 0)'
 ```
 
 As we are now reading also the number of layers per segment, it might become necessary to overwrite the setup trees in existing processed files. This should only be done if absolutely necessary and with special care. The corresponding instructions can be found [here](../calibration/other-useful-function-during-calibration.md).
