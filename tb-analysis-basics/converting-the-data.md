@@ -170,8 +170,6 @@ A summary of the success rate of the data conversion can be found in the [log bo
 
 ### April 2026 data
 
-<mark style="background-color:$danger;">This script is under CONSTRUCTION, you need to add correct runnumbers.</mark>
-
 The data taken in April 2026 at the PS-T09 beam line is the first data available for two fully equipped modules with summing. The logbook can be found [here](https://docs.google.com/spreadsheets/d/1329ze8jV5zhjJB1bgE1k_apoWSrbqoO32WS-uWdnI-4/edit?usp=sharing), if you don't have access please ask Friederike for it. A summary of the HGCROC data taking campaign can be found on our [wiki](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2026_Test_Beam).\
 A script for the data conversion can be found and run as follows:
 
@@ -202,3 +200,29 @@ So far no CRC or hamming validation has been imposed during the decoding stage a
 
 If you can would like to evaluate the successrate yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffiHGCROC.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffiHGCROC.C)
 
+### May 2026 data
+
+<mark style="background-color:$danger;">This script is under CONSTRUCTION, you need to add correct runnumbers.</mark>
+
+The data taken in May 2026 at the PS-T09 beam line is the first data available for two fully equipped modules with summing. The logbook can be found [here](https://docs.google.com/spreadsheets/d/1329ze8jV5zhjJB1bgE1k_apoWSrbqoO32WS-uWdnI-4/edit?usp=sharing), if you don't have access please ask Friederike for it. A summary of the HGCROC data taking campaign can be found on our [wiki](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2026_Test_Beam).\
+A script for the data conversion can be found and run as follows:
+
+```bash
+bash convertDataHGCROC_TBSPSH2_2026.sh $USERNAME $OPTION convert
+```
+
+As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version. Implemented options right now are:&#x20;
+
+* `InitMuon` - all runs belonging to the Initial muon scan
+
+Similar as for the previous scripts also a merge option has been implemented. This will merge all necessary runs of a set, i.e all muon runs into one file. However, the converter has to have been run appriori for this to work.&#x20;
+
+```bash
+bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION merge
+```
+
+In its current state the data conversion (also called decoding) takes care to only take events with full waveforms in each ASIC and fully synced events among the different KCU's (FPGAs). The synchronization for the 2026 data takes as primary variable the event counters. Should those fail it can calculate an offset once based off the time difference, between two fully reconstructed KCU events.&#x20;
+
+So far no CRC or hamming validation has been imposed during the decoding stage and hence some of the data might show odd features. These check, however, need to be implemented in the future.
+
+If you can would like to evaluate the successrate yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffiHGCROC.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffiHGCROC.C)
