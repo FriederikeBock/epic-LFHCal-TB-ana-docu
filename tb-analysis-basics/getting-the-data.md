@@ -29,25 +29,25 @@ For instance the raw data files can be found&#x20;
 
 ```bash
 # 2023 raw data
-ls /volatile/eic/EPIC/TestBeam/LFHCal/2023_SPSH4/rawCAEN
-ls /volatile/eic/EPIC/TestBeam/LFHCal/2023_PST09/rawCAEN
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2023/2023_SPSH4/rawCAEN
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2023/2023_PST09/rawCAEN
 
 # 2024 raw data
-ls /volatile/eic/EPIC/TestBeam/LFHCal/2024_PST09/rawCAEN
-ls /volatile/eic/EPIC/TestBeam/LFHCal/2024_PST09/rawHGCROC
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2024/2024_PST09/rawCAEN
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2024/2024_PST09/rawHGCROC
 
 # 2025 raw data
-ls /volatile/eic/EPIC/TestBeam/LFHCal/2025_PST09/raw 
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2025/2025_PST09/raw 
 
 # 2026 raw data
-ls /volatile/eic/EPIC/TestBeam/LFHCal/2026_PST10/raw 
-ls /volatile/eic/EPIC/TestBeam/LFHCal/2026_SPSH2/raw 
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2026/2026_PST10/raw 
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2026/2026_SPSH2/raw 
 ```
 
 You can download specific files using outside of xrootd:
 
 ```bash
-xrdcp root://dtn-eic.jlab.org/volatile/eic/EPIC/TestBeam/LFHCal/2025_PST09/raw/Run181.h2g
+xrdcp root://dtn-eic.jlab.org/work/eic3/EPIC/TestBeam/LFHCAL/CERN/2025/2025_PST09/raw/Run181.h2g
  Run181.h2g
 ```
 
