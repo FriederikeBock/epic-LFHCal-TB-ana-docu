@@ -322,7 +322,7 @@ Either option `calibMuon` or `calibMuonT` (truncated) shoud be used.
 
 ### November 2025
 
-A comprehensive calibration script for the 2025 has been prepared and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze.
+A comprehensive calibration script for the 2025 has been prepared and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze. You may also add `FullSetA_1` or `FullSetA_2` as an additional option to the bash commands below to do the mip calibration for the first and second sets of muon runs for FullSetA.
 
 ```bash
 # merge the muon files correctly (comment out which set you need)
@@ -366,7 +366,7 @@ bash stripCalib_2025.sh $USERNAME BaseCalibs
 
 <mark style="background-color:$danger;">UNDER CONSTRUCTION!!!! You need to add new runs!</mark>
 
-A comprehensive calibration script for the 2026 is currently under construction and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze.
+A comprehensive calibration script for the 2026 is currently under construction and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze. The first muon HV scan, FullSetC, FullSetD, and FullSetE are currently implemented, please check the script to see the available options one can add to the following bash commands.
 
 ```bash
 # merge the muon files correctly (comment out which set you need)

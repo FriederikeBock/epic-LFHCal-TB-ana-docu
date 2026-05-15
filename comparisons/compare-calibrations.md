@@ -14,6 +14,7 @@ Options:
 -E [1-X] histo reading options for expanded file list
 -f       Force to write output if already exist
 -F fff   set explicit plot extension explicitly, default is pdf 
+-H			 switch to HGCROC output
 -i uuu   Input file list
 -I uuu   expanded input file list
 -L [1-63]restrict max layer plotting
@@ -42,7 +43,7 @@ The `CompareCalib` program can be run in multiple ways in terms of inputs
 Likewise the `CompareAna` program can be run interchangably with the following inputs 3. with a file list containing in each line a calibration file & the QA output. It can be used with `-I anaFileList.txt` . This list has should end with `.txt` otherwise it might not be correctly detected.
 
 1. Treatment of different histogram outputs is foreseen and can be steered with `-E [1-X]` currently implemented are:
-   1. `-E 4` creates the deltatime overlay. This is currently the only option in the `ComparAna` function.
+   1. `-E 4` creates the deltatime overlay. This is currently the only option in the `CompareAna` function.
 
 Similar to the other programs the options `-d` & `-e` will enabled various debugging options and more plots. In the current way two main ways of evaluating the data are implemented:
 
@@ -50,6 +51,8 @@ Similar to the other programs the options `-d` & `-e` will enabled various debug
 2. As a function of operational voltage using the `-V` option
 
 Each of them is useful for different things. Below you find a few sample plots which are being created by the code. The output root file and plotsFolder have to be given after `-o` and `-O` respectively, without them the program will crash
+
+
 
 ```bash
 # example for running Voltage dependence with extended output:
@@ -105,3 +108,17 @@ Running with expanded output will produce the following plots in addition.
 <div><figure><img src="../.gitbook/assets/MuonTriggers_HGDist_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/MuonTriggers_LGDist_Layer00 (1).png" alt=""><figcaption></figcaption></figure></div>
 
 <div><figure><img src="../.gitbook/assets/MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/SBNoise_MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/SBSignal_MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure></div>
+
+## HGCROC
+A script to run CompareCalib and CompareAna has been created for the 202604 data taking campaign is currently under construction. 
+
+```bash
+bash runCompareHGCROC_TBPST10_202604.sh $USERNAME [calib/ana] [R/V] $OPTION
+```
+
+Currently implemented options: `calib` will run CompareCalib, `ana` will run CompareAna.`R`: trending plots vs run number. `V`: trending plots vs Vop. The last option points to the list of files you'd like to run, see how the username `yale` is configured in the script for more details. As an example,
+
+```bash
+bash runCompareHGCROC_TBPST10_202604.sh yale ana V HVScan1
+```
+will run CompareAna with the (extended) input file list `anaFileList_202604_HVScan1.txt`.
