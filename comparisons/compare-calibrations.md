@@ -110,7 +110,30 @@ Running with expanded output will produce the following plots in addition.
 <div><figure><img src="../.gitbook/assets/MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/SBNoise_MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/SBSignal_MuonTriggers_Layer00 (1).png" alt=""><figcaption></figcaption></figure></div>
 
 ## HGCROC
-A script to run CompareCalib and CompareAna has been created for the 202604 data taking campaign is currently under construction. 
+A script to run CompareCalib and CompareAna has been created for the 202604 data taking campaign is currently under construction. Before you can run it, you first need to have (extended) file lists. We don't have a script to generate these yet, but a relatively quick way to list things in a text file is with
+
+```bash
+ls -vd /full/path/to/file/filename*.ext > textfile.txt
+```
+This will create a file called "textfile.txt" with the full path and file name of every file in the directory `/full/path/to/file/` that begins with "filename" and ends with ".ext" (i.e., you can list multiple files by using a wildcard). One file is written per line. If you use `>>` instead of `>`, the file names will be appended to the end of an existing file "textfile.txt".
+
+As a reminder, each line of the file list for CompareCalib should contain a calib root file (the output of stripCalib.sh) and the "Hists.root" output from whichever calibration step you want to look at, separated by a space. Each line of the file list for CompareAna should contain a calib root file and a QAHists root file (the output of runQAHGCROC.sh), separated by a space. To generate the calib and QAHists root files, use the relevant scripts:
+
+```bash
+# if you haven't already, apply calibrations to the dataset
+# implemented options are HVScan1, FullSetC, FullSetD
+bash applyCalibrationHGCROC_TBPST10_2026.sh $USERNAME $OPTION full
+
+# put the calib object from the output of applyCalibrations into a separate file
+# implemented options are BaseCalibs, HVScan1, FullSetC, FullSetD
+bash stripCalib_TBPST10_2026.sh $USERNAME $OPTION
+
+# basic QA of the calibrated data
+# implemented options are HVScan1, FullSetC, FullSetD, and the muon runs from FullSetE
+bash runQAHGCROC_TBPST10_2026.sh $USERNAME $OPTION QA
+```
+
+Once you have a file list, add it to the comparison script under your username and run the script with
 
 ```bash
 bash runCompareHGCROC_TBPST10_202604.sh $USERNAME [calib/ana] [R/V] $OPTION
