@@ -6,7 +6,7 @@ Our general philosophy:
 
 1. Keep the raw data available to the as much as possible!
 2. Allow easy access to derived quantities, i.e. calibrated Energy (E), corrected time...
-3. Keep calibration and setup objects in the same output file&#x20;
+3. Keep calibration and setup objects in the same output file
 
 Calibrating a single run can be a time intensive procedure, due to the fact that we are calculating the local trigger primitives for each tile & event in the same process. Consequently it might be advisable to separate the trigger calculation and actual calibration (if this might need repeating).
 
@@ -56,7 +56,7 @@ The calibration function can be found in
 
 and will create a separate hist output root in addition to several plots.
 
-**Keep in mind that during the calibration step we are also removing tiles which do not exceed a minimum threshold energy defined by `minMipFrac` .**&#x20;
+**Keep in mind that during the calibration step we are also removing tiles which do not exceed a minimum threshold energy defined by `minMipFrac` .**
 
 <div><figure><img src="../.gitbook/assets/EnergyTotalVsNCells (1) (1).png" alt=""><figcaption><p>Total energy within the event (E_cell > 0.3 E_mip) vs nr. of active cells with E_cell > 0.3 E_mip. CAEN data August 2024, 1 8M module, 64 layers.</p></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyTotalVsNCells.png" alt=""><figcaption><p>Total energy within the event (E_cell > 0.3 E_mip) vs nr. of active cells with E_cell > 0.3 E_mip. HGCROC data November 2025, 2 8M modules, 32 layers.</p></figcaption></figure></div>
 
@@ -117,7 +117,7 @@ if(corrHG<corrHGADCSwap){
 }
 ```
 
-Here the `corrHG` and `corrLG` reflect the pedestal corrected high gain and low gain ADC values of the CAEN readout, while `corrHGADCSwap` is the predefined value where we go from high gain to low gain. <mark style="color:$danger;">Only tiles with an energy surpassing the</mark> <mark style="color:$danger;"></mark><mark style="color:$danger;">`minMipFrac`</mark> <mark style="color:$danger;"></mark><mark style="color:$danger;">will be stored in the final output.</mark>
+Here the `corrHG` and `corrLG` reflect the pedestal corrected high gain and low gain ADC values of the CAEN readout, while `corrHGADCSwap` is the predefined value where we go from high gain to low gain. <mark style="color:$danger;">Only tiles with an energy surpassing the</mark> <mark style="color:$danger;">`minMipFrac`</mark> <mark style="color:$danger;">will be stored in the final output.</mark>
 
 The following plots will be produced and should be looked at for the CAEN data to ensure everything went as intended.
 
@@ -174,9 +174,9 @@ if (tempE > minMipFrac)
 
 In this routine, besides the energy calculation:
 
-1. the pedestals are reset,&#x20;
-2. the integrated ADC is reevaluated and&#x20;
-3. the TOA offset is corrected for&#x20;
+1. the pedestals are reset,
+2. the integrated ADC is reevaluated and
+3. the TOA offset is corrected for
 
 The steps 1-3 are handled in the same manner as during the [Transfer-Calib routine](mip-calibration.md#transferring-the-pedestal-calibrations-to-a-different-run) and the same QA plots are created for the TOA offset correction. For all intents and purposes the Transfer-Calib routine should only be necessary to run for the muon runs, while all other runs would be calibrated using the full calibration procedure described here.
 
@@ -184,9 +184,9 @@ In addition, the following HGCROC specific plots are produced and should be chec
 
 <div><figure><img src="../.gitbook/assets/HG.png" alt="" width="375"><figcaption><p>Max adc vs cellID for all events.</p></figcaption></figure> <figure><img src="../.gitbook/assets/Tot.png" alt="" width="375"><figcaption><p>TOT vs cellID for all events.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SaturatedCellsPerEvent.png" alt="" width="375"><figcaption><p>Frequency of reaching saturation of the ADC range vs cellID.</p></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/HGCorr_Noise.png" alt="" width="188"><figcaption><p>Max ADCs vs cellID for cells which were triggered by the local noise trigger. </p></figcaption></figure> <figure><img src="../.gitbook/assets/Tot_Noise.png" alt="" width="188"><figcaption><p>TOT vs cellID for cells which were triggered by the local noise trigger. If this plot has entries, something went seriously wrong!</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/HGCorr_Noise.png" alt="" width="188"><figcaption><p>Max ADCs vs cellID for cells which were triggered by the local noise trigger.</p></figcaption></figure> <figure><img src="../.gitbook/assets/Tot_Noise.png" alt="" width="188"><figcaption><p>TOT vs cellID for cells which were triggered by the local noise trigger. If this plot has entries, something went seriously wrong!</p></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/Spectra_HG_Layer04 (1).png" alt=""><figcaption><p>Max ADC distribution for one single layer of the HGCROC data obtained in November 2025 (2 8M modules).</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Spectra_HG_Layer04.png" alt=""><figcaption><p>Max ADC distribution for one single layer of the HGCROC data obtained in November 2025 (2 8M modules).</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/Spectra_Tot_Layer04.png" alt=""><figcaption><p>TOT distribution for one single layer of the HGCROC data obtained in November 2025 (2 8M modules).</p></figcaption></figure>
 

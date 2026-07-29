@@ -1,20 +1,20 @@
 # LFHCal geometry in the epic-dd4hep
 
-## Full LFHCal geometry implementation&#x20;
+## Full LFHCal geometry implementation
 
 <div><figure><img src="../.gitbook/assets/FullViewSide.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2022-11-23 16-09-44.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2022-11-23 16-10-57.png" alt=""><figcaption></figcaption></figure></div>
 
-The full LFHCal geometry is implemented in `src/LFHCal_geo.cpp`  of the dd4hep epic directory. Its steering file can be found in `compact/hcal/lfhcal.xml`  which includes also general definitions `compact/hcal/lfhcal/module_definitions.xml` common to multiple setups (i.e. also the TB geometries). The full running configuration can then be found under `configurations/lfhcal_only.yml`  (here LFHCal only). In the latter files the enabled detectors and magnetic fields are defined.&#x20;
+The full LFHCal geometry is implemented in `src/LFHCal_geo.cpp` of the dd4hep epic directory. Its steering file can be found in `compact/hcal/lfhcal.xml` which includes also general definitions `compact/hcal/lfhcal/module_definitions.xml` common to multiple setups (i.e. also the TB geometries). The full running configuration can then be found under `configurations/lfhcal_only.yml` (here LFHCal only). In the latter files the enabled detectors and magnetic fields are defined.
 
-The LFHCal geometrie construction goes in units of 8M and 4M modules, supplemented by the insert modules. Which are defined in a separate class. The main function for the LFHCal full detector creation can be found in `src/LFHCal_geo.cpp`  and is called:
+The LFHCal geometrie construction goes in units of 8M and 4M modules, supplemented by the insert modules. Which are defined in a separate class. The main function for the LFHCal full detector creation can be found in `src/LFHCal_geo.cpp` and is called:
 
 ```cpp
 static Ref_t createDetector(Detector& desc, xml_h handle, SensitiveDetector sens)
 ```
 
-Its configured using the  `compact/hcal/lfhcal.xml`  which defines the exact modular setup of each 8M and 4M module in the respective `<eightmodule>` and `<fourmodule>` environments, regarding size and outer boundaries.&#x20;
+Its configured using the `compact/hcal/lfhcal.xml` which defines the exact modular setup of each 8M and 4M module in the respective `<eightmodule>` and `<fourmodule>` environments, regarding size and outer boundaries.
 
-The individual segments within the LFHCal are defined as follows:&#x20;
+The individual segments within the LFHCal are defined as follows:
 
 ```xml
 <layer repeat="LFHCALLayer_NSteelRepeatSFirst" vis="InvisibleWithDaughters" readoutlayer="0">
@@ -24,9 +24,9 @@ The individual segments within the LFHCal are defined as follows:&#x20;
 </layer>
 ```
 
-In this structure each layer is constructed of 3 different materials "`Polystyrene`", "`Kapton`" and "`Steel235`" each with their own thicknesses. Only the Polystyrene is set as a sensitive material. This structure is then repeated `LFHCALLayer_NSteelRepeatSFirst`  times and their summed signals are defined as readout-layer `0`, representing one segment of the LFHCal.&#x20;
+In this structure each layer is constructed of 3 different materials "`Polystyrene`", "`Kapton`" and "`Steel235`" each with their own thicknesses. Only the Polystyrene is set as a sensitive material. This structure is then repeated `LFHCALLayer_NSteelRepeatSFirst` times and their summed signals are defined as readout-layer `0`, representing one segment of the LFHCal.
 
-The creation of the individual modules is handled in&#x20;
+The creation of the individual modules is handled in
 
 ```cpp
 // 8M module creation
@@ -42,9 +42,9 @@ Volume createFourMModule(Detector& desc, moduleParamsStrct mod_params,
                          double length, SensitiveDetector sens, bool renderComp, bool allSen)
 ```
 
-The positions of the individual modules are contained in the `<eightmodulepositions>`  and  `<fourmodulepositions>`  environments. According to these positions duplicates of the LFHCal modules will be placed within the LFHCal mother volume.&#x20;
+The positions of the individual modules are contained in the `<eightmodulepositions>` and `<fourmodulepositions>` environments. According to these positions duplicates of the LFHCal modules will be placed within the LFHCal mother volume.
 
-The readout is defined within the respective xml files and each active element is assigned a different cell ID, which identifies its possition within the full geometry in x, y and x and also to which readout segment it belongs. _These bit assignments may vary for different test beam geometries._&#x20;
+The readout is defined within the respective xml files and each active element is assigned a different cell ID, which identifies its possition within the full geometry in x, y and x and also to which readout segment it belongs. _These bit assignments may vary for different test beam geometries._
 
 ```xml
 // Example here from compact/hcal/lfhcal.xml
@@ -71,14 +71,14 @@ The readout is defined within the respective xml files and each active element i
 
 ### Testing for overlaps
 
-To test whether the current geometry will work it is important to check for overlaps at first within the detector setup (LFHCal standalone):&#x20;
+To test whether the current geometry will work it is important to check for overlaps at first within the detector setup (LFHCal standalone):
 
 ```shellscript
 python scripts/checkOverlaps.py -c install/share/epic/epic_lfhcal_only.xml -t 0.001
 checkOverlaps -c install/share/epic/epic_lfhcal_only.xml 
 ```
 
-If both of these don't show overlaps, the same can be repeated with the full epic geometry.&#x20;
+If both of these don't show overlaps, the same can be repeated with the full epic geometry.
 
 ### Geometry visualizations options
 
@@ -92,7 +92,7 @@ dd_web_display --export install/share/epic/epic_lfhcal_only.xml
 
 Use [https://eic.phy.anl.gov/geoviewer/ ](https://eic.phy.anl.gov/geoviewer/)to load and view detector\_geometry.root'
 
-* use right click on default and Draw >  this will not show full details.&#x20;
+* use right click on default and Draw > this will not show full details.
 * draw individual detectors for full details
 
 #### Simple Geom Visualization 2
@@ -102,13 +102,13 @@ Open file in TBrowser and right click on part you want to draw e.g. Master Volum
 
 #### Simple Geom Visualization 3
 
-Use the following root macro provided by Shyam Kumar to visualize the geometry with Eve.&#x20;
+Use the following root macro provided by Shyam Kumar to visualize the geometry with Eve.
 
 {% file src="../.gitbook/assets/draw_geom.C" %}
 
 #### Geant View for Visualization
 
-Copy the following into a shell script and only enable the one you would like to run.&#x20;
+Copy the following into a shell script and only enable the one you would like to run.
 
 {% code overflow="wrap" %}
 ```bash
@@ -138,7 +138,7 @@ ddsim --runType vis --compactFile $DETECTOR_PATH/epic_${DETXML}.xml --macro macr
 ```
 {% endcode %}
 
-Once you started running this you can change the views with the standard geant viewer commands and switch on the particle generation using the command `/run/beamOn`  in the root shell. The initially exectued commands if not otherwise defined can be found in `macro/vis.mac` . More information for the GEANT viewer can be found [here](https://indico.cern.ch/event/1419928/contributions/5970006/attachments/2938723/5183937/VisUI-1B%20Vis%20Concepts%20and%20Commands.pdf).
+Once you started running this you can change the views with the standard geant viewer commands and switch on the particle generation using the command `/run/beamOn` in the root shell. The initially exectued commands if not otherwise defined can be found in `macro/vis.mac` . More information for the GEANT viewer can be found [here](https://indico.cern.ch/event/1419928/contributions/5970006/attachments/2938723/5183937/VisUI-1B%20Vis%20Concepts%20and%20Commands.pdf).
 
 ## LFHCal TB geometry implementations
 
@@ -150,7 +150,7 @@ static Ref_t createTestBeam(Detector& desc, xml_h handle, SensitiveDetector sens
 ```
 {% endcode %}
 
-Each of the TB geometries then has their own xml file which defines the readout configuation as well as the physical setup. The follow the naming scheme: `compact/hcal/lfhcal_YEAR_TB.xml`  and may contain and `_optX`  to indicate different readout options. Similarly the full running configurations are defined in `configurations/lfhcal_YEAR_TB.yml`  following the same naming scheme.&#x20;
+Each of the TB geometries then has their own xml file which defines the readout configuation as well as the physical setup. The follow the naming scheme: `compact/hcal/lfhcal_YEAR_TB.xml` and may contain and `_optX` to indicate different readout options. Similarly the full running configurations are defined in `configurations/lfhcal_YEAR_TB.yml` following the same naming scheme.
 
 The visualization of the geometry can be done in the same manner as described above [link](lfhcal-geometry-in-the-epic-dd4hep.md#geometry-visualizations-options).
 
@@ -174,7 +174,7 @@ configurations/lfhcal_2024_TB.yml
 ```
 {% endcode %}
 
-For 2024 every single layer was read out using two different read out electronics. All 64 layers where equipped of the first prototype module.&#x20;
+For 2024 every single layer was read out using two different read out electronics. All 64 layers where equipped of the first prototype module.
 
 ### 2025 PS-T09 TB geometry
 
@@ -190,13 +190,11 @@ configurations/lfhcal_2025_TB.yml
 ```
 {% endcode %}
 
-In order to reproduce the actual beam geometries as documented in [link](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2025_Test_Beam), additional configurations taking into account the partial layer equipment will need to be provided.&#x20;
+In order to reproduce the actual beam geometries as documented in [link](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2025_Test_Beam), additional configurations taking into account the partial layer equipment will need to be provided.
 
 ### 2026 PS-T10 TB geometry
 
-
-
-<div><figure><img src="../.gitbook/assets/Screenshot at 2026-02-18 13-49-57 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2026-02-18 13-49-39 (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/Screenshot at 2026-02-18 13-49-57.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2026-02-18 13-49-39.png" alt=""><figcaption></figcaption></figure></div>
 
 A basic configuration for the 2025 TB geometry with all layers equipped has been build as in the following configuration files:
 
@@ -208,7 +206,7 @@ configurations/lfhcal_2025_TB.yml
 ```
 {% endcode %}
 
-This should be adapted to correctly reflect the TB geometry present in the 2026 PS-T10 TB.&#x20;
+This should be adapted to correctly reflect the TB geometry present in the 2026 PS-T10 TB.
 
 ### 2026 SPS-H2 TB geometry
 

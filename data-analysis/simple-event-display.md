@@ -20,7 +20,7 @@ Following options are implemented:
   * \`-r\` : name of run list file,
   * \`-y\` : setting year externally,
 * specific for the event display:
-  * &#x20;\`-e\` : setting event number to plot, default 0,
+  * \`-e\` : setting event number to plot, default 0,
   * \`-N\` : setting number of events to plot, default 1,
   * \`-M\` : plot only muon triggered events (in the given range)
 
@@ -30,15 +30,15 @@ Example of how to run it:
 ./Display -d 1 -i $INPUT_FILE -r $RUN_LIST -P $PLOT_DIR -e 5 [-N 10 -M]
 ```
 
-<figure><img src="../.gitbook/assets/Electrons_EventDisplay_evt28 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Electrons_EventDisplay_evt28.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/ElectronsMuonTrig_EventDisplay_evt55 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/ElectronsMuonTrig_EventDisplay_evt55.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/Hadrons_EventDisplay_evt7 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Hadrons_EventDisplay_evt7.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/HadronsMuonTrig_EventDisplay_evt90 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/HadronsMuonTrig_EventDisplay_evt90.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/Muons_EventDisplay_evt46 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Muons_EventDisplay_evt46.png" alt=""><figcaption></figcaption></figure>
 
 Alternative views with projections in `X,Y` and `Z` are also provided:
 

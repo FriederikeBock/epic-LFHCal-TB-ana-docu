@@ -2,7 +2,7 @@
 
 ## General procedure
 
-### Running over one single run&#x20;
+### Running over one single run
 
 The main-program to run a basic QA over the calbrated data is `./DataAna.` So far only one option is implemented `-Q`, which triggers a basic QA run over the data and can be run as follows.
 
@@ -18,11 +18,11 @@ It currently produces the following plots and can distinguish 3 different trigge
 
 <div><figure><img src="../.gitbook/assets/EnergyTot (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyTotSplit.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCells (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCellsSplit.png" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/EnergyVsLayer (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyVsLayer_MuonTrigg (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyVsLayer_WOMuonTrigg (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/EnergyVsLayer.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyVsLayer_MuonTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/EnergyVsLayer_WOMuonTrigg.png" alt=""><figcaption></figcaption></figure></div>
 
 <div><figure><img src="../.gitbook/assets/ELayerOverlay_AllTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ELayerOverlay_MuonTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ELayerOverlay_NonMuonTrigg.png" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/NcellsLayerVsLayer (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NcellsLayerVsLayer_MuonTrigg (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NcellsLayerVsLayer_WOMuonTrigg (1).png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NcellsLayerVsLayer.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NcellsLayerVsLayer_MuonTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NcellsLayerVsLayer_WOMuonTrigg.png" alt=""><figcaption></figcaption></figure></div>
 
 <div><figure><img src="../.gitbook/assets/NCellsLayerOverlay_AllTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCellsLayerOverlay_MuonTrigg.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NCellsLayerOverlay_NonMuonTrigg.png" alt=""><figcaption></figcaption></figure></div>
 
@@ -42,17 +42,13 @@ Additional per layer plots are produced when running with the `-e [1/2]` option.
 
 No scripts have been created yet.
 
-
-
 ### October 2023 data
 
 No scripts have been created yet.
 
-
-
 ### August 2024 data
 
-The primary script for the first look at a basic QA of calibrated data is `runQA_2024.sh`.&#x20;
+The primary script for the first look at a basic QA of calibrated data is `runQA_2024.sh`.
 
 ```sh
 # run first full data QA for Scan A
@@ -69,7 +65,7 @@ No scripts have been created yet.
 
 ### November 2025 data
 
-The primary script for the first look at a basic QA of calibrated data is `runQAHGCROC_2025.sh` .&#x20;
+The primary script for the first look at a basic QA of calibrated data is `runQAHGCROC_2025.sh` .
 
 ```bash
 # running simple QA of calibrated data (only for quick look)
@@ -78,4 +74,4 @@ bash runQAHGCROC_2025.sh $USERNAME FullScanA SimpleQA
 bash runQAHGCROC_2025.sh $USERNAME FullScanA QA
 ```
 
-The 2nd argument defines which scan it is while the 3rd lets you choose which level of QA you would like to run.&#x20;
+The 2nd argument defines which scan it is while the 3rd lets you choose which level of QA you would like to run.

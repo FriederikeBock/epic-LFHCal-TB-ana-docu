@@ -4,7 +4,7 @@ In order to have a first calibration of each cell/tile within the calorimeter to
 
 When we are taking taking data we are reading out every channel for every event, regardless whether the channel was hit by a particle or not (meaning w/o zero or pedestal suppression). This can introduc some difficulties for the our fitting algorithms, as the pedestal peak could be larger in amplitude than the actual signal distribution one is after. In order to still allow automized fitting to some degree for the MIP calibration at different Vop, we devised a local muon trigger strategy. For this we are using the fact that a muon on average will always leave approximately the same signal in every tile (a minimum ionizing signal), hence we can use adjacent tiles to trigger on the average mip response in for instance the 2 tiles before and the two tiles after the tile one is currently investigating.
 
-<figure><img src="../.gitbook/assets/LocalTriggerIllustration (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/LocalTriggerIllustration.png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -18,9 +18,9 @@ The extraction of the MIP scale is a somewhat iterative process, as it get easie
 ./DataPrep -d 1 -e -f -P PedestalCalib_$RUNNR1.root -i raw_$RUNNR2.root -o rawPed_$RUNNR2.root -O $PLOTSDIR -r $RUNLIST
 ```
 
-The calibration file obtained from a different run `PedestalCalib_$RUNNR1.root` is being applied to the input file `raw_$RUNNR2.root.` As before the data is then copied in full to a separate output file (`rawPed_$RUNNR2.root` )  together with the calib-object from the provided calibration file. To check the correct application of the file several QA plots are produced.&#x20;
+The calibration file obtained from a different run `PedestalCalib_$RUNNR1.root` is being applied to the input file `raw_$RUNNR2.root.` As before the data is then copied in full to a separate output file (`rawPed_$RUNNR2.root` ) together with the calib-object from the provided calibration file. To check the correct application of the file several QA plots are produced.
 
-The calibration object can be printed to an external text file using the option `-a`, which will write the calib-object to a file with the same name as defined in `-o`, but ending in `_calib.txt.`&#x20;
+The calibration object can be printed to an external text file using the option `-a`, which will write the calib-object to a file with the same name as defined in `-o`, but ending in `_calib.txt.`
 
 It is also possible to overwrite the calibration which is being loaded from `PedestalCalib_$RUNNR1.root` by adding the option `-A $EXTCALIB.txt` and providing a text file of that name in the same format as the output of the `-a` option.
 
@@ -46,20 +46,20 @@ An example of such a bad channel map and its format can be found [here](https://
 0   24  0   3   0
 ```
 
-The various BC flags are encoded as follows:&#x20;
+The various BC flags are encoded as follows:
 
 * `0`: bad
 * `1`: always lower mip
 * `2`: sometimes lower mip
 * `3`: good
 
-All channels not listed in the BC map will be assumed to be good and the calib-object created accordingly. _Please read what is written printed as info in the shell during execution this is normally useful and will give you an idea whether things are running correctly._  If a bad channel map was supposed to be calculated or has been provided the following plot will be created.
+All channels not listed in the BC map will be assumed to be good and the calib-object created accordingly. _Please read what is written printed as info in the shell during execution this is normally useful and will give you an idea whether things are running correctly._ If a bad channel map was supposed to be calculated or has been provided the following plot will be created.
 
 <div align="center"><figure><img src="../.gitbook/assets/BadChannelMap.png" alt="" width="375"><figcaption><p>Bad channel map: red (3): good channels, yellow (2): semi-good channels, light blue (1): mostly bad channels, dark blue (0): dead channel.</p></figcaption></figure></div>
 
-The option `-e` allows you to force the executable to draw more plots for your information, like the individual spectra of each channel per layer.&#x20;
+The option `-e` allows you to force the executable to draw more plots for your information, like the individual spectra of each channel per layer.
 
-<div><figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer11.png" alt=""><figcaption><p>CAEN HG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer17.png" alt=""><figcaption><p>CAEN HG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse). </p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer11.png" alt=""><figcaption><p>CAEN LG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer17.png" alt=""><figcaption><p>CAEN LG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse). </p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer11.png" alt=""><figcaption><p>CAEN HG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_HG_Layer17.png" alt=""><figcaption><p>CAEN HG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse).</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer11.png" alt=""><figcaption><p>CAEN LG spectra for layer 11.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SpectraWithNoiseFit_LG_Layer17.png" alt=""><figcaption><p>CAEN LG spectra for layer 17. Different shades of gray indicate different Bad Channel flags (the darker the worse).</p></figcaption></figure></div>
 
 The original data per tile & event will not be modified in this process, it is a true copy process. The corresponding routine being executed can be found here:
 
@@ -73,7 +73,7 @@ hadd -f raw_muonScanA1_45V.root raw_244.root raw_250.root
 
 #### **HGCROC specific handling**
 
-**For the HGCROC-data the calibration transfer is handled a little bit differently as the raw waveforms are being reevaluated in this step.**&#x20;
+**For the HGCROC-data the calibration transfer is handled a little bit differently as the raw waveforms are being reevaluated in this step.**
 
 ```bash
 #read an external bad channel from $BADCHANNELMAP
@@ -98,15 +98,15 @@ aTile->SetIntegratedADC(waveform_builder->get_E());
 aTile->SetPedestal(waveform_builder->get_pedestal());
 ```
 
-Afterwards the IntegratedADC value is also reevaluted. In the current version no true waveform fit is being performed but rather the maximum ADC out of all samples is taken as ADC value from here-on out.&#x20;
+Afterwards the IntegratedADC value is also reevaluted. In the current version no true waveform fit is being performed but rather the maximum ADC out of all samples is taken as ADC value from here-on out.
 
-Additional QA plots are also produced to ascertain the correct application of the pedestal values and visualize the ADC-waveforms as function of number of samples. Such plots are produced for two cases a) without any selections or b) if the ToA of the corresponding channel was larger than `0` . The ToA for the 2025 data taking campaign was configured such that it should have fired slightly below the average mip signal. Either of these plots are however only produced if any of the extended plotting options is enabled.&#x20;
+Additional QA plots are also produced to ascertain the correct application of the pedestal values and visualize the ADC-waveforms as function of number of samples. Such plots are produced for two cases a) without any selections or b) if the ToA of the corresponding channel was larger than `0` . The ToA for the 2025 data taking campaign was configured such that it should have fired slightly below the average mip signal. Either of these plots are however only produced if any of the extended plotting options is enabled.
 
-<figure><img src="../.gitbook/assets/Waveform_Layer01 (1).png" alt=""><figcaption><p>Waveform representation as obtained from the TransferCalib running. No event or signal selection criteria are applied. </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Waveform_Layer01 (1).png" alt=""><figcaption><p>Waveform representation as obtained from the TransferCalib running. No event or signal selection criteria are applied.</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/WaveformSignal_Layer1.png" alt=""><figcaption><p>Waveform representation as obtained from the TransferCalib running for waveforms which have a non-zero ToA.</p></figcaption></figure>
 
-Moreover, the correction for the `TOA` offset is performed if the option `-G $TOAOFFSETFILE` is used. With the `$TOAOFFSETFILE=../configs/TB2025/ToAOffsets_TB2025_HadRun.csv` for instance. How to generate that offset file is described in the [TOA phase extraction section](toa-phase-extraction.md). In order to check that this correction has been applied additional plots vs `TOA` as well as waveforms per asic half are generated.&#x20;
+Moreover, the correction for the `TOA` offset is performed if the option `-G $TOAOFFSETFILE` is used. With the `$TOAOFFSETFILE=../configs/TB2025/ToAOffsets_TB2025_HadRun.csv` for instance. How to generate that offset file is described in the [TOA phase extraction section](toa-phase-extraction.md). In order to check that this correction has been applied additional plots vs `TOA` as well as waveforms per asic half are generated.
 
 <div><figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_0_Half_1.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_1_Half_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/ToaVsNSample_Asic_3_Half_0.png" alt=""><figcaption></figcaption></figure></div>
 
@@ -136,27 +136,27 @@ This should ideally be done on using a `$rawPedWBC_$RUNNR.root` file which alrea
 
 `bool Analyses::GetScaling(void)` in [Analyses.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Analyses.cc).
 
-This function processes the full event tree twice and tries to fit the MIP peak in two different versions. In the first iteration over the data for each cell a histogram is filled for both HG and LG without any kind of trigger selection correcting the ADC values for their respective pedestal values. When running over HGCROC data currently only one of the two is filled, the HG-ADC, which is equivalent to the lower energy range of the HGCROC readout. The higher energy equivalent of the HGCROC data cannot calibrated using mips.&#x20;
+This function processes the full event tree twice and tries to fit the MIP peak in two different versions. In the first iteration over the data for each cell a histogram is filled for both HG and LG without any kind of trigger selection correcting the ADC values for their respective pedestal values. When running over HGCROC data currently only one of the two is filled, the HG-ADC, which is equivalent to the lower energy range of the HGCROC readout. The higher energy equivalent of the HGCROC data cannot calibrated using mips.
 
 Afterwards a Landau-Gauss-function is fit to every HG-spectrum (CAEN) & ADC-spectrum (HGCROC data) and if the fit succeeds a first value for the maximum of the Landau-Gauss as well as its width is stored in the calibration object which is read from the input file. Should the fit fail for instance because the pedestal (noise) peak is too large or too close, no values are stored in the calib-objects. Overview plots showing the respective values during the first iteration are also generated
 
-<div><figure><img src="../.gitbook/assets/HG_FWHMMip_1st (1).png" alt=""><figcaption><p>FWHM of the fits of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_GaussSigMip_1st.png" alt=""><figcaption><p>Gaussian sigma of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandMPVMip_1st.png" alt=""><figcaption><p>Most probable value of the Landau distribution after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandSigMip_1st.png" alt=""><figcaption><p>Width of the Landau distribution, after the first iteration.</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/HG_FWHMMip_1st.png" alt=""><figcaption><p>FWHM of the fits of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_GaussSigMip_1st.png" alt=""><figcaption><p>Gaussian sigma of the Landau-Gauss distribution, after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandMPVMip_1st.png" alt=""><figcaption><p>Most probable value of the Landau distribution after the first iteration.</p></figcaption></figure> <figure><img src="../.gitbook/assets/HG_LandSigMip_1st.png" alt=""><figcaption><p>Width of the Landau distribution, after the first iteration.</p></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/HG_MaxMip_1st (1).png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution after the first iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (&#x3C;MaxHG> = 214).</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/HG_MaxMip_1st.png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution after the first iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (&#x3C;MaxHG> = 214).</p></figcaption></figure>
 
-In addition the linear relation between the LG & HG is evaluated and its slope stored in the calibration objects for the CAEN processing case.&#x20;
+In addition the linear relation between the LG & HG is evaluated and its slope stored in the calibration objects for the CAEN processing case.
 
 <figure><img src="../.gitbook/assets/LGHG_Corr_Layer00.png" alt=""><figcaption><p>LG-HG correlation for each cell in layer 0 for cross-calibration of the two read-out scales.</p></figcaption></figure>
 
-<div><figure><img src="../.gitbook/assets/HG_LG_Corr.png" alt=""><figcaption><p>Summary plot of the slope of the HG-LG correlation.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LG_HG_Corr.png" alt=""><figcaption><p>Summary plot of the  slope of the LG-HG correlation</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/HG_LG_Corr.png" alt=""><figcaption><p>Summary plot of the slope of the HG-LG correlation.</p></figcaption></figure> <figure><img src="../.gitbook/assets/LG_HG_Corr.png" alt=""><figcaption><p>Summary plot of the slope of the LG-HG correlation</p></figcaption></figure></div>
 
-In the second part of the routine the data tree is processed once more now knowing for a significant fraction of the tiles how LG and HG are related as well as what the average MIP position ought to be.&#x20;
+In the second part of the routine the data tree is processed once more now knowing for a significant fraction of the tiles how LG and HG are related as well as what the average MIP position ought to be.
 
-Using this information local trigger primitives are being calculated. Taking into account the signals in `n` layers before and after the current cell (same row & column, different layer).  The basis for the trigger primitive calculation can be found here:
+Using this information local trigger primitives are being calculated. Taking into account the signals in `n` layers before and after the current cell (same row & column, different layer). The basis for the trigger primitive calculation can be found here:
 
 `double CalculateLocalMuonTrigg(Calib, TRandom3*, int, int, double)` in [Event.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Event.cc)
 
-It combines the information based on the ADC value in the HG (low energy) and LG (high energy) and forming a combined average signal of `n*2` tiles in a row. The tile under investigation is then flagged as local muon triggered tile if  `facMin*avMIP < ADC HG < facMax*avMIP`.  A rather loose selection is done in this step as potentially the `avMIP` is still biased, if not all channels could be fit reliably in the first iteration. For the 2024 CAEN data the respective factors are:
+It combines the information based on the ADC value in the HG (low energy) and LG (high energy) and forming a combined average signal of `n*2` tiles in a row. The tile under investigation is then flagged as local muon triggered tile if `facMin*avMIP < ADC HG < facMax*avMIP`. A rather loose selection is done in this step as potentially the `avMIP` is still biased, if not all channels could be fit reliably in the first iteration. For the 2024 CAEN data the respective factors are:
 
 ```cpp
 double factorMinTrigg   = 0.5;
@@ -167,19 +167,19 @@ This suppresses the pedestal peak by a rather large amount and allows for a more
 
 <figure><img src="../.gitbook/assets/LocalTriggerIllustration.png" alt=""><figcaption></figcaption></figure>
 
-<div><figure><img src="../.gitbook/assets/MuonTriggers.png" alt=""><figcaption><p>Number of local muon triggers in each tile, total number of events collectd in the run shown in the top left corner.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SuppressionNoise.png" alt=""><figcaption><p>Suppression of the pedestal peak around 0.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SuppressionSignal.png" alt=""><figcaption><p>Suppresion of the signal peak in the signal region. </p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/MuonTriggers.png" alt=""><figcaption><p>Number of local muon triggers in each tile, total number of events collectd in the run shown in the top left corner.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SuppressionNoise.png" alt=""><figcaption><p>Suppression of the pedestal peak around 0.</p></figcaption></figure> <figure><img src="../.gitbook/assets/SuppressionSignal.png" alt=""><figcaption><p>Suppresion of the signal peak in the signal region.</p></figcaption></figure></div>
 
-<figure><img src="../.gitbook/assets/TriggPrimitive_Layer09.png" alt=""><figcaption><p>Trigger primitive distribution for the cells in layer 9, shaded area indicates muon triggered events. </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/TriggPrimitive_Layer09.png" alt=""><figcaption><p>Trigger primitive distribution for the cells in layer 9, shaded area indicates muon triggered events.</p></figcaption></figure>
 
 The evaluated trigger primitives are stored in the new output for event and tile, allowing to reevalulate the trigger in subsequent iterations with stricter selection criteria.
 
-The corresponding HG and LG spectra for the locally muon triggered events are then fitted again with a Landau-Gauss function and if successful the corresponding calibration values are updated.&#x20;
+The corresponding HG and LG spectra for the locally muon triggered events are then fitted again with a Landau-Gauss function and if successful the corresponding calibration values are updated.
 
-<figure><img src="../.gitbook/assets/MIP_HG_Layer09.png" alt=""><figcaption><p>HG spectra for all events (blue) and locally muon triggered events (red) together with the fitted Landau-Gauss function in case the fit did not fail. Fits are displayed in either dark blue (fit of muon triggered failed, but full distribution succeeded) or in dark red (fit of muon triggered succeeded). </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/MIP_HG_Layer09.png" alt=""><figcaption><p>HG spectra for all events (blue) and locally muon triggered events (red) together with the fitted Landau-Gauss function in case the fit did not fail. Fits are displayed in either dark blue (fit of muon triggered failed, but full distribution succeeded) or in dark red (fit of muon triggered succeeded).</p></figcaption></figure>
 
 As the selection of the triggers is rather course still the fits might still not perfectly describe the mip-signal region. This particularly applies for tiles which the beam wasn't directly pointing at (edges). The same monitoring plots for the fit parameters are created in the 2nd iteration as well and the equivalent LG plots as well.
 
-<div><figure><img src="../.gitbook/assets/HG_MaxMip_2nd (1).png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the HG signal after the first iteration. White "bins" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (222.4)</p></figcaption></figure> <figure><img src="../.gitbook/assets/LG_MaxMip_2nd (1).png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the LG signal after the second iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (16.6)</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/HG_MaxMip_2nd.png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the HG signal after the first iteration. White "bins" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (222.4)</p></figcaption></figure> <figure><img src="../.gitbook/assets/LG_MaxMip_2nd.png" alt=""><figcaption><p>Maximum of the Landau-Gauss distribution for the LG signal after the second iteration. White "bin" indicate fit failures in the first iteration. The average value for all channels is given in the top left corner (16.6)</p></figcaption></figure></div>
 
 The respective fitting routines for the Landau-Gauss functions can be found in
 
@@ -188,9 +188,9 @@ bool TileSpectra::FitMipHG(double*, double*, int, int, bool, double, double )
 bool TilesSpecta::FitMipLG(double*, double*, int, int, bool, double ) 
 ```
 
-in [TileSpecta.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/TileSpectra.cc).&#x20;
+in [TileSpecta.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/TileSpectra.cc).
 
-The same evalulation steps are performed in case of the HGCROC data processing, however only the low energy equivalent is being fitted (ADC). Hence no cross-correlations are being evaluated between ADC and TOT. The relevant calibration parameter stored for the MIP scale is the `ScaleH`  and its width `ScaleWidthH` .
+The same evalulation steps are performed in case of the HGCROC data processing, however only the low energy equivalent is being fitted (ADC). Hence no cross-correlations are being evaluated between ADC and TOT. The relevant calibration parameter stored for the MIP scale is the `ScaleH` and its width `ScaleWidthH` .
 
 ```cpp
 double ScaleH         = -1000.;     // Max Mip in HG ADC (CAEN) or ADC (HGCROC) 
@@ -205,7 +205,7 @@ The second step relies on the output objects of Step 1 (which include the trigge
 ./DataPrep -f -d 1 -S -i rawPedAndMuonWBC_$RUNNR.root -o rawPedAndMuonWBCImp_$RUNNR.root -O $PLOTSDIR -r $RUNLIST
 ```
 
-This file again will copy each time the original data tree from `rawPedAndMuonWBC_$RUNNR.root` and updates the calib objects which are provided in the same file, writing the original data tree and new calib object to `rawPedAndMuonWBCImp_$RUNNR.root`. &#x20;
+This file again will copy each time the original data tree from `rawPedAndMuonWBC_$RUNNR.root` and updates the calib objects which are provided in the same file, writing the original data tree and new calib object to `rawPedAndMuonWBCImp_$RUNNR.root`.
 
 It follows the same procedure as the second part of step 1, basing trigger selection criteria on the inputed calib objects and their respective average mip scale, however the minimum and maximum factors for the trigger selection are significantly tightened. For the 2024 data the respective factors are:
 
@@ -214,13 +214,13 @@ double factorMinTrigg   = 0.8;
 double factorMaxTrigg   = 2.5;
 ```
 
-This allows for a significantly better noise suppression and thus easier fitting.&#x20;
+This allows for a significantly better noise suppression and thus easier fitting.
 
 The detailed implementation can be found in:
 
 `bool Analyses::GetImprovedScaling(void)` in [Analyses.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/Analyses.cc).
 
-The step 2 can be repeated as often as necessary on the output created in the previous iteration of step 2, until the fitting converges for a maximum of cells.&#x20;
+The step 2 can be repeated as often as necessary on the output created in the previous iteration of step 2, until the fitting converges for a maximum of cells.
 
 _As the data of the HGCROC max ADC values fluctates on a bin-by-bin basis more than it physically should a constant 10% systematic uncertainty is added to each bin in order to allow the Landau-Gauss fits to converge. The reason for the unphysical fluctuations is still under investigation._
 
@@ -242,17 +242,13 @@ Otherwise a very similar set of plots is produced as for the second part of Step
 
 No scripts have been created yet.
 
-
-
 ### October 2023 data
 
 No scripts have been created yet.
 
-
-
 ### August 2024 data
 
-The primary script for the muon calibration of this data set is as for the pedestal `runCalibration_2024.sh`, in order to obtain the calibrations for a specific scan the following commands need to be executed in order. The next command should only be executed if the outputs of the previous step have been checked.&#x20;
+The primary script for the muon calibration of this data set is as for the pedestal `runCalibration_2024.sh`, in order to obtain the calibrations for a specific scan the following commands need to be executed in order. The next command should only be executed if the outputs of the previous step have been checked.
 
 ```sh
 # merge the muon files correctly (comment out which set you need)
@@ -355,7 +351,7 @@ bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd_red
 bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd_red
 ```
 
-After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.&#x20;
+After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.
 
 ```bash
 # extract from last iteration just the calib objects into a separate file

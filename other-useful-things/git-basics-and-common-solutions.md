@@ -14,7 +14,7 @@ There are many ways to work with git and there are advantages and disadvantages 
 * How well do you know how to work with git?
 * How intrusive will your changes be to the work of others?
 
-If you aren't confident in operating with git or are expecting the changes to be rather intrusive, please work on a `fork`  (if you don't yet have direct commit rights) or a `branch`  (if you have maintainer rights to the repo). On the `main` branch, ideally only experts should be pushing directly.&#x20;
+If you aren't confident in operating with git or are expecting the changes to be rather intrusive, please work on a `fork` (if you don't yet have direct commit rights) or a `branch` (if you have maintainer rights to the repo). On the `main` branch, ideally only experts should be pushing directly.
 
 ### Working on a `fork`
 
@@ -38,11 +38,11 @@ git push $YOURFORK main
 git config local remote.pushDefault $YOURFORK
 ```
 
-Afterwards continue with the [getting started setup](../tb-analysis-basics/). If you made changes and want to push something and have it merged back into the central repository. Go to your fork `Contribute` -> `Create Pull Request`  and the the corresponding dialog opens. Make sure you write a short summary of what you changed and make the request. If we don't react within a few days, send the link to the TB channel and ask for a review of the changes, if its urgent you can always reach out to [Friederike Bock](https://app.gitbook.com/u/5a3295149734bf002fa4a00e "mention").
+Afterwards continue with the [getting started setup](https://github.com/FriederikeBock/epic-LFHCal-TB-ana-docu/blob/main/tb-analysis-basics/README.md). If you made changes and want to push something and have it merged back into the central repository. Go to your fork `Contribute` -> `Create Pull Request` and the the corresponding dialog opens. Make sure you write a short summary of what you changed and make the request. If we don't react within a few days, send the link to the TB channel and ask for a review of the changes, if its urgent you can always reach out to [Friederike Bock](https://app.gitbook.com/u/5a3295149734bf002fa4a00e "mention").
 
-### Working on a `branch`&#x20;
+### Working on a `branch`
 
-The initial setup works exactly as described for [getting started setup](../tb-analysis-basics/), then I suggest you read through the [git documentation for branches](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) (simply because its useful). In order to push to the repo we'll need to have given you rights & you'll need to be a member of the ["eic organization"](https://github.com/eic). This requires an e-mail to [eic-software-l-request@lists.bnl.gov](mailto:eic-software-l-request@lists.bnl.gov) and your github-profile to contain your **full name** and **current institution**. Afterwards, we can add you to the [github-lfhcal team](https://github.com/orgs/eic/teams/epic-lfhcal) which grants the permissions to this repo.&#x20;
+The initial setup works exactly as described for [getting started setup](https://github.com/FriederikeBock/epic-LFHCal-TB-ana-docu/blob/main/tb-analysis-basics/README.md), then I suggest you read through the [git documentation for branches](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) (simply because its useful). In order to push to the repo we'll need to have given you rights & you'll need to be a member of the ["eic organization"](https://github.com/eic). This requires an e-mail to [eic-software-l-request@lists.bnl.gov](mailto:eic-software-l-request@lists.bnl.gov) and your github-profile to contain your **full name** and **current institution**. Afterwards, we can add you to the [github-lfhcal team](https://github.com/orgs/eic/teams/epic-lfhcal) which grants the permissions to this repo.
 
 Now lets be real, when you start working please do the following first:
 
@@ -55,7 +55,7 @@ git checkout -b $USEFULBRANCHNAME
 git checkout $USEFULBRANCHNAME
 ```
 
-Then you work and do you changes, but before you push them upwards don't forget to pull the changes in the remote branches (in particular `main`) and rebase your branch.&#x20;
+Then you work and do you changes, but before you push them upwards don't forget to pull the changes in the remote branches (in particular `main`) and rebase your branch.
 
 ```bash
 ## commit your changes
@@ -73,7 +73,7 @@ git push origin $YOURBRANCHNAME
 
 Afterwards you go on the github page and create a pull request, similar to if you'd be working on a `fork` .
 
-### Working on `main`&#x20;
+### Working on `main`
 
 Ideally you leave this to experts. Please ask [Friederike Bock](https://app.gitbook.com/u/5a3295149734bf002fa4a00e "mention")if its ok for you to work here.
 
@@ -102,7 +102,7 @@ Ask yourself a few questions:
 
 ## How to create & apply a patch?
 
-Patches are a useful way to get out of a bind in some cases and they can be send via email if need be to other people to just check something real quick.&#x20;
+Patches are a useful way to get out of a bind in some cases and they can be send via email if need be to other people to just check something real quick.
 
 ```bash
 ## create a patch with your last commit:
