@@ -30,7 +30,7 @@ This should bring you to the home screen of vivado. There you should follow the 
   * press play to check setup for each ASIC
 * 2 KCU's can't be simultaneously programmed with this version of vivado, so the programming and checking step have to be repeated for the other KCU
 
-<figure><img src="../.gitbook/assets/image (1)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (1)" alt=""><figcaption></figcaption></figure>
 
 ## HGCROC calibration procedure
 
@@ -41,7 +41,7 @@ For the HGCROC there are 4 main calibration steps:
 3. **ToA Calibration:** Determines at which threshold value equivalent the _Time of Arrival (ToA)_ is fired (rising edge). ATTENTION: The value we are setting here is given as `injection DAC` (Digital-to-Analog-Converter) which is not equivalent to the `ADC` value referred to during the pedestal calibration. The actual conversion factor between those depends on the SiPM type.
 4. **ToT Calibration:** Determines at which threshold value equivalent the _Time over Threshold (ToT)_ is fired (falling edge). Once more the settable value is the `injection DAC` value no the `ADC` value.
 
-<div><figure><img src="../.gitbook/assets/image (2)" alt="" width="563"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (3)" alt="" width="563"><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (2)" alt="" width="563"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (3)" alt="" width="563"><figcaption></figcaption></figure></div>
 
 After these calibrations have been run the **Internal Injection (3 options: low, high, 2.5V)** test should be run ideally for all channels to validate the thresholds also in `ADC` equivalent. These test however take fairly long (\~2-4min/4 channels) and it might not be advisable to run during a test beam setting.
 
@@ -94,7 +94,7 @@ Iteration #019:  0xa0 0x0c 1e/1e 0x3f accccccc accccccc accccccc accccccc accccc
 
 Should this not be the case, please replace the different IO-delays at the top of each script with either the proposed values (see full output of the script), or the a value in the middle of the first long block. To confirm you can check in vivado, by clicking run again. In case everything is fine it should look as below, with all the valid signals aligned (light green boxes). The first 4 double-lines correspond to the trigger signals and are followed by the 2 data lines and their respective valids.
 
-<figure><img src="../.gitbook/assets/image (5)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (5)" alt=""><figcaption></figcaption></figure>
 
 ### Calibration & Configuration Gui
 
@@ -107,7 +107,7 @@ You can start the gui from `konsole` by entering the respective H2GCalibX-Softwa
 python3 200_UI.py
 ```
 
-<figure><img src="../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (27).png" alt=""><figcaption></figcaption></figure>
 
 This script provides a user interface for selecting the calibration files and setting various parameters for the calibration process. Once more it will ask in the beginning to select how many KCU's and ASICs per KCU are connected. You can change the number of HGCROCs to be handeled by changing the ASIC number in the grey field behind the current number, this requires an explicit `ENTER` command to be applied. Morevover you can change the default configuration of the HGCROC to be loaded. For the 2026 TB campaign this should be:
 
@@ -128,7 +128,7 @@ The configuration folder (`./configs`) holds further general configuration scrip
 * `socket_pool_configX.json:` Configuration for the UDP communication. Including the IP addresses and ports for the different KCUs and the PC.
 * `h2gcroc_1v4_r1.json`: Configuration for the H2GCROC registers. **Users should not modify this file**.
 
-<figure><img src="../.gitbook/assets/Screenshot at 2026-06-23 21-43-01.png" alt="" width="169"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/Screenshot at 2026-06-23 21-43-01.png" alt="" width="169"><figcaption></figcaption></figure>
 
 This gui as seen above cannot only handle the calibration but also serves as primary tool to configure the ASICs. The options under the tabs can be found as follows:
 
@@ -151,7 +151,7 @@ This gui as seen above cannot only handle the calibration but also serves as pri
 
 You can find the results of the IO Delay Scan in the `./dump/fpgaX_401_IO_Delay_data_YYYYMMDD_HHMMSS` folder. There will be pdf files for how the IO Delay values are set. The dashed red line indicates the optimal IO Delay value, which should be in the middle of the widest locked region.
 
-<figure><img src="../.gitbook/assets/image (9)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (9)" alt=""><figcaption></figcaption></figure>
 
 After the IO-delay scan finished one should check in `vivado` that the data lines in case of a valid data flag are set to `acccccc` , while the trigger lines should be should show a different value.
 
@@ -159,7 +159,7 @@ After the IO-delay scan finished one should check in `vivado` that the data line
 
 (Estimated running time: \~ 3 minutes)
 
-<figure><img src="../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (30).png" alt=""><figcaption></figcaption></figure>
 
 In the backend this will be calling the script `402_PedestalCalibY.py` . The desired pedestal target \[ADC] can be set via the first line entry (here `80`), don't forget the `ENTER` , as otherwise the change won't be taken. **Recommended value range: 50-150 ADC.** The base configuration should be `/home/lfhcal/Software/HGCROC/H2GCalibX/config/default_2025Oct_config.json` (Template JSON File).
 
@@ -169,19 +169,19 @@ The output of the pedestal calibration will be new I2C JSON files. And the file 
 
 As current default configuration `config/default_2025Oct_config.json` should be used. Make sure the fine channel calibration looks reasonable and no large outliers can be found. If the results aren't satisfactory reset the IO-delays and retry. If after a second attempt the calibration still hasn't succeeded. It could be tried to load a valid calibration from a different proto-board, primarily the `Noinv_vref` and `Inv_vref` bits in the Reference Voltage Register should be adjusted in that case.
 
-<div><figure><img src="../.gitbook/assets/image (12)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (13)" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (12)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (13)" alt=""><figcaption></figcaption></figure></div>
 
 A good calibration should have the final pedestal values nicely aligned around the target value, with a small spread across all channels.
 
-<div><figure><img src="../.gitbook/assets/image (15)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (16)" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (15)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (16)" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/image (17)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (19)" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (17)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (19)" alt=""><figcaption></figcaption></figure></div>
 
 ### Time-of-Arrivel(ToA) Calibration
 
 (Estimated running time: \~ 20-30 minutes)
 
-<figure><img src="../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (31).png" alt=""><figcaption></figcaption></figure>
 
 For the ToA calibration the previous Pedestal Calibration can be loaded using the `Read from 402 Output` button, or the individual asics can be configured vias the browse buttons behind the file names. Make sure to always configure all ASICs with at least a basic file. In the backend the script `403_ToACalibY.py` , is being executed.
 
@@ -197,17 +197,17 @@ The ToA-calibration is currently being executed in 3 steps (target for the examp
 
 X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToA-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips.
 
-<div align="left"><figure><img src="../.gitbook/assets/image (21)" alt=""><figcaption><p>Typical initial ToA calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/image (22)" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/NewCalibPage/image (21)" alt=""><figcaption><p>Typical initial ToA calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (22)" alt=""><figcaption></figcaption></figure></div>
 
 A good calibration should have the final ToA values like, however the timing alignment of the different halfs (color scale) is currently not performed.
 
-<div><figure><img src="../.gitbook/assets/image (23)" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value.</p></figcaption></figure> <figure><img src="../.gitbook/assets/image (25)" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (23)" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value.</p></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (25)" alt=""><figcaption></figcaption></figure></div>
 
 ### Time-over-Threshold(ToT) Calibration
 
 (Estimated running time: \~ 15-20 minutes)
 
-<figure><img src="../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (32).png" alt=""><figcaption></figcaption></figure>
 
 For the ToT calibration the previous ToA Calibration can be loaded using the `Read from 403 Output` button, or the individual asics can be configured vias the browse buttons behind the file names. Make sure to always configure all ASICs with at least a basic file. In the backend the script `404_ToTCalibY.py` , is being executed.
 
@@ -217,17 +217,17 @@ Moreover, it can be steered how many channels are evaluated in parallel (here `8
 
 The output folder is `./dump/fpgaX_404_ToTCalibY_YYYYMMDD_HHMMSS`. The resulting files is in the same format as the ToT calibration. Similarly as for the ToT calibration the calibration is run in multiple steps. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips.
 
-<div align="center"><figure><img src="../.gitbook/assets/image (27)" alt=""><figcaption><p>Typical initial ToT calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/image (28)" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/NewCalibPage/image (27)" alt=""><figcaption><p>Typical initial ToT calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/image (28)" alt=""><figcaption></figcaption></figure></div>
 
 An example of a good ToT calibration result is shown below:
 
-<figure><img src="../.gitbook/assets/image (30)" alt=""><figcaption><p>Result of a good ToT calibration with a target value of 300 DAC as turn on value.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (30)" alt=""><figcaption><p>Result of a good ToT calibration with a target value of 300 DAC as turn on value.</p></figcaption></figure>
 
 ### Internal Injection
 
 (Estimated running time: \~ 50 minutes for all channels)
 
-<figure><img src="../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (33).png" alt=""><figcaption></figcaption></figure>
 
 This gui allows to run several variants of the injection scan with fixed injection values. The injection values can be set in the first line `Injection DAC` (here set to 100). Make sure you type `ENTER` if you changed the value at the end of the line.
 
@@ -239,7 +239,7 @@ The next row allows you to select the injection type
 
 The different injections use different injection paths, so make sure you select the one you wanted to check.
 
-<figure><img src="../.gitbook/assets/image (32)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (32)" alt=""><figcaption></figcaption></figure>
 
 This script is used to inject a signal into the H2GCROC3\[B-D] channels for calibration purposes. It is not part of the main calibration flow but can be used for additional testing and verification.
 
@@ -247,7 +247,7 @@ Moreover, it can be steered how many channels are evaluated in parallel (here `8
 
 The output files will be saved in the `./dump/fpgaX_405_InjectionY_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal and the response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3\[B-D].
 
-<div><figure><img src="../.gitbook/assets/image (33)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (35)" alt=""><figcaption><p>ToA configured to fire at 100 DAC (low injection), TOT configured to fired at 750 DAC (high injection). Hence no TOT plot.</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (33)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (35)" alt=""><figcaption><p>ToA configured to fire at 100 DAC (low injection), TOT configured to fired at 750 DAC (high injection). Hence no TOT plot.</p></figcaption></figure></div>
 
 ### Injection Scan
 
@@ -257,15 +257,15 @@ This feature can be found under the `406 InjectionDACY` tab and can be used to d
 
 The output files will be saved in the `./dump/fpgaX_406_InjectionDAC_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal (x-axis) and the maximum response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3\[B-D].
 
-<figure><img src="../.gitbook/assets/image (36)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (36)" alt=""><figcaption></figcaption></figure>
 
 ### Multi File Plot
 
-<figure><img src="../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (35).png" alt=""><figcaption></figcaption></figure>
 
 ### Parameter Scan
 
-<figure><img src="../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (37).png" alt=""><figcaption></figcaption></figure>
 
 ## Configuring the HGCROC
 
@@ -278,7 +278,7 @@ The configuration of the HGCROC is now also handled by the H2GCalibX under the t
 
 Otherwise you can browse the current folder using the `Browse Register JSON` in order to look for an older JSON file. The respective configurations have to be situated in the _H2GCalibX software folder._ The current configuration can be saved using the `Save Register JSON`, should any modifications have been made. **This operation has to be repeated for all connected ASICS (shaded tabs).**
 
-<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (28).png" alt=""><figcaption></figcaption></figure>
 
 Afterwards, the configuration is send to all ASICs using the command `Send to All ASICSs` . The read-back function is currently not yet operational.
 
@@ -290,7 +290,7 @@ After the first run, a `caliblibX.ini` file will be created in the same folder a
 
 After reconfiguring the asic using the configuration tool it should be checked that the the data lines and trigger lines have reasonable values using `vivado` for every asic (press `play` and check the values).
 
-<figure><img src="../.gitbook/assets/image (38)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (38)" alt=""><figcaption></figcaption></figure>
 
 ### Manual modifications of Configuration values <a href="#user-content-license" id="user-content-license"></a>
 
@@ -304,11 +304,11 @@ The HGCROC has a very large number of configuration parameters and consequently 
 
 Nearly all of them can be adjusted using the `Register` part of the gui in its various tabs which can be accessed via the side panel.
 
-<figure><img src="../.gitbook/assets/image (39)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (39)" alt=""><figcaption></figcaption></figure>
 
 Below you find examples of each of the individual register panels, clicking on any of the bit fields will change the bit (0->1 or vice versa) so be careful when clicking randomly in the various positions.
 
-<figure><img src="../.gitbook/assets/image (40)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (40)" alt=""><figcaption></figcaption></figure>
 
 In order to correctly position the maximum of the signal with respect to the trigger signal you might need to touch the `L1_offset` bits, they can be found under `Digital_Half_0` & `Digital_Half_1` remember to change them for all necessary ½ chips. The `L1_offset` is an 8bit number increasing the least significant bit by 1 will shift the waveform to the right by 1 sample.
 
