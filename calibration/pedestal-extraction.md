@@ -160,7 +160,7 @@ and similar variable for convenience.
 
 ## HGCROC data
 
-The general idea of the pedestal evaluation is similar to that when analyzing the CAEN data, however as we are using the H2GCROC chip esssentially as a waveform sampling chip, we have multiple ways to evaluate the pedestal value. The internal pedestal values are set to an average desired pedestal value i.e. 80 or 100 ADC as described in the [online calibration section of the TB tutorial](../hgcroc-setup-test-beam/getting-started-hgcroc-and-calibrations.md#pedestal-calibration).
+The general idea of the pedestal evaluation is similar to that when analyzing the CAEN data, however as we are using the H2GCROC chip esssentially as a waveform sampling chip, we have multiple ways to evaluate the pedestal value. The internal pedestal values are set to an average desired pedestal value i.e. 80 or 100 ADC as described in the [online calibration section of the TB tutorial](../older-software/getting-started-hgcroc-and-calibrations-1.md#pedestal-calibration).
 
 <div><figure><img src="../.gitbook/assets/Waveform_Mod00_Layer00.png" alt=""><figcaption><p>Waveform for signal events.</p></figcaption></figure> <figure><img src="../.gitbook/assets/Waveform_Mod00_Layer00 (1).png" alt=""><figcaption><p>Waveform for internally generated random events (pedestal run). With corresponding fit averaged over all samples of waveform.</p></figcaption></figure> <figure><img src="../.gitbook/assets/Noise_HG_Mod00_Layer00.png" alt=""><figcaption><p>Fit to first sample of all events for signal events. Same distribution expected for pedestal run &#x26; first sample.</p></figcaption></figure></div>
 

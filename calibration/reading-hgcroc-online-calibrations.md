@@ -9,7 +9,7 @@ description: >-
 
 ## Parsing the Calibration outputs
 
-The [calib parser](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/ParseCalibSamples.cc) is meant as an option to convert the online calibration files as produced by the [H2GCalib](../hgcroc-setup-test-beam/getting-started-hgcroc-and-calibrations.md)  or [H2GCalibX](https://gitlab.cern.ch/sjia/h2gcalibx/-/tree/dev-1v5?ref_type=heads) into a format which the analysis software can digest. This is meant to enable comparisons of the pedestals and waveforms obtained with the online calibration and their measured counter parts. You have to make sure you are using the right commands to parse the output format of the different version of the **H2GCalib**. Keep in mind they have changed drastically over the years and might not be compatible among each other.
+The [calib parser](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/ParseCalibSamples.cc) is meant as an option to convert the online calibration files as produced by the [H2GCalib](../older-software/getting-started-hgcroc-and-calibrations-1.md)  or [H2GCalibX](https://gitlab.cern.ch/sjia/h2gcalibx/-/tree/dev-1v5?ref_type=heads) into a format which the analysis software can digest. This is meant to enable comparisons of the pedestals and waveforms obtained with the online calibration and their measured counter parts. You have to make sure you are using the right commands to parse the output format of the different version of the **H2GCalib**. Keep in mind they have changed drastically over the years and might not be compatible among each other.
 
 {% code overflow="wrap" %}
 ```bash

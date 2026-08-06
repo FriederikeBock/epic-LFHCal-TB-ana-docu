@@ -4,7 +4,7 @@ description: >-
   running through the calibration procedures.
 ---
 
-# Getting Started HGCROC & Calibrations
+# TB 2026: Getting Started HGCROC & Calibrations
 
 ## Programming KCU
 
@@ -45,7 +45,7 @@ For the HGCROC there are 4 main calibration steps:
 
 After these calibrations have been run the **Internal Injection (3 options: low, high, 2.5V)** test should be run ideally for all channels to validate the thresholds also in `ADC` equivalent. These test however take fairly long (\~2-4min/4 channels) and it might not be advisable to run during a test beam setting.
 
-The calibration is handled and steered using `H2GCalibX` package ([link](setting-up-daq-pc.md#software-installation)).
+The calibration is handled and steered using `H2GCalibX` package ([link](../hgcroc-setup-test-beam/setting-up-daq-pc.md#software-installation)).
 
 ### Setting IO-delay
 
@@ -183,7 +183,7 @@ A good calibration should have the final pedestal values nicely aligned around t
 
 For the ToA calibration the previous Pedestal Calibration can be loaded using the `Read from 202 Output` button, or the individual asics can be configured vias the browse buttons behind the file names. Make sure to always configure all ASICs with at least a basic file. In the backend the script `203_ToACalibX.py` , is being executed.
 
-The `target ToA` given in **DAC (NOTE: it is by the unit of injection DAC, not ADC!)** can be given in the first line (here `50`), keep in mind the ToA calibration uses the **low injection** path for its calibration hence a value of 50 might be very noisy. We recommend running a few [injections](getting-started-hgcroc-and-calibrations.md#hgcroc-calibration-procedure) with low injection to determine the relation between ADC and DAC for your given gain settings.
+The `target ToA` given in **DAC (NOTE: it is by the unit of injection DAC, not ADC!)** can be given in the first line (here `50`), keep in mind the ToA calibration uses the **low injection** path for its calibration hence a value of 50 might be very noisy. We recommend running a few [injections](getting-started-hgcroc-and-calibrations-1.md#hgcroc-calibration-procedure) with low injection to determine the relation between ADC and DAC for your given gain settings.
 
 **For the LFHCal TB with the summing boards we recommend values between 150-250, which corresponds to approximate 15-25 ADC.**
 
@@ -209,7 +209,7 @@ A good calibration should have the final ToA values like, however the timing ali
 
 For the ToT calibration the previous ToA Calibration can be loaded using the `Read from 203 Output` button, or the individual asics can be configured vias the browse buttons behind the file names. Make sure to always configure all ASICs with at least a basic file. In the backend the script `301_ToACalib_Omega.py` , is being executed.
 
-The `target ToT` given in **DAC (NOTE: it is by the unit of injection DAC, not ADC!)** can be given in the first line (here `750`), keep in mind the ToA calibration uses the **high injection** path for its calibration. We recommend running a few [injections](getting-started-hgcroc-and-calibrations.md#hgcroc-calibration-procedure) with high injection to determine the relation between ADC and DAC for your given gain settings and ascertain at which point the TOT should start firing (ideally somewhere between 800-1024 ADC).
+The `target ToT` given in **DAC (NOTE: it is by the unit of injection DAC, not ADC!)** can be given in the first line (here `750`), keep in mind the ToA calibration uses the **high injection** path for its calibration. We recommend running a few [injections](getting-started-hgcroc-and-calibrations-1.md#hgcroc-calibration-procedure) with high injection to determine the relation between ADC and DAC for your given gain settings and ascertain at which point the TOT should start firing (ideally somewhere between 800-1024 ADC).
 
 Moreover, it can be steered how many channels are evaluated in parallel (here `8`) and how many channels are to be scanned per ASIC (here `76`).
 

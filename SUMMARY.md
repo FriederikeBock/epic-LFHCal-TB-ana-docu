@@ -6,7 +6,6 @@
 
 * [Setting up the HGCROC board](hgcroc-setup-test-beam/setting-up-the-hgcroc-board.md)
 * [Setting up DAQ PC](hgcroc-setup-test-beam/setting-up-daq-pc.md)
-* [Getting Started HGCROC & Calibrations](hgcroc-setup-test-beam/getting-started-hgcroc-and-calibrations.md)
 * [Data Taking HGCROC](hgcroc-setup-test-beam/data-taking-hgcroc.md)
 * [Data decoding 10G](hgcroc-setup-test-beam/data-decoding-10g.md)
 * [Beam line specifics](hgcroc-setup-test-beam/beam-line-specifics.md)
@@ -49,3 +48,4 @@
 
 * [Initial software for 2023 analysis](older-software/initial-software-for-2023-analysis.md)
 * [TB 2025: Getting Started HGCROC & Calibrations](older-software/getting-started-hgcroc-and-calibrations.md)
+* [TB 2026: Getting Started HGCROC & Calibrations](older-software/getting-started-hgcroc-and-calibrations-1.md)
