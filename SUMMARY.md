@@ -6,6 +6,7 @@
 
 * [Setting up the HGCROC board](hgcroc-setup-test-beam/setting-up-the-hgcroc-board.md)
 * [Setting up DAQ PC](hgcroc-setup-test-beam/setting-up-daq-pc.md)
+* [Getting Started HGCROC & Calibrations](hgcroc-setup-test-beam/getting-started-hgcroc-and-calibrations-new.md)
 * [Data Taking HGCROC](hgcroc-setup-test-beam/data-taking-hgcroc.md)
 * [Data decoding 10G](hgcroc-setup-test-beam/data-decoding-10g.md)
 * [Beam line specifics](hgcroc-setup-test-beam/beam-line-specifics.md)
