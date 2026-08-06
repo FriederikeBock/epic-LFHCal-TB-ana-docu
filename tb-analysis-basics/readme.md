@@ -12,7 +12,7 @@ Welcome! This page is meant as an intro to the LFHCal TB analysis software , whi
 **DISCLAIMER: Any plots shown in this tutorial should not be shown at conferences without prior approval by the ePIC LFHCal DSC. They are purely meant as illustrations what the software can do in its current state.**
 {% endhint %}
 
-In order to get started make sure you download the software:&#x20;
+In order to get started make sure you download the software:
 
 ```sh
 git clone git@github.com:eic/epic-lfhcal-tbana.git $WHATEVERYOURDIRNAMESHOULDBE
@@ -27,7 +27,7 @@ Your branch is up to date with 'origin/v0.13'.
 # check in addition which was the last commit
 git log
 # output should be at the top:
-commit 20bc388794e0157c6efb66fe93745627ad90d546 
+commit ee68645e682279a4220a1c67c6d75b1fd39479e9 
 # If this isn't the case please do the following:
 git checkout v0.13
 git pull --rebase
@@ -46,7 +46,7 @@ cmake .
 make
 ```
 
-This should compile all necessary executables for the calibrations and initial data analysis. You can test the compilation as follows&#x20;
+This should compile all necessary executables for the calibrations and initial data analysis. You can test the compilation as follows
 
 ```sh
 ./Convert -h
@@ -59,7 +59,7 @@ git pull --rebase
 git pull --recurse-submodules
 ```
 
-In case you make any major changes to the basis classes remember to do&#x20;
+In case you make any major changes to the basis classes remember to do
 
 ```sh
 make clean
@@ -163,9 +163,9 @@ build/Convert -h
 
 An overview of the data sets we collected in August 2024 can be found here [https://wiki.bnl.gov/EPIC/index.php?title=LFHCal\_Fall\_2024\_Test\_Beam](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2024_Test_Beam)
 
-If you don't know where raw files for the data are contact Friederike Bock (fbock@cern.ch) and she'll let you know how to get access.&#x20;
+If you don't know where raw files for the data are contact Friederike Bock (fbock@cern.ch) and she'll let you know how to get access.
 
-As you might be analyzing quite a lot of runs and doing things in parallel for instance on the same data set but with different settings it might be worth separating the directory in which you have the checked out version of the software and where you are compiling/running & storing things.&#x20;
+As you might be analyzing quite a lot of runs and doing things in parallel for instance on the same data set but with different settings it might be worth separating the directory in which you have the checked out version of the software and where you are compiling/running & storing things.
 
 To do so we prepared a small script which can create soft-links to your original software directory (allowing you to have the same software version w/o multiple copies). This script is called `prepareAnalysisDirectory.sh` and can be executed as follows on any unix system:
 
@@ -173,4 +173,4 @@ To do so we prepared a small script which can create soft-links to your original
 bash $PATHTOSCRIPT/prepareAnalysisDirectory.sh $USERNAME [new/old]
 ```
 
-Execute it in the directory where you would like to work after having added your user name and path to the software repo. The software compilation would still need to happen in the original checked out directory.&#x20;
+Execute it in the directory where you would like to work after having added your user name and path to the software repo. The software compilation would still need to happen in the original checked out directory.

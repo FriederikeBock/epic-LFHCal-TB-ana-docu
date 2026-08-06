@@ -1,0 +1,14 @@
+testingPlots/calibout_1.root testingPlots/calibout_1_hist.root
+testingPlots/calibout_5.root testingPlots/calibout_5_hist.root
+testingPlots/calibout_7.root testingPlots/calibout_7_hist.root
+testingPlots/calibout_11.root testingPlots/calibout_11_hist.root
+testingPlots/calibout_15.root testingPlots/calibout_15_hist.root
+testingPlots/calibout_17.root testingPlots/calibout_17_hist.root
+testingPlots/calibout_19.root testingPlots/calibout_19_hist.root
+testingPlots/calibout_21.root testingPlots/calibout_21_hist.root
+testingPlots/calibout_26.root testingPlots/calibout_26_hist.root
+testingPlots/calibout_28.root testingPlots/calibout_28_hist.root
+testingPlots/calibout_30.root testingPlots/calibout_30_hist.root
+testingPlots/calibout_32.root testingPlots/calibout_32_hist.root
+testingPlots/calibout_34.root testingPlots/calibout_34_hist.root
+testingPlots/calibout_36.root testingPlots/calibout_36_hist.root
