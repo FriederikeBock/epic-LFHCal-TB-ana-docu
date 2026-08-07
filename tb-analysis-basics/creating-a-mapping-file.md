@@ -138,7 +138,7 @@ For the 2026 TB we will be using summing boards (depicted below). This means 1 a
 * green - v1: Uses the following summing scheme: 5 -5 -10 -10 -10 -10 -5 -5.
 * red - v2: Uses the following summing scheme: 5 -5 -5 -5 -10 -10 -10 -10.
 
-This means for both versions we are respectively summing for each channel within one layer either 5 or 10 layer in depth depending on the summing scheme and "layer" or rather segment number.&#x20;
+This means for both versions we are respectively summing for each channel within one layer either 5 or 10 layer in depth depending on the summing scheme and "layer" or rather segment number.
 
 <div><figure><img src="../.gitbook/assets/summingBoard.jpg" alt="" width="375"><figcaption><p>Summing boards for 2026 test beam setup: 2 versions are available green: 5-5-10-10-10-10-5-5, red: 5-5-5-5-10-10-10-10.</p></figcaption></figure> <figure><img src="../.gitbook/assets/singleLayer_withLabels.png" alt=""><figcaption></figcaption></figure></div>
 
@@ -149,13 +149,15 @@ Below an example of a TB setup for both summing boards:
 ```bash
 # PS TB April
 #v1 version (green board)
-root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v1.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV1_default.csv", 1, 1, 0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v1.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV1_default_inv.csv", 1, 1, 0)'
 #v2 version (red board)
-root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV2_default.csv", 1, 2, 0)'
+root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default.csv", "../configs/TB2026/modulePositions_PST10_2026.txt", "../configs/TB2026/mapping_HGCROC_PST10TB_sumV2_default_inv.csv", 1, 2, 0)'
 
 # SPS TB May
 #v2 version (red board)
 root -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v2.csv", "../configs/TB2026/layersHGCROC_TBSPSH2_Sumv2_default.csv", "../configs/TB2026/modulePositions_SPSH2_2026.txt", "../configs/TB2026/mapping_HGCROC_SPSH2TB_sumV2_default.csv", 1, 2, 0)'
+#v1 version (green board)
+oot -b -x -q -l 'CreateMapping.C("../configs/TB2026/mappingSingleASICSummingBoard_v1.csv", "../configs/TB2026/layersHGCROC_TBSPSH2_Sumv1_default.csv", "../configs/TB2026/modulePositions_SPSH2_2026.txt", "../configs/TB2026/mapping_HGCROC_SPSH2TB_sumV1_default.csv", 1, 1, 0)'
 ```
 
 As we are now reading also the number of layers per segment, it might become necessary to overwrite the setup trees in existing processed files. This should only be done if absolutely necessary and with special care. The corresponding instructions can be found [here](../calibration/other-useful-function-during-calibration.md).
@@ -168,18 +170,34 @@ The default prepared mapping files can be found here:
 
 {% code overflow="wrap" %}
 ```bash
+####################################################################
+### PS TB campaign April 2026
+####################################################################
 ##module locations
 ModuleFile='../configs/TB2026/modulePositions_PST10_2026.txt'
 
 ## with V2 Summing board (red)
 LayerV2='../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default.csv'
 LayerV2Detail='../configs/TB2026/layersHGCROC_TBPST10_Sumv2_default_detailed.csv'
-mappingV2='../configs/TB2026/mapping_HGCROC_PST10TB_sumV1_default.csv'
+mappingV2='../configs/TB2026/mapping_HGCROC_PST10TB_sumV1_default_inv.csv'
 
 ## with V1 Summing board (green)
 LayerV1='../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default.csv'
 LayerV1Detail='../configs/TB2026/layersHGCROC_TBPST10_Sumv1_default_detailed.csv'
-mappingV1='../configs/TB2026/mapping_HGCROC_PST10TB_sumV2_default.csv'
+mappingV1='../configs/TB2026/mapping_HGCROC_PST10TB_sumV2_default_inv.csv'
 
+####################################################################
+### SPS TB campaign May 2026
+####################################################################
+##module locations
+ModuleFile='../configs/TB2026/modulePositions_SPSH2_2026.txt'
+
+## with V2 Summing board (red)
+LayerV2='../configs/TB2026/layersHGCROC_TBSPSH2_Sumv2_default.csv'
+mappingV2='../configs/TB2026/mapping_HGCROC_SPSH2TB_sumV2_default.csv'
+
+## with V1 Summing board (green)
+LayerV1='../configs/TB2026/layersHGCROC_TBSPSH2_Sumv1_default.csv'
+mappingV1='../configs/TB2026/mapping_HGCROC_SPSH2TB_sumV1_default.csv'
 ```
 {% endcode %}
