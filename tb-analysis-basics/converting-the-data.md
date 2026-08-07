@@ -24,8 +24,8 @@ cd NewStructure
 The primary option here is `"-c $RAWDataFile.txt"` which tells the program to convert the data based on the data format we used in August 2024, with the input being a txt file (originally named: RunXXX\_list.txt, where XXX is the run number) and the option `-o $CONVERTEDFILE.root` tells it to store the output in `$CONVERTEDFILE.root`. The `-m $MAPPINGFILE & -r $RUNLISTFILE` give the configurations for the setup of the readout and are mandatory. For the 2024 data these are:
 
 ```bash
-$MAPPINGFILE=../configs/mappingFile_202409_CAEN.txt
-$RUNLISTFILE=../configs/DataTakingDB_202409_CAEN.csv
+$MAPPINGFILE='../configs/mappingFile_202409_CAEN.txt'
+$RUNLISTFILE='../configs/DataTakingDB_202409_CAEN.csv'
 ```
 
 They are located in the same git repository. How to create a different mapping file is explained [here](../calibration/other-useful-function-during-calibration.md#creating-a-mapping-file). The option `-f`, enforces the overwriting of the output files in case they existed already. Option `-d 1` enables basic debugging output. This debug flag can be increased allowing you to see a bit better what's going on in case something goes wrong.
@@ -141,7 +141,23 @@ You can find the code which is actually executed in [HGCROC\_Convert.cc](https:/
 
 `int run_hgcroc_conversion(Analyses *analysis, waveform_fit_base *waveform_builder)`
 
-This code depends on the external submodule-package h2g\_decode which originally can be found [here](https://github.com/tlprotzman/h2g_decode/) and is used for decoding the HGCROC data more generally also from other test beams. A simple description on how to run the standalone code for the data decoding can be found [here](../hgcroc-setup-test-beam/data-decoding-10g.md), which offers more debug output, which is currently suppresed during the normal running.
+This code depends on the external submodule-package h2g\_decode which originally can be found [here](https://github.com/tlprotzman/h2g_decode/) and is used for decoding the HGCROC data more generally also from other test beams. A simple description on how to run the standalone code for the data decoding can be found [here](../hgcroc-setup-test-beam/data-decoding-10g.md), which offers more debug output, which is currently suppressed during the normal running.
+
+### Data decoding procedure
+
+In its current state the data conversion (also called decoding) takes care to only take events with full waveforms in each ASIC and fully synced events among the different KCU's (FPGAs). The syncronization routines are handled as followed for the different data formats:
+
+* **2024:**&#x20;
+  * <mark style="background-color:$danger;">Needs to be described.</mark>
+* **2025/2026:** &#x20;
+  * The synchronization for these data sets takes as primary variable the event counters (Internal (random generated events) and External). They are aligned with the primary trigger case for the respective run: pedestals (Internal) and normal data taking (external).  This routine is implmented in: [event\_aligner::align\_v013()](https://github.com/tlprotzman/h2g_decode/blob/abda9e609b6f4d7928bd9bca27ae1b76106393a4/src/event_aligner.cxx#L225).  However due to various reasons there can be an initial offset among the various FPGA counters. Hence the time stamp difference to the next event is also considered. If the time stamp difference is `< 20`  among all successive events in the various FPGAs (KCUs) an event is considered aligned. Which then also allows to determine the initial counter offset.&#x20;
+  * After that the recalculated trigger counters have to be the same and the time stamp difference   to the next event among all FPGA's can not exceed `20` in order to be considered as an aligned event.&#x20;
+  * The current event which has been newly determined to be aligned among all FPGAs is written to file and the next event flag as aligned. Any potential counter offset for the next event is corrected.&#x20;
+  * Should it not be possible to align at least 1 event within `maxFailedAttempts = 20`  the entire stack of correctly assembled KCU events is deleted, except the last event in the list. Further cleaning of the lists is done to remove already aligned events and stale KCUevents which could not be assembled previously.  These features are implemented in [hgc\_decoder::process\_v013\_packet()](https://github.com/tlprotzman/h2g_decode/blob/abda9e609b6f4d7928bd9bca27ae1b76106393a4/src/hgc_decoder.cxx#L234).&#x20;
+
+So far no CRC or hamming validation has been imposed during the decoding stage and hence some of the data might show odd features. These check, however, need to be implemented in the future.
+
+If you can would like to evaluate the successrate yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffiHGCROC.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffiHGCROC.C)
 
 ### August 2024 data
 
@@ -182,12 +198,6 @@ Similar as for the 2024 script also a muon merge option is implemented to all fo
 bash convertDataHGCROC_2025.sh $USERNAME MergeMuons
 ```
 
-In its current state the data conversion (also called decoding) takes care to only take events with full waveforms in each ASIC and fully synced events among the different KCU's (FPGAs). The synchronization for the 2025 data takes as primary variable the event counters. Should those fail it can calculate an offset once based off the time difference, between two fully reconstructed KCU events.
-
-So far no CRC or hamming validation has been imposed during the decoding stage and hence some of the data might show odd features. These check, however, need to be implemented in the future.
-
-A summary of the success rate of the data conversion can be found in the [log book](https://docs.google.com/spreadsheets/d/1tc_KLUMhwJrBogFjsjBnNOpXBwK5WI-F_jRqebx8ZgQ/edit?usp=sharing) (column H). If you can would like to evaluate it yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffiHGCROC.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffiHGCROC.C)
-
 ### April 2026 data
 
 The data taken in April 2026 at the PS-T09 beam line is the first data available for two fully equipped modules with summing. The logbook can be found [here](https://docs.google.com/spreadsheets/d/1329ze8jV5zhjJB1bgE1k_apoWSrbqoO32WS-uWdnI-4/edit?usp=sharing), if you don't have access please ask Friederike for it. A summary of the HGCROC data taking campaign can be found on our [wiki](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2026_Test_Beam).\
@@ -211,21 +221,13 @@ As for the `prepareAnalysisDirectory.sh`, please add your username and the path 
 * `FullSetH` - all runs belonging to the set taken at 44V,  with the optimized pream setting, summing board V1, hadrons/electrons large scint
 * `PartSetI` - all runs belonging to the set taken at 44V,  with the optimized pream setting, summing board V1
 
-Similar as for the previous scripts also a merge option has been implemented. This will merge all necessary runs of a set, i.e all muon runs into one file. However, the converter has to have been run appriori for this to work.
+Similar as for the previous scripts also a merge option has been implemented. This will merge all necessary runs of a set, i.e all muon runs into one file. However, the converter has to have been run a priori for this to work.
 
 ```bash
 bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION merge
 ```
 
-In its current state the data conversion (also called decoding) takes care to only take events with full waveforms in each ASIC and fully synced events among the different KCU's (FPGAs). The synchronization for the 2026 data takes as primary variable the event counters. Should those fail it can calculate an offset once based off the time difference, between two fully reconstructed KCU events.
-
-So far no CRC or hamming validation has been imposed during the decoding stage and hence some of the data might show odd features. These check, however, need to be implemented in the future.
-
-If you can would like to evaluate the success rate yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffiHGCROC.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffiHGCROC.C)
-
 ### May 2026 data
-
-<mark style="background-color:$danger;">This script is under CONSTRUCTION, you need to add correct runnumbers.</mark>
 
 The data taken in May 2026 at the PS-T09 beam line is the first data available for two fully equipped modules with summing. The logbook can be found [here](https://docs.google.com/spreadsheets/d/1329ze8jV5zhjJB1bgE1k_apoWSrbqoO32WS-uWdnI-4/edit?usp=sharing), if you don't have access please ask Friederike for it. A summary of the HGCROC data taking campaign can be found on our [wiki](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2026_Test_Beam).\
 A script for the data conversion can be found and run as follows:
@@ -237,15 +239,18 @@ bash convertDataHGCROC_TBSPSH2_2026.sh $USERNAME $OPTION convert
 As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version. Implemented options right now are:
 
 * `InitMuon` - all runs belonging to the Initial muon scan
+* `FullSetA` : Full scan of muons, electrons & hadrons,  HV = 43 V, summing board V2, Preamp settings 9 7 10 1? - aborted due to wrong pedestals
+* `FullSetB` : Full scan of muons, electrons & hadrons,  HV = 43 V, summing board V2, Preamp settings 9 7 10 1?
+* `FullSetC` : Full scan of muons, electrons & hadrons,  HV = 44 V, summing board V2, Preamp settings 9 7 10 5
+* `FullSetD` : Full scan of muons, electrons & hadrons,  HV = 45 V, summing board V2, Preamp settings 9 7 10 4?
+* `FullSetE` : Full scan of muons, electrons & hadrons,  HV = 44 V, summing board V2, Preamp settings 12 7 3 1
+* `FullSetF` :Full scan of muons, electrons & hadrons, HV = 45 V, summing board V2, Preamp settings 12 7 3 1
+* `FullSetG` : Full scan of muons, electrons & hadrons, HV = 45 V, summing board V1, Preamp settings 12 7 3 1
+* `ParameterScan` : Scan of preamplification setting using muons, V2 summing board
+* `HVScan` : HV scan with default preamplification settings using muons & V2 summing board
 
-Similar as for the previous scripts also a merge option has been implemented. This will merge all necessary runs of a set, i.e all muon runs into one file. However, the converter has to have been run appriori for this to work.
+Similar as for the previous scripts also a merge option has been implemented. This will merge all necessary runs of a set, i.e all muon runs into one file. However, the converter has to have been run a priori for this to work.
 
 ```bash
 bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION merge
 ```
-
-In its current state the data conversion (also called decoding) takes care to only take events with full waveforms in each ASIC and fully synced events among the different KCU's (FPGAs). The synchronization for the 2026 data takes as primary variable the event counters. Should those fail it can calculate an offset once based off the time difference, between two fully reconstructed KCU events.
-
-So far no CRC or hamming validation has been imposed during the decoding stage and hence some of the data might show odd features. These check, however, need to be implemented in the future.
-
-If you can would like to evaluate the successrate yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffiHGCROC.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffiHGCROC.C)
