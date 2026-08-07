@@ -10,6 +10,7 @@
 * [Data Taking HGCROC](hgcroc-setup-test-beam/data-taking-hgcroc.md)
 * [Data decoding 10G](hgcroc-setup-test-beam/data-decoding-10g.md)
 * [Beam line specifics](hgcroc-setup-test-beam/beam-line-specifics.md)
+* [Trigger Setup and controls](hgcroc-setup-test-beam/trigger-setup-and-control.md)
 
 ## TB analysis basics
 
