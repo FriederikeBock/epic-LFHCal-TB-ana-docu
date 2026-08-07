@@ -187,16 +187,20 @@ The data taken in November 2025 at the PS-T09 beam line is the first data availa
 A script for the data conversion can be found and run as follows:
 
 ```bash
-bash convertDataHGCROC_2025.sh $USERNAME $OPTION
+bash convertDataHGCROC_2025.sh $USERNAME $OPTION convert
 ```
 
-As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version.
+As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version. Implemented options right now are:
+* `FullSetA` - All runs belonging to the set taken at HV = 44 V
+* `FullSetB` - All runs belonging to the set taken at HV = 45 V
+* `DepthScan1` - All runs belonging to the configuration 1 hadron depth scan
+* `DepthScan2` - All runs belonging to the configuration 2 hadron depth scan
+* `DepthScan3` - All runs belonging to the configuration 3 hadron depth scan
+* `DepthScan4` - All runs belonging to the configuration 4 hadron depth scan
+* `ElectronScan` - All runs belonging to the electron set taken at HV = 42.5 V
+* `MuonHVScans` - All runs belonging to both HV scans
 
-Similar as for the 2024 script also a muon merge option is implemented to all for calibration of the muon runs afterwards in one go, however the converter has to have been run appriori for this to work.
-
-```bash
-bash convertDataHGCROC_2025.sh $USERNAME MergeMuons
-```
+A merge option has been implemented for all the above options that can be run after the converter. This will merge all the runs of a set (e.g., pedestals, muon sets, runs of a given species at a specific bias voltage or beam energy, etc.) into one file.
 
 ### April 2026 data
 
