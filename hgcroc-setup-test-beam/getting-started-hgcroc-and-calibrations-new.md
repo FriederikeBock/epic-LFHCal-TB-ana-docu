@@ -4,7 +4,7 @@ description: >-
   running through the calibration procedures.
 ---
 
-# Getting Started HGCROC & Calibrations KCU
+# Getting Started HGCROC & Calibrations
 
 ## Programming KCU
 
@@ -45,7 +45,7 @@ For the HGCROC there are 4 main calibration steps:
 
 After these calibrations have been run the **Internal Injection (3 options: low, high, 2.5V)** test should be run ideally for all channels to validate the thresholds also in `ADC` equivalent. These test however take fairly long (\~2-4min/4 channels) and it might not be advisable to run during a test beam setting.
 
-The calibration is handled and steered using `H2GCalibX` package ([link](/broken/pages/OTnNs6dEz7pc50mzYyuB#software-installation)).
+The calibration is handled and steered using `H2GCalibX` package ([link](setting-up-daq-pc.md#software-installation)).
 
 ### Setting IO-delay
 
@@ -169,13 +169,13 @@ The output of the pedestal calibration will be new I2C JSON files. And the file 
 
 As current default configuration `config/default_2025Oct_config.json` should be used. Make sure the fine channel calibration looks reasonable and no large outliers can be found. If the results aren't satisfactory reset the IO-delays and retry. If after a second attempt the calibration still hasn't succeeded. It could be tried to load a valid calibration from a different proto-board, primarily the `Noinv_vref` and `Inv_vref` bits in the Reference Voltage Register should be adjusted in that case.
 
-<div><figure><img src="../.gitbook/assets/NewCalibPage/image (12)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (13)" alt=""><figcaption></figcaption></figure></div>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (12)" alt=""><figcaption></figcaption></figure>
 
 A good calibration should have the final pedestal values nicely aligned around the target value, with a small spread across all channels.
 
-<div><figure><img src="../.gitbook/assets/NewCalibPage/image (15)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (16)" alt=""><figcaption></figcaption></figure></div>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (15)" alt=""><figcaption></figcaption></figure>
 
-<div><figure><img src="../.gitbook/assets/NewCalibPage/image (17)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/image (19)" alt=""><figcaption></figcaption></figure></div>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (17)" alt=""><figcaption></figcaption></figure>
 
 ### Time-of-Arrivel(ToA) Calibration
 
@@ -201,7 +201,7 @@ X axis values represent the different channel numbers, while the y-axis values i
 
 A good calibration should have the final ToA values like, however the timing alignment of the different halfs (color scale) is currently not performed.
 
-<div><figure><img src="../.gitbook/assets/NewCalibPage/image (23)" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value.</p></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (25)" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/final_scan_val2.png" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value.</p></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (25)" alt=""><figcaption></figcaption></figure></div>
 
 ### Time-over-Threshold(ToT) Calibration
 
@@ -217,11 +217,11 @@ Moreover, it can be steered how many channels are evaluated in parallel (here `8
 
 The output folder is `./dump/fpgaX_404_ToTCalibY_YYYYMMDD_HHMMSS`. The resulting files is in the same format as the ToT calibration. Similarly as for the ToT calibration the calibration is run in multiple steps. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips.
 
-<div align="center"><figure><img src="../.gitbook/assets/NewCalibPage/image (27)" alt=""><figcaption><p>Typical initial ToT calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/image (28)" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/scan0_val1.png" alt=""><figcaption><p>Typical initial ToT calibration plot.</p></figcaption></figure></div>
 
 An example of a good ToT calibration result is shown below:
 
-<figure><img src="../.gitbook/assets/NewCalibPage/image (30)" alt=""><figcaption><p>Result of a good ToT calibration with a target value of 300 DAC as turn on value.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/final_scan_val1.png" alt=""><figcaption><p>Result of a good ToT calibration with a target value of 300 DAC as turn on value.</p></figcaption></figure>
 
 ### Internal Injection
 
@@ -238,8 +238,6 @@ The next row allows you to select the injection type
 3. **2.5V Injection:** `Enable 2.5V Injection` **on** and `Enable High Range Injection` set to **off**
 
 The different injections use different injection paths, so make sure you select the one you wanted to check.
-
-<figure><img src="../.gitbook/assets/NewCalibPage/image (32)" alt=""><figcaption></figcaption></figure>
 
 This script is used to inject a signal into the H2GCROC3\[B-D] channels for calibration purposes. It is not part of the main calibration flow but can be used for additional testing and verification.
 
@@ -304,11 +302,11 @@ The HGCROC has a very large number of configuration parameters and consequently 
 
 Nearly all of them can be adjusted using the `Register` part of the gui in its various tabs which can be accessed via the side panel.
 
-<figure><img src="../.gitbook/assets/NewCalibPage/image (39)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 Below you find examples of each of the individual register panels, clicking on any of the bit fields will change the bit (0->1 or vice versa) so be careful when clicking randomly in the various positions.
 
-<figure><img src="../.gitbook/assets/NewCalibPage/image (40)" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
 In order to correctly position the maximum of the signal with respect to the trigger signal you might need to touch the `L1_offset` bits, they can be found under `Digital_Half_0` & `Digital_Half_1` remember to change them for all necessary ½ chips. The `L1_offset` is an 8bit number increasing the least significant bit by 1 will shift the waveform to the right by 1 sample.
 

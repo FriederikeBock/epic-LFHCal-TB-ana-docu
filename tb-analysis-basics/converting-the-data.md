@@ -147,17 +147,23 @@ This code depends on the external submodule-package h2g\_decode which originally
 
 In its current state the data conversion (also called decoding) takes care to only take events with full waveforms in each ASIC and fully synced events among the different KCU's (FPGAs). The syncronization routines are handled as followed for the different data formats:
 
-* **2024:**&#x20;
+* **2024:**
   * <mark style="background-color:$danger;">Needs to be described.</mark>
-* **2025/2026:** &#x20;
-  * The synchronization for these data sets takes as primary variable the event counters (Internal (random generated events) and External). They are aligned with the primary trigger case for the respective run: pedestals (Internal) and normal data taking (external).  This routine is implmented in: [event\_aligner::align\_v013()](https://github.com/tlprotzman/h2g_decode/blob/abda9e609b6f4d7928bd9bca27ae1b76106393a4/src/event_aligner.cxx#L225).  However due to various reasons there can be an initial offset among the various FPGA counters. Hence the time stamp difference to the next event is also considered. If the time stamp difference is `< 20`  among all successive events in the various FPGAs (KCUs) an event is considered aligned. Which then also allows to determine the initial counter offset.&#x20;
-  * After that the recalculated trigger counters have to be the same and the time stamp difference   to the next event among all FPGA's can not exceed `20` in order to be considered as an aligned event.&#x20;
-  * The current event which has been newly determined to be aligned among all FPGAs is written to file and the next event flag as aligned. Any potential counter offset for the next event is corrected.&#x20;
-  * Should it not be possible to align at least 1 event within `maxFailedAttempts = 20`  the entire stack of correctly assembled KCU events is deleted, except the last event in the list. Further cleaning of the lists is done to remove already aligned events and stale KCUevents which could not be assembled previously.  These features are implemented in [hgc\_decoder::process\_v013\_packet()](https://github.com/tlprotzman/h2g_decode/blob/abda9e609b6f4d7928bd9bca27ae1b76106393a4/src/hgc_decoder.cxx#L234).&#x20;
+* **2025/2026:**
+  * The synchronization for these data sets takes as primary variable the event counters (Internal (random generated events) and External). They are aligned with the primary trigger case for the respective run: pedestals (Internal) and normal data taking (external). This routine is implmented in: [event\_aligner::align\_v013()](https://github.com/tlprotzman/h2g_decode/blob/abda9e609b6f4d7928bd9bca27ae1b76106393a4/src/event_aligner.cxx#L225). However due to various reasons there can be an initial offset among the various FPGA counters. Hence the time stamp difference to the next event is also considered. If the time stamp difference is `< 20` among all successive events in the various FPGAs (KCUs) an event is considered aligned. Which then also allows to determine the initial counter offset.
+  * After that the recalculated trigger counters have to be the same and the time stamp difference to the next event among all FPGA's can not exceed `20` in order to be considered as an aligned event.
+  * The current event which has been newly determined to be aligned among all FPGAs is written to file and the next event flag as aligned. Any potential counter offset for the next event is corrected.
+  * Should it not be possible to align at least 1 event within `maxFailedAttempts = 20` the entire stack of correctly assembled KCU events is deleted, except the last event in the list. Further cleaning of the lists is done to remove already aligned events and stale KCUevents which could not be assembled previously. These features are implemented in [hgc\_decoder::process\_v013\_packet()](https://github.com/tlprotzman/h2g_decode/blob/abda9e609b6f4d7928bd9bca27ae1b76106393a4/src/hgc_decoder.cxx#L234).
 
 So far no CRC or hamming validation has been imposed during the decoding stage and hence some of the data might show odd features. These check, however, need to be implemented in the future.
 
-If you can would like to evaluate the successrate yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffiHGCROC.C](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffiHGCROC.C)
+If you can would like to evaluate the successrate yourself on your computer you can give a list of runs to the macro: [EvaluateRecoEffi.cc](https://github.com/eic/epic-lfhcal-tbana/blob/main/NewStructure/EvaluateRecoEffi.cc)
+
+{% code overflow="wrap" %}
+```bash
+./EvaluateRecoEffi -i $LISTRECFILES -r $RunList -o $OutputDirectory -u $PathToRawData
+```
+{% endcode %}
 
 ### August 2024 data
 
@@ -168,12 +174,12 @@ A first version of a script for the data conversion is provided within the repos
 bash convertDataHGCROC_2024.sh $USERNAME $OPTION [convert|merge]
 ```
 
-As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data.  Currently the following options are supported for `$OPTION`:
+As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. Currently the following options are supported for `$OPTION`:
 
-* `muons` This options contains all muon runs and can be run with the additional options `convert` to convert the files and afterwards with the `merge`  option to combine the muon data in one file.
-* `electrons`  Contains all currently processible electron runs, only the `convert`  option is implemented.
-* `hadrons`  Contains all currently processible hadron runs, only the `convert`  option is implemented.
-* `muonsTruncated`  This options contains all muon runs and can be run with the additional options `convert` to convert the files and afterwards with the `merge`  option to combine the muon data in one file. <mark style="color:$danger;">This is a developper option!</mark> It masks the 2 least significant bits of the `ADC`  during the conversion already, as those might be corrupted.
+* `muons` This options contains all muon runs and can be run with the additional options `convert` to convert the files and afterwards with the `merge` option to combine the muon data in one file.
+* `electrons` Contains all currently processible electron runs, only the `convert` option is implemented.
+* `hadrons` Contains all currently processible hadron runs, only the `convert` option is implemented.
+* `muonsTruncated` This options contains all muon runs and can be run with the additional options `convert` to convert the files and afterwards with the `merge` option to combine the muon data in one file. <mark style="color:$danger;">This is a developper option!</mark> It masks the 2 least significant bits of the `ADC` during the conversion already, as those might be corrupted.
 
 Before running please check the options and adapt your file locations under the $USERNAME switch.
 
@@ -191,6 +197,7 @@ bash convertDataHGCROC_2025.sh $USERNAME $OPTION convert
 ```
 
 As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version. Implemented options right now are:
+
 * `FullSetA` - All runs belonging to the set taken at HV = 44 V
 * `FullSetB` - All runs belonging to the set taken at HV = 45 V
 * `DepthScan1` - All runs belonging to the configuration 1 hadron depth scan
@@ -221,9 +228,9 @@ As for the `prepareAnalysisDirectory.sh`, please add your username and the path 
 * `FullSetC` - all runs belonging to the set taken at 44V, with the original pream setting, summing board V2
 * `FullSetD` - all runs belonging to the set taken at 44V, with the optimized pream setting, summing board V2
 * `FullSetE` - all runs belonging to the set taken at 43V, with the optimized pream setting, summing board V2
-* `FullSetG` - all runs belonging to the set taken at 43V,  with the optimized pream setting, summing board V1
-* `FullSetH` - all runs belonging to the set taken at 44V,  with the optimized pream setting, summing board V1, hadrons/electrons large scint
-* `PartSetI` - all runs belonging to the set taken at 44V,  with the optimized pream setting, summing board V1
+* `FullSetG` - all runs belonging to the set taken at 43V, with the optimized pream setting, summing board V1
+* `FullSetH` - all runs belonging to the set taken at 44V, with the optimized pream setting, summing board V1, hadrons/electrons large scint
+* `PartSetI` - all runs belonging to the set taken at 44V, with the optimized pream setting, summing board V1
 
 Similar as for the previous scripts also a merge option has been implemented. This will merge all necessary runs of a set, i.e all muon runs into one file. However, the converter has to have been run a priori for this to work.
 
@@ -243,11 +250,11 @@ bash convertDataHGCROC_TBSPSH2_2026.sh $USERNAME $OPTION convert
 As for the `prepareAnalysisDirectory.sh`, please add your username and the path to the data. The script contains all useful physics or calibration data, however you need to check whether those you would like to analyse are commented in the committed version. Implemented options right now are:
 
 * `InitMuon` - all runs belonging to the Initial muon scan
-* `FullSetA` : Full scan of muons, electrons & hadrons,  HV = 43 V, summing board V2, Preamp settings 9 7 10 1? - aborted due to wrong pedestals
-* `FullSetB` : Full scan of muons, electrons & hadrons,  HV = 43 V, summing board V2, Preamp settings 9 7 10 1?
-* `FullSetC` : Full scan of muons, electrons & hadrons,  HV = 44 V, summing board V2, Preamp settings 9 7 10 5
-* `FullSetD` : Full scan of muons, electrons & hadrons,  HV = 45 V, summing board V2, Preamp settings 9 7 10 4?
-* `FullSetE` : Full scan of muons, electrons & hadrons,  HV = 44 V, summing board V2, Preamp settings 12 7 3 1
+* `FullSetA` : Full scan of muons, electrons & hadrons, HV = 43 V, summing board V2, Preamp settings 9 7 10 1? - aborted due to wrong pedestals
+* `FullSetB` : Full scan of muons, electrons & hadrons, HV = 43 V, summing board V2, Preamp settings 9 7 10 1?
+* `FullSetC` : Full scan of muons, electrons & hadrons, HV = 44 V, summing board V2, Preamp settings 9 7 10 5
+* `FullSetD` : Full scan of muons, electrons & hadrons, HV = 45 V, summing board V2, Preamp settings 9 7 10 4?
+* `FullSetE` : Full scan of muons, electrons & hadrons, HV = 44 V, summing board V2, Preamp settings 12 7 3 1
 * `FullSetF` :Full scan of muons, electrons & hadrons, HV = 45 V, summing board V2, Preamp settings 12 7 3 1
 * `FullSetG` : Full scan of muons, electrons & hadrons, HV = 45 V, summing board V1, Preamp settings 12 7 3 1
 * `ParameterScan` : Scan of preamplification setting using muons, V2 summing board
@@ -258,3 +265,15 @@ Similar as for the previous scripts also a merge option has been implemented. Th
 ```bash
 bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION merge
 ```
+
+Below you find various QA plots for the conversion.
+
+<div><figure><img src="../.gitbook/assets/DataFileSizeComp.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/DataPacketsComp.png" alt=""><figcaption></figcaption></figure></div>
+
+<div><figure><img src="../.gitbook/assets/EffiFPGAOverview.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/OffsetResets (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/RecTriggersFPGAOverview (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersFPGAOverview (1).png" alt=""><figcaption></figcaption></figure></div>
+
+
+
+<div><figure><img src="../.gitbook/assets/TriggersRecComp.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersRecComp_FPGA_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersRecComp_FPGA_1.png" alt=""><figcaption></figcaption></figure></div>
+
+<div><figure><img src="../.gitbook/assets/RecEffiSpecies (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/RecEffiVsAttempTriggersSpecies.png" alt=""><figcaption></figcaption></figure></div>

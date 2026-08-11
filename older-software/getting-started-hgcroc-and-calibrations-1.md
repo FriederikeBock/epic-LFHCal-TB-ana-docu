@@ -41,7 +41,7 @@ For the HGCROC there are 4 main calibration steps:
 3. **ToA Calibration:** Determines at which threshold value equivalent the _Time of Arrival (ToA)_ is fired (rising edge). ATTENTION: The value we are setting here is given as `injection DAC` (Digital-to-Analog-Converter) which is not equivalent to the `ADC` value referred to during the pedestal calibration. The actual conversion factor between those depends on the SiPM type.
 4. **ToT Calibration:** Determines at which threshold value equivalent the _Time over Threshold (ToT)_ is fired (falling edge). Once more the settable value is the `injection DAC` value no the `ADC` value.
 
-<div><figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-34-11.png" alt="" width="266"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-35-17.png" alt="" width="375"><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (2)" alt="" width="266"><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (3)" alt="" width="375"><figcaption></figcaption></figure></div>
 
 After these calibrations have been run the **Internal Injection (3 options: low, high, 2.5V)** test should be run ideally for all channels to validate the thresholds also in `ADC` equivalent. These test however take fairly long (\~2-4min/4 channels) and it might not be advisable to run during a test beam setting.
 
@@ -167,13 +167,13 @@ The output of the pedestal calibration will be new I2C JSON files. And the file 
 
 As current default configuration `config/default_2024Aug_config.json` should be used. Make sure the fine channel calibration looks reasonable and no large outliers can be found. If the results aren't satisfactory reset the IO-delays and retry. If after a second attempt the calibration still hasn't succeeded. It could be tried to load a valid calibration from a different proto-board, primarily the `Noinv_vref` and `Inv_vref` bits in the Reference Voltage Register should be adjusted in that case.
 
-<div><figure><img src="../.gitbook/assets/02_pede_after_global_inv_scan.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/03_coarse_pede_trim.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (12)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/03_coarse_pede_trim.png" alt=""><figcaption></figcaption></figure></div>
 
 A good calibration should have the final pedestal values nicely aligned around the target value, with a small spread across all channels.
 
-<div><figure><img src="../.gitbook/assets/00_global_inv_ref_scan.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/04_global_inv_ref_scan_fine.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (15)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (16)" alt=""><figcaption></figcaption></figure></div>
 
-<div><figure><img src="../.gitbook/assets/05_fine_inv_vref_scan.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/06_final_fine_pede_trim.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (17)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (19)" alt=""><figcaption></figcaption></figure></div>
 
 ### Time-of-Arrivel(ToA) Calibration
 
@@ -195,11 +195,11 @@ The ToA-calibration is currently being executed in 3 steps (target for the examp
 
 X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToA-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips.
 
-<div align="left"><figure><img src="../.gitbook/assets/round0_injection_scan_val2.png" alt=""><figcaption><p>Typical initial ToA calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/round0_toa_halves_scan_val2.png" alt=""><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../.gitbook/assets/NewCalibPage/image (21)" alt=""><figcaption><p>Typical initial ToA calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (22)" alt=""><figcaption></figcaption></figure></div>
 
 A good calibration should have the final ToA values like, however the timing alignment of the different halfs (color scale) is currently not performed.
 
-<div><figure><img src="../.gitbook/assets/final_scan_val2.png" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value.</p></figcaption></figure> <figure><img src="../.gitbook/assets/round2_toa_halves_scan_val2.png" alt=""><figcaption></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/final_scan_val2.png" alt=""><figcaption><p>Result of a good ToA calibration with a target value of 50 DAC as turn on value.</p></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (25)" alt=""><figcaption></figcaption></figure></div>
 
 ### Time-over-Threshold(ToT) Calibration
 
@@ -215,7 +215,7 @@ Moreover, it can be steered how many channels are evaluated in parallel (here `8
 
 The output folder is `./dump/302_ToTCalib_Omega_YYYYMMDD_HHMMSS`. The resulting files is in the same format as the ToT calibration. Similarly as for the ToT calibration the calibration is run in multiple steps. X axis values represent the different channel numbers, while the y-axis values indicate the 12b-internal injection value being evaluated in each 2D bin. The z-axis represents the actual ToT-value. Different colors in different regions indicate a timing offset between the different HGCROC half chips.
 
-<div align="center"><figure><img src="../.gitbook/assets/scan0_val1.png" alt=""><figcaption><p>Typical initial ToT calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/tot_halves_scan_val1.png" alt=""><figcaption></figcaption></figure></div>
+<div align="center"><figure><img src="../.gitbook/assets/scan0_val1.png" alt=""><figcaption><p>Typical initial ToT calibration plot.</p></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (28)" alt=""><figcaption></figcaption></figure></div>
 
 An example of a good ToT calibration result is shown below:
 
@@ -245,7 +245,7 @@ Moreover, it can be steered how many channels are evaluated in parallel (here `8
 
 The output files will be saved in the `./dump/`205\_Injection`_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal and the response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3\[B-D].
 
-<div><figure><img src="../.gitbook/assets/Screenshot at 2026-04-06 16-28-29.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Screenshot at 2026-04-06 16-29-55.png" alt=""><figcaption><p>ToA configured to fire at 100 DAC (low injection), TOT configured to fired at 750 DAC (high injection). Hence no TOT plot.</p></figcaption></figure></div>
+<div><figure><img src="../.gitbook/assets/NewCalibPage/image (33)" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/NewCalibPage/image (35)" alt=""><figcaption><p>ToA configured to fire at 100 DAC (low injection), TOT configured to fired at 750 DAC (high injection). Hence no TOT plot.</p></figcaption></figure></div>
 
 ### Injection Scan
 
@@ -255,7 +255,7 @@ This feature can be found under the `206 ScanDAC` tab and can be used to do a fu
 
 The output files will be saved in the `./dump/`206\_InjectionDAC`_YYYYMMDD_HHMMSS` folder. The result pdf file will show the injected signal (x-axis) and the maximum response of the channels. This can be used to verify the calibration results and the performance of the H2GCROC3\[B-D].
 
-<figure><img src="../.gitbook/assets/Screenshot at 2026-04-06 16-25-30.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (36)" alt=""><figcaption></figcaption></figure>
 
 ## Configuring the HGCROC
 

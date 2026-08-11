@@ -1,10 +1,8 @@
-# Trigger setup & control
+# Trigger Setup and controls
 
 <div><figure><img src="../.gitbook/assets/Trigger/P7010033.JPG" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Trigger/P7010073.JPG" alt=""><figcaption></figcaption></figure></div>
 
 The triggers are SiPM based and directly coupled to 1cm x 10cm or 10cm x 20cm plastic scintillator plates wrapped in ESR foil and encased in a 3D printed casing. The SiPMs are S13360-3025PE, with a Vbr of approximately 52V.
-
-{% file src="../.gitbook/assets/s13360_series_kapd1052e.pdf" %}
 
 <div><figure><img src="../.gitbook/assets/Trigger/rn_image_picker_lib_temp_a549b3ff-1eb0-4d8a-8da7-d24ed87c131d.jpg" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/Trigger/rn_image_picker_lib_temp_b6c858d0-bb7e-4649-b5b4-fc332c0951a3.jpg" alt=""><figcaption></figcaption></figure></div>
 

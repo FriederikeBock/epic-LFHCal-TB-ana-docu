@@ -20,7 +20,7 @@ TOA    0    0    0    0    50   0    0    0    0    0    0
 TOT    0    0    0    0    0    500  0    0    0    0    0    
 ```
 
-<figure><img src="../.gitbook/assets/Screenshot at 2025-11-07 11-34-11.png" alt="" width="399"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/NewCalibPage/image (2)" alt="" width="399"><figcaption></figcaption></figure>
 
 One sample reflects a 25 ns wide evaluation intervals. Both ToA and ADC are 10bit numbers and are evaluated in the same 25 ns interval. This means in an ideal case a delta\_toa of 1 reflects a real time difference of `25ns/1024 = 24.4ps.` Unfortunately this isn't entirely true in reality and we would need to run a full fledged TOA calibration as described in the following presentation by one of our CMS colleagues, in order to have them truely reflecting the same width.
 
