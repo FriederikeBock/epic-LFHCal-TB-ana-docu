@@ -318,39 +318,51 @@ Either option `calibMuon` or `calibMuonT` (truncated) shoud be used.
 
 ### November 2025
 
-A comprehensive calibration script for the 2025 has been prepared and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze. You may also add `FullSetA_1` or `FullSetA_2` as an additional option to the bash commands below to do the mip calibration for the first and second sets of muon runs for FullSetA.
+A comprehensive calibration script for the 2025 has been prepared and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze.
 
 ```bash
-# merge the muon files correctly (comment out which set you need)
+# merge the muon files correctly (comment out which set you need) (you may have already done this when converting the data)
 bash convertDataHGCROC_2025.sh $USERNAME MergeMuons
 
 # transfering the pedestal calibration to the merged muon file of interest with external bad channel map applied
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon BC
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon BC $SET
 
 # MIP extraction: STEP 1
 # run first step of mip extraction with external bad channel map applied
 # THIS WILL TAKE A WHILE (~4h for 200K events)
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon default
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon default $SET
 # to decrease the amount of time running over the files we should skim the muons events
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon saveNewMuon
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon saveNewMuon $SET
 
 # MIP extraction: STEP 2 - with full files:
+# NOTE: to save time, we recommend not running the MIP extraction over the full files and doing it on the skimmed files
 # run 1st iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp1st
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp1st $SET
 # run 2nd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd $SET
 # run 3rd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd $SET
 
 # MIP extraction: STEP 2 - with skimmed files
 # run 1st iteration of 2nd step 
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp1st_red
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp1st_red $SET
 # run 2nd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd_red
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd_red $SET
 # run 3rd iteration of 2nd step
-bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd_red
+bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd_red $SET
 ```
-
+Implemented options for $SET right now are:
+* `FullSetA_1` - set of muon runs taken at the beginning of Full Set A
+* `FullSetA_2` - set of muon runs taken at the end of Full Set A
+* `FullSetB_1` - set of muon runs taken at the beginning of Full Set B
+* `FullSetB_2` - set of muon runs taken at the end of Full Set B
+* `DepthScan1` 
+* `DepthScan2`
+* `DepthScan3`
+* `DepthScan4`
+* `ElectronScan`
+* `HVScan1`
+* `HVScan2`
 After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.
 
 ```bash
