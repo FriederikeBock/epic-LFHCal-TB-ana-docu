@@ -209,6 +209,25 @@ As for the `prepareAnalysisDirectory.sh`, please add your username and the path 
 
 A merge option has been implemented for all the above options that can be run after the converter. This will merge all the runs of a set (e.g., pedestals, muon sets, runs of a given species at a specific bias voltage or beam energy, etc.) into one file.
 
+Below you find various QA plots for the conversion.
+
+<div><figure><img src="../.gitbook/assets/DataFileSizeComp (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/DataPacketsComp (1).png" alt=""><figcaption></figcaption></figure></div>
+
+<div><figure><img src="../.gitbook/assets/EffiFPGAOverview (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/OffsetResets (2).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/RecTriggersFPGAOverview (2).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersFPGAOverview (2).png" alt=""><figcaption></figcaption></figure></div>
+
+<div><figure><img src="../.gitbook/assets/TriggersRecComp (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersRecComp_FPGA_0 (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersRecComp_FPGA_1 (1).png" alt=""><figcaption></figcaption></figure></div>
+
+<div><figure><img src="../.gitbook/assets/RecEffiSpecies (2).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/RecEffiVsAttempTriggersSpecies (1).png" alt=""><figcaption></figcaption></figure></div>
+
+A copy of the data converted by Friederike with the software version as of August 7th 2026 can be found on the jlab-server ([info on how to copy](getting-the-data.md)):
+
+{% code overflow="wrap" %}
+```
+# 2025 converted data
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2025/2025_PST09/converted 
+```
+{% endcode %}
+
 ### April 2026 data
 
 The data taken in April 2026 at the PS-T09 beam line is the first data available for two fully equipped modules with summing. The logbook can be found [here](https://docs.google.com/spreadsheets/d/1329ze8jV5zhjJB1bgE1k_apoWSrbqoO32WS-uWdnI-4/edit?usp=sharing), if you don't have access please ask Friederike for it. A summary of the HGCROC data taking campaign can be found on our [wiki](https://wiki.bnl.gov/EPIC/index.php?title=LFHCal_Fall_2026_Test_Beam).\
@@ -237,6 +256,15 @@ Similar as for the previous scripts also a merge option has been implemented. Th
 ```bash
 bash convertDataHGCROC_TBPST10_2026.sh $USERNAME $OPTION merge
 ```
+
+A copy of the data converted by Friederike with the software version as of May 2026 can be found on the jlab-server ([info on how to copy](getting-the-data.md)):
+
+{% code overflow="wrap" %}
+```bash
+# 2026 PS converted data
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2026/2026_PST10/converted 
+```
+{% endcode %}
 
 ### May 2026 data
 
@@ -277,3 +305,12 @@ Below you find various QA plots for the conversion.
 <div><figure><img src="../.gitbook/assets/TriggersRecComp.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersRecComp_FPGA_0.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/TriggersRecComp_FPGA_1.png" alt=""><figcaption></figcaption></figure></div>
 
 <div><figure><img src="../.gitbook/assets/RecEffiSpecies (1).png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/RecEffiVsAttempTriggersSpecies.png" alt=""><figcaption></figcaption></figure></div>
+
+A copy of the data converted by Friederike with the software version as of August 7th 2026 can be found on the jlab-server ([info on how to copy](getting-the-data.md)):
+
+{% code overflow="wrap" %}
+```
+# 2026 SPS converted data
+ls /work/eic3/EPIC/TestBeam/LFHCAL/CERN/2026/2026_SPSH2/converted 
+```
+{% endcode %}
