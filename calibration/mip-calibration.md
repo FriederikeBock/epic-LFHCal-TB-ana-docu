@@ -364,7 +364,9 @@ Implemented options for $SET right now are:
 * `DepthScan4`
 * `ElectronScan`
 * `HVScan1`
-* `HVScan2` After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.
+* `HVScan2`&#x20;
+
+After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.
 
 ```bash
 # extract from last iteration just the calib objects into a separate file
@@ -406,9 +408,18 @@ bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp2nd_red
 bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp3rd_red
 ```
 
+After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_TBSPSH2_2026.sh`. As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.&#x20;
+
+```bash
+# extract from last iteration just the calib objects into a separate file
+bash stripCalib_TBPST10_2026.sh $USERNAME $SetName
+```
+
 ### May 2026 - SPS
 
 A comprehensive calibration script for the 2026 is currently under construction and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze. The corresponding TOA -offset files and BC masks should already be correctly set within the script. You can compare them with your own assessments and improve where needed.
+
+The suggested workflow below results in the minimal foot print in terms of space on your disk, but similar to before also "`imp1st`" or "`imp1st_red`" and analog options could be used they would however result in a significantly larger running time ("`imp1st`" only) and storage needs.
 
 ```bash
 # SetName contains the prepared list of runs with pedestal & muon runs
@@ -449,4 +460,11 @@ bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuonParScan default $Se
 # and then analog replacing "calibMuon" with "calibMuonParScan" for the remaining path through
 #valid set names for this case are: 
 # - Set1, Set2, Set3
+```
+
+After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_TBSPSH2_2026.sh`. As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.&#x20;
+
+```bash
+# extract from last iteration just the calib objects into a separate file
+bash stripCalib_TBSPSH2_2026.sh $USERNAME $SetName
 ```
