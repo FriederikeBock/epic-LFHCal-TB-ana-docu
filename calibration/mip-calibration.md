@@ -351,28 +351,27 @@ bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp2nd_red $SET
 # run 3rd iteration of 2nd step
 bash runHGCROCCalibration_2025.sh $USERNAME calibMuon imp3rd_red $SET
 ```
+
 Implemented options for $SET right now are:
+
 * `FullSetA_1` - set of muon runs taken at the beginning of Full Set A
 * `FullSetA_2` - set of muon runs taken at the end of Full Set A
 * `FullSetB_1` - set of muon runs taken at the beginning of Full Set B
 * `FullSetB_2` - set of muon runs taken at the end of Full Set B
-* `DepthScan1` 
+* `DepthScan1`
 * `DepthScan2`
 * `DepthScan3`
 * `DepthScan4`
 * `ElectronScan`
 * `HVScan1`
-* `HVScan2`
-After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.
+* `HVScan2` After successfully calibrating the data using the scripts above and following the steps until no significant change in the average HG mip can be seen anymore you can create a much smaller copy of the calibration file only by using the script `stripCalib_2025.sh` . As with all the others make sure your username and data location are added and then uncomment the data set you need with the correct iteration output. Feel free to update with your favorite options, if needed.
 
 ```bash
 # extract from last iteration just the calib objects into a separate file
 bash stripCalib_2025.sh $USERNAME BaseCalibs
 ```
 
-### April 2026
-
-<mark style="background-color:$danger;">UNDER CONSTRUCTION!!!! You need to add new runs!</mark>
+### April 2026 - PS
 
 A comprehensive calibration script for the 2026 is currently under construction and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze. The first muon HV scan, FullSetC, FullSetD, and FullSetE are currently implemented, please check the script to see the available options one can add to the following bash commands.
 
@@ -405,4 +404,49 @@ bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp1st_red
 bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp2nd_red
 # run 3rd iteration of 2nd step
 bash runHGCROCCalibration_TBPST10_2026.sh $USERNAME calibMuon imp3rd_red
+```
+
+### May 2026 - SPS
+
+A comprehensive calibration script for the 2026 is currently under construction and can be run in the same manner as for the pedestals. Feel free to comment in the relevant runs, which you would like to analyze. The corresponding TOA -offset files and BC masks should already be correctly set within the script. You can compare them with your own assessments and improve where needed.
+
+```bash
+# SetName contains the prepared list of runs with pedestal & muon runs
+# existing valid set names are:
+# - FullSetB_1, FullSetB_2, FullSetC_1, FullSetC_2, FullSetC_3, FullSetD_1, FullSetD_2, 
+# - FullSetE_1, FullSetE_2, FullSetE_3, FullSetF_1, FullSetF_2, FullSetG_1, FullSetG_2
+# - HVScan
+SetName=HVScan
+
+# merge the muon files correctly (comment out which set you need)
+bash convertDataHGCROC_TBSPSH2_2026.sh $USERNAME $SetName merge
+# transfering the pedestal calibration to the merged muon file of interest with external bad channel map applied
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon BCTOA $SetName
+# MIP extraction: STEP 1
+# run first step of mip extraction with external bad channel map applied
+# THIS WILL TAKE A WHILE (~2h for 200K events)
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon default $SetName
+# to decrease the amount of time running over the files we should skim the muons events
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon saveNewMuon $SetName
+
+# MIP extraction: STEP 2 - with skimmed files & only outputing calib file
+# 1st iteration of 2nd step
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon imp1st_red_woE $SetName
+# 2nd iteration of 2nd step
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon imp2nd_red_woE $SetName
+# 3rd iteration of 2nd step
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon imp3rd_red_woE $SetName
+# 4th iteration of 2nd step
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon imp4th_red_woE $SetName
+# 5th-7th iteration of 2nd step (these are highly optional and are mostly needed for "non-standard Vop < 43.5V & > 45V")
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon imp5th_red_woE $SetName
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon imp6th_red_woE $SetName
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuon imp7th_red_woE $SetName
+
+# for the parameter scan the definition of the sets is a little bit different:
+# please us here the following 
+bash runHGCROCCalibration_TBSPSH2_2026.sh $USERNAME calibMuonParScan default $SetName
+# and then analog replacing "calibMuon" with "calibMuonParScan" for the remaining path through
+#valid set names for this case are: 
+# - Set1, Set2, Set3
 ```
